@@ -13,6 +13,66 @@
   }
 }
 
+.button{
+  margin-left: 20px;
+  margin-top:30px;
+  box-shadow: 2px 2px 2px aqua;
+  color: black;
+  background-color: white;
+  width:100px;
+  height: 40px;
+  
+  border-radius: 25px;
+
+}
+.button1{
+  position: absolute;
+  bottom: 8px;
+  right:10px;
+  border: none;
+}
+.button2{
+  width:100px;
+  border:1px solid rgb(218, 122, 175);
+  border-radius:8px;
+  background-color: transparent;
+
+}
+.card{
+  width:8rem;
+  height:8rem;
+  margin-top: 20px;
+  margin-left: 20px;
+  color:black;
+  box-shadow: 2px 2px 2px aqua;
+  border-radius: 25px;
+  
+}
+.list {
+  right: -50px;
+  position:relative;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  border: 1px solid rgb(228, 129, 198);
+  border-radius: 10px;
+  color:black;
+  list-style-type: none;
+  padding: 0;
+  margin: -15px;
+  width:100px;
+  display: inline-block;
+}
+.list-item {
+ font: size 8px;
+padding:8px;
+  cursor: pointer;
+
+}
+.list-item:hover,
+.list-item:active {
+  background-color: #f3f3f3;
+}
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
