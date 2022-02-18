@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { ThreeDotsVertical } from 'react-bootstrap-icons';
-import './App.css';
+import './CardButton.css';
 
-function App3() {
+function CardButton() {
   const ref = useRef()
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -45,4 +45,4 @@ function App3() {
   )
 }
 
-export default App3;
+export default CardButton;

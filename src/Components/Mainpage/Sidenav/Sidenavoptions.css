@@ -1,0 +1,31 @@
+
+
+.sidenav__options{
+    width: 100%;
+   margin-top: 10px;
+   display: flex;
+   align-items: center; 
+   border-radius: 0px 20px 20px 0px;
+}
+
+.sidenav__options:hover {
+    
+    background-color: lightblue;
+    color: white;
+
+}
+.buttonSide:hover{
+    color: white;
+}
+
+
+.buttonSide{
+    width: 100%;
+    margin-left: -35px;
+    align-items: center;
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+    font-size: 14px;
+    
+}

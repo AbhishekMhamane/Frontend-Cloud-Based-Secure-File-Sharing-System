@@ -1,16 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import Imagepreview from './Imagepreview';
+
 import reportWebVitals from './reportWebVitals';
-import App2 from './App2';
+import MainView from './Components/Mainpage/cards/MainView';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App2 />
+    <MainView />
   </React.StrictMode>,
   document.getElementById('root')
 );

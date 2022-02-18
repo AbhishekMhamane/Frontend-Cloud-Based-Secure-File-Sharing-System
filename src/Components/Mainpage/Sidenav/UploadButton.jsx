@@ -1,9 +1,10 @@
 
 import React, { useRef, useState } from "react";
 import axios from "axios";
-import "./App.css";
+import "./UploadButton.css";
 
-export default function App() {
+
+export default function UploadButton() {
   const fileRef = useRef();
 
   const handleChange = (e) => {

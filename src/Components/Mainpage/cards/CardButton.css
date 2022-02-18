@@ -1,0 +1,31 @@
+.list {
+    right: -50px;
+    position:relative;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    border: 1px solid rgb(228, 129, 198);
+    border-radius: 10px;
+    color:black;
+    list-style-type: none;
+    padding: 0;
+    margin: -15px;
+    width:100px;
+    display: inline-block;
+  }
+  .list-item {
+   font: size 8px;
+  padding:8px;
+    cursor: pointer;
+  
+  }
+  .list-item:hover,
+  .list-item:active {
+    background-color: #f3f3f3;
+  }
+  .button1{
+    position: absolute;
+    bottom: 8px;
+    right:10px;
+    border: none;
+    background-color: transparent;
+  }
+  
