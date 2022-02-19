@@ -5,13 +5,13 @@ import { Card } from 'react-bootstrap';
 import CardButton from './CardButton.jsx';
 import './Cards.css';
 
-function Cards (){
+function Cards (props){
 
   return(
 
-
   <div>
- <Card style={{width:"7rem",height:"7rem", borderRadius:"10px",boxShadow:"0.5px 0.5px 0.5px "}} >
+ <Card style={{width:"7rem",height:"7rem", marginRight:'-0.2rem',
+ borderRadius:"10px",boxShadow:"0.5px 0.5px 0.5px "}} >
   <Card.Body>
     
     <Card.Text>
@@ -21,7 +21,7 @@ function Cards (){
   <Card.Footer style={{color:"skyBlue",height:"40px"}}>
    
     <Card.Text style={{marginLeft:"-5px" ,color:"black"}}>
-      FileName
+     {props.data.fileName}
     </Card.Text>
     <CardButton/>
     
