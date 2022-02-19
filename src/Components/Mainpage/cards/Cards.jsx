@@ -4,7 +4,6 @@ import { Card } from 'react-bootstrap';
 
 import CardButton from './CardButton.jsx';
 import './Cards.css';
-
 function Cards (props){
 
   return(
