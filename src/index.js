@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 import reportWebVitals from './reportWebVitals';
-import MainView from './Components/Mainpage/cards/MainView';
+import MainView from './Components/Mainpage/MainView';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 

@@ -9,12 +9,8 @@ function Cards (props){
   return(
 
   <div>
-<<<<<<< HEAD
- <Card style={{width:"7rem",height:"8rem", borderRadius:"10px",boxShadow:"0.5px 0.5px 0.5px "}} >
-=======
  <Card style={{width:"7rem",height:"7rem", marginRight:'-0.2rem',
  borderRadius:"10px",boxShadow:"0.5px 0.5px 0.5px "}} >
->>>>>>> refs/remotes/origin/main
   <Card.Body>
     
     <Card.Text>

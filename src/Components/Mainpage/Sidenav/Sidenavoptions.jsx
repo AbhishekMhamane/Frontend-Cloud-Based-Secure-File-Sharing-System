@@ -12,27 +12,27 @@ function Sidenavoptions()
       <div className='sidenav'>
           <div className='sidenav__options sidenav__options-active'>
           <Tablet/>
-          <button className='buttonSide'>
+          <span className='buttonSide'>
               My Storage
-          </button>
+          </span>
           </div>
           <div className='sidenav__options'>
           <ClockHistory/>
-          <button className='buttonSide'>
+          <span className='buttonSide'>
               Recent
-          </button>
+          </span>
           </div >
           <div className='sidenav__options'>
           <Star/>
-          <button className='buttonSide'>
+          <span className='buttonSide'>
               Starred
-          </button>
+          </span>
           </div >
           <div className='sidenav__options'>
               <Trash/>
-          <button className='buttonSide'>
+          <span className='buttonSide'>
               Trash
-          </button>
+          </span>
           </div>
       </div>
     )

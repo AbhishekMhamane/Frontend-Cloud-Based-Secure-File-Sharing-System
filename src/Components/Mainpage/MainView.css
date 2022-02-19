@@ -1,0 +1,51 @@
+.card{
+    width:8rem;
+    height:10rem;
+    margin-top: 20px;
+    margin-left: 20px;
+    color:black;
+    box-shadow: 2px 2px 2px rgb(206, 238, 238);
+    border-radius: 25px;
+    
+  }
+  
+.dropdown{
+  color: black;
+  background-color: transparent;
+  border: none;
+  right: -1px;
+  bottom: 2px;
+  height:30px;
+  width: 2px;
+  float:right;  
+
+}
+.dropdown:hover{
+  
+}
+  
+    .dropdown-toggle::after{
+     content: none;
+    
+  }
+  .dropdown-toggle:hover{
+   border: none;
+  }
+  
+  .footer{
+    height: 40px;
+    align-items: center;
+  
+  }
+
+ .dropdown-menu{
+   font-size: 15px;
+   height: auto;
+   width:auto;
+   background-color: whitesmoke;
+   color: black;
+   border-radius: 10px;
+   border: 1px solid aquamarine;
+ }
+
+  

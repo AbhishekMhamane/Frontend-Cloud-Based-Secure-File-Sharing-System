@@ -29,16 +29,16 @@ function CardButton() {
       <button
         className="button1"
         onClick={() => setIsMenuOpen(oldState => !oldState)}
-        style={{width:"20px",height:"-20px",opacity:"transperant"}}
+        style={{width:"20px",height:"-20px"}}
       >
         <ThreeDotsVertical />
       </button>
       {isMenuOpen && (
-        <ul className="list">
-          <li className="list-item">Download</li>
-          <li className="list-item">Rename</li>
-          <li className="list-item">Delete</li>
-          <li className="list-item">Share</li>
+        <ul className="list" style={{backgroundColor:"whitesmoke",overflow:"visible"}}>
+          <li className="list-item" style={{overflow:"visible"}}>Download</li>
+          <li className="list-item" style={{overflow:"visible"}}>Rename</li>
+          <li className="list-item" style={{overflow:"visible"}}>Delete</li>
+          <li className="list-item" style={{overflow:"visible"}}>Share</li>
         </ul>
       )}
     </div>
