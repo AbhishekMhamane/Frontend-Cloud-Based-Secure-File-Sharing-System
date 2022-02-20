@@ -62,6 +62,22 @@ function MainView() {
         }
     ];
 
+
+    const folders = [
+        {
+            folderName: "text"
+        },
+        {
+            folderName: "text"
+        },
+        {
+            folderName: "text"
+        },
+        {
+            folderName: "text"
+        },
+    ];
+
     return (
         <div>
             <Container fluid>
@@ -77,17 +93,37 @@ function MainView() {
                         <Sidenavoptions></Sidenavoptions>
                     </Col>
                     <Col xs={10}>
-                    <Row>
-                    {
-                        data.map((i) => {
-                            return (
-                                <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                                    <Cards data={i} />
-                                </Col>
-                            )
-                        })
-                    }
-                    </Row>
+                        <Row>
+                            {
+                                folders.map((i) => {
+                                    return (
+
+                                        <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
+                                            <Card style={{ width: "7rem", height: "2.8rem", marginRight: '-0.2rem',
+                                                borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px "}}>
+                                                <Card.Body style={{textAlign: 'left'}}>
+                                                    <Card.Text style={{ color: "black" ,marginTop:"-4px" }}>
+                                                        {i.folderName}
+                                                    </Card.Text>
+                                                    <CardButton />
+                                                </Card.Body>
+                                            </Card>
+                                        </Col>
+                                    )
+                                })
+                            }
+                        </Row>
+                        <Row>
+                            {
+                                data.map((i) => {
+                                    return (
+                                        <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
+                                            <Cards data={i} />
+                                        </Col>
+                                    )
+                                })
+                            }
+                        </Row>
                     </Col>
 
 

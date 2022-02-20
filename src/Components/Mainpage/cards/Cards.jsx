@@ -19,7 +19,7 @@ function Cards (props){
   </Card.Body>
   <Card.Footer style={{color:"skyBlue",height:"40px"}}>
    
-    <Card.Text style={{marginLeft:"-5px" ,color:"black"}}>
+    <Card.Text style={{textAlign:"left" ,color:"black"}}>
      {props.data.fileName}
     </Card.Text>
     <CardButton/>
