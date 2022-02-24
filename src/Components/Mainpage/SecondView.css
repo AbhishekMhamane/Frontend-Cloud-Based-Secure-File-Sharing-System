@@ -1,0 +1,63 @@
+.card{
+    width:8rem;
+    height:10rem;
+    margin-top: 20px;
+    margin-left: 20px;
+    color:black;
+    box-shadow: 2px 2px 2px rgb(206, 238, 238);
+    border-radius: 25px;
+    
+  }
+
+  
+.footer1{
+    margin-left:0px;
+    width:80px;
+    color: black;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;      
+
+  
+  }
+  
+.dropdown{
+
+    color: black;
+  background-color: transparent;
+  border: none;
+  bottom: 22px;
+  left: 30px;
+  height:30px;
+  width: 2px;
+
+}
+.dropdown:hover{
+  
+}
+  
+    .dropdown-toggle::after{
+     content: none;
+    
+  }
+  .dropdown-toggle:hover{
+   border: none;
+  }
+  
+  .footer{
+    height: 40px;
+    align-items: center;
+  
+  }
+
+ .dropdown-menu{
+   font-size: 15px;
+   height: auto;
+   width:auto;
+   background-color: whitesmoke;
+   color: black;
+   border-radius: 10px;
+   border: 1px solid aquamarine;
+ }
+
+  

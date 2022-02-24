@@ -32,6 +32,8 @@ export default function UploadButton() {
         ref={fileRef}
         onChange={handleChange}
         multiple={true}
+      //  directory={fileRef.directory}
+       // webkitdirectory=""
         type="file"
         hidden
       />
