@@ -90,7 +90,7 @@ function SecondView() {
                  <Row >
                      <Col xs={2}>
                          <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                             <UploadButton></UploadButton>
+                             <UploadButton user={location.state['user']} />
                              <Sidenavoptions></Sidenavoptions>
                          </Col>
                      </Col>

@@ -4,21 +4,23 @@ import axios from "axios";
 import "./UploadButton.css";
 
 
-export default function UploadButton() {
+export default function UploadButton(props) {
   const fileRef = useRef();
 
   const handleChange = (e) => {
     const files = e.target.files;
     console.log(files);
+    console.log(props.user.userid+" "+ props.user.path);
     const fdata = new FormData();
 
-        fdata.append('userName', 'abhishek');
+        fdata.append('userid',props.user.userid);
+        fdata.append('userpath', props.user.path);
 
         for (let i = 0; i < files.length; i++) {
             fdata.append('files', files[i]);
             // console.log(data.file[i]);
         }
-        axios.post("https://httpbin.org/anything", fdata)
+        axios.post("http://localhost:3000/files", fdata)
         .then(response => console.log(response.data)).catch(err => console.log(err));
   };
 

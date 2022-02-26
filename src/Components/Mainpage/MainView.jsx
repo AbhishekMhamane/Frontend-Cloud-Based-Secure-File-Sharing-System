@@ -21,7 +21,7 @@ import './MainView.css';
 
 function MainView() {
 
-    const [user, setUser] = useState({userId:'maheshkadam@gmail.com',folderPath:'C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b'});
+    const [user, setUser] = useState({userid:'maheshkadam@gmail.com',path:'C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b'});
    // const [path, setPath] = useState('C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b');
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
@@ -85,6 +85,10 @@ function MainView() {
 
     }
 
+    const handleChange=()=>{
+        console.log("calling change");
+        getFolders();
+    }
 
     return (
         <div>
@@ -99,7 +103,7 @@ function MainView() {
                 <Row >
                     <Col xs={2}>
                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                            <UploadButton></UploadButton>
+                            <UploadButton user={user} onChange={getFolders()}/>
                             <Sidenavoptions></Sidenavoptions>
                         </Col>
                     </Col>
@@ -108,7 +112,7 @@ function MainView() {
                         <Row>
 
                             {
-                                folders.filter(i => i.folderPath === user.folderPath).map((i) => {
+                                folders.filter(i => i.folderPath === user.path).map((i) => {
                                     return (
 
                                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
@@ -133,7 +137,7 @@ function MainView() {
                         <Row>
                             {
 
-                                files.filter(i => i.folderPath === user.folderPath).map((i) => {
+                                files.filter(i => i.folderPath === user.path).map((i) => {
                                     return (
                                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
                                             <Card style={{
