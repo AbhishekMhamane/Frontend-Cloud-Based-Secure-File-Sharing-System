@@ -24,12 +24,12 @@ import './SecondView.css';
 function SecondView() {
 
     const {id} = useParams();
+
     const location = useLocation()
     
-    console.log(location.state['user']);
-    // const [path, setPath] = useState('C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b');
-    const [user,setUser] = useState(location.state['user'].path);
-    console.log(user);
+    // console.log(location.state['user']);
+    // const [user,setUser] = useState(location.state['user'].path);
+
     const [folders, setFolders] = useState([]);
      const [files, setFiles] = useState([]);
  
@@ -40,15 +40,10 @@ function SecondView() {
      
  
      const getFolders = async () => {
-         const resFolders = await axios.get("http://localhost:3000/folders/"+location.state['user'].userid);
-         const resFiles = await axios.get("http://localhost:3000/files/"+location.state['user'].userid);
-        // console.log(resFolders.data);
-       //  console.log(resFiles.data);
-         //console.log(res.data);
+         const resFolders = await axios.get("http://localhost:3000/folders/"+location.state['user'].userId);
+         const resFiles = await axios.get("http://localhost:3000/files/"+location.state['user'].userId);
          setFolders(resFolders.data);
          setFiles(resFiles.data);
-      //   console.log("folders: ", folders);
-     //    console.log("folders: ", files);
      }
  
      
@@ -90,7 +85,11 @@ function SecondView() {
                  <Row >
                      <Col xs={2}>
                          <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                             <UploadButton user={location.state['user']} />
+                             {/* <UploadButton user={location.state['user']} /> */}
+                             <UploadButton 
+                             user={{userId:location.state['user'].userId,
+                             Path:location.state['user'].Path,
+                             parentFolderId : id }} />
                              <Sidenavoptions></Sidenavoptions>
                          </Col>
                      </Col>
@@ -99,11 +98,12 @@ function SecondView() {
                          <Row>
  
                              {
-                                 folders.filter(i => i.folderPath === location.state['user'].path).map((i) => {
+                                 folders.filter(i => i.parentFolderId === id ).map((i) => {
                                      return (
  
                                          <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                                             <Link to={{ pathname: `/folder/${i._id}` }} state={{ user: { userid: "maheshkadam@gmail.com", path: i.folderPath+'/'+i.folderName } }} >
+                                             <Link to={{ pathname: `/folder/${i._id}` }} state={{ user: { userId: location.state['user'].userId , 
+                                             Path: i.folderPath+'/'+i.folderName } }} >
                                                  <Card id={i._id} key={i._id} style={{
                                                      width: "7rem", height: "2.8rem", marginRight: '-0.2rem',
                                                      borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px "
@@ -124,7 +124,7 @@ function SecondView() {
                          <Row>
                              {
  
-                                 files.filter(i => i.folderPath === location.state['user'].path).map((i) => {
+                                 files.filter( i => i.parentFolderId === id ).map((i) => {
                                      return (
                                          <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
                                              <Card style={{

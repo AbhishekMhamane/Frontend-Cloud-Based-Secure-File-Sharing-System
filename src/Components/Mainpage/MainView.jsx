@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react';
 import {
     BrowserRouter,
     Routes,
-    Route,Navigate,Link
+    Route,Navigate,Link,useParams,
   } from "react-router-dom";
 import { Container } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import UploadButton from './Sidenav/UploadButton.jsx';
+import UploadButtonF from './Sidenav/UploadButtonF.jsx';
+
 import Header1 from './Navbar/Header1.jsx';
 import Sidenavoptions from './Sidenav/Sidenavoptions.jsx';
 import axios from 'axios';
@@ -16,50 +18,28 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from 'react-bootstrap';
 import { ThreeDotsVertical } from 'react-bootstrap-icons';
 import { Dropdown } from 'react-bootstrap';
-
 import './MainView.css';
 
 function MainView() {
 
-    const [user, setUser] = useState({userid:'maheshkadam@gmail.com',path:'C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b'});
-   // const [path, setPath] = useState('C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b');
+    const [user, setUser] = useState({userId:'maheshkadam@gmail.com',
+    Path:'C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b',
+    parentFolderId : 'mydash'});
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
 
     useEffect(() => {
-        //getUser();
         getFolders();
-        //getFiles();
     }, [])
-
-    // const getUser = async () => {
-    //     const res = await axios.get('http://localhost:3000/users/maheshkadam@gmail.com');
-    //     console.log(res.data);
-    //     setUser(res.data);
-    //     //console.log(user[0].userId);
-    //     setPath(res.data[0].userPath);
-    //     console.log(path)
-
-    // }
 
     const getFolders = async () => {
         const resFolders = await axios.get("http://localhost:3000/folders/maheshkadam@gmail.com");
         const resFiles = await axios.get("http://localhost:3000/files/maheshkadam@gmail.com");
-       // console.log(resFolders.data);
-      //  console.log(resFiles.data);
-        //console.log(res.data);
         setFolders(resFolders.data);
         setFiles(resFiles.data);
-     //   console.log("folders: ", folders);
-    //    console.log("folders: ", files);
+
     }
 
-    // const getFiles = async () => {
-    //     //console.log(res.data);
-    //     setFiles(res.data);
-    //     console.log(res.data);
-    //     console.log("files: ", files);
-    // }
 
 
     const dropdownItemDownload = (e) => {
@@ -89,10 +69,15 @@ function MainView() {
         console.log("calling change");
         getFolders();
     }
-
+    
+    const handleView=(e)=>{
+        
+    } 
+    
     return (
         <div>
             <Container fluid>
+        
                 <Row>
                     <Col style={{ border: '1px solid black' }}>
                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
@@ -103,8 +88,9 @@ function MainView() {
                 <Row >
                     <Col xs={2}>
                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                            <UploadButton user={user} onChange={getFolders()}/>
-                            <Sidenavoptions></Sidenavoptions>
+                            <UploadButton user={user} />
+                            {/* <UploadButtonF user={user} /> */}
+                            <Sidenavoptions></Sidenavoptions> 
                         </Col>
                     </Col>
                     <Col xs={10}>
@@ -112,11 +98,12 @@ function MainView() {
                         <Row>
 
                             {
-                                folders.filter(i => i.folderPath === user.path).map((i) => {
+                                folders.filter(i => i.parentFolderId === 'mydash').map((i) => {
                                     return (
 
                                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                                            <Link to={{ pathname: `/folder/${i._id}` }} state={{ user: { userid: "maheshkadam@gmail.com", path: i.folderPath+'/'+i.folderName } }} >
+                                            <Link to={{ pathname: `/folder/${i._id}` }} state={{ user: { userId: user.userId, 
+                                                Path: i.folderPath+'/'+i.folderName} }} >
                                                 <Card id={i._id} key={i._id} style={{
                                                     width: "7rem", height: "2.8rem", marginRight: '-0.2rem',
                                                     borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px "
@@ -137,13 +124,14 @@ function MainView() {
                         <Row>
                             {
 
-                                files.filter(i => i.folderPath === user.path).map((i) => {
+                                files.filter(i => i.parentFolderId === 'mydash').map((i) => {
                                     return (
                                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                                            <Card style={{
+                                            <Card onDoubleClick={()=>handleView(i)} style={{
                                                 width: "7rem", height: "7rem", marginRight: '-0.2rem',
                                                 borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px "
                                             }} >
+                                          
                                                 <Card.Body>
 
                                                     <Card.Text>

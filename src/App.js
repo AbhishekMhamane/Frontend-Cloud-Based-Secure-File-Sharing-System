@@ -15,7 +15,7 @@ function App() {
         <Routes>
           {/* <Route exact path="/homepage" element={<Homepage />} />
           <Route exact path="/mainpage" element={<Mainpage />} /> */}
-          <Route exact path="/" element={<MainView />} />
+          <Route exact path="/mydash" element={<MainView />} />
           <Route path="/folder/:id" element={<SecondView />} />
         </Routes>
       </div>

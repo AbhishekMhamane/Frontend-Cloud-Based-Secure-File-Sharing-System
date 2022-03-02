@@ -10,11 +10,15 @@ export default function UploadButton(props) {
   const handleChange = (e) => {
     const files = e.target.files;
     console.log(files);
-    console.log(props.user.userid+" "+ props.user.path);
+    console.log("In upload "+props.user.userId);
+    console.log("In upload "+props.user.Path);
+    console.log("In upload "+props.user.parentFolderId);
+
     const fdata = new FormData();
 
-        fdata.append('userid',props.user.userid);
-        fdata.append('userpath', props.user.path);
+        fdata.append('userid',props.user.userId);
+        fdata.append('userpath', props.user.Path);
+        fdata.append('parentfolderid',props.user.parentFolderId);
 
         for (let i = 0; i < files.length; i++) {
             fdata.append('files', files[i]);
