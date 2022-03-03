@@ -24,12 +24,7 @@ import './SecondView.css';
 function SecondView() {
 
     const {id} = useParams();
-
     const location = useLocation()
-    
-    // console.log(location.state['user']);
-    // const [user,setUser] = useState(location.state['user'].path);
-
     const [folders, setFolders] = useState([]);
      const [files, setFiles] = useState([]);
  
@@ -50,9 +45,6 @@ function SecondView() {
  
      const dropdownItemDownload = (e) => {
  
-         axios.get("http://localhost:3000/files/file/download/" + e);
-         alert("http://localhost:3000/files/file/download/" + e);
-         console.log("Download");
  
      }
      const dropdownItemRename = () => {
@@ -106,8 +98,9 @@ function SecondView() {
                                              Path: i.folderPath+'/'+i.folderName } }} >
                                                  <Card id={i._id} key={i._id} style={{
                                                      width: "7rem", height: "2.8rem", marginRight: '-0.2rem',
-                                                     borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px "
-                                                 }}>
+                                                     borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px " }}
+                                                     
+                                                     >
                                                      <Card.Body style={{ textAlign: 'left' }}>
                                                          <Card.Text style={{ color: "black", marginTop: "-4px" }}>
                                                              {i.folderName}
@@ -127,10 +120,12 @@ function SecondView() {
                                  files.filter( i => i.parentFolderId === id ).map((i) => {
                                      return (
                                          <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                                             <Card style={{
+                                             <Card id={i._id} key={i._id} style={{
                                                  width: "7rem", height: "7rem", marginRight: '-0.2rem',
                                                  borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px "
-                                             }} >
+                                             }}  onDoubleClick={() =>{        
+                                                window.open(`http://localhost:3000/files/file/${i._id}`)
+                                            }}>
                                                  <Card.Body>
                                                  </Card.Body>
                                                  <Card.Footer className='footer'>

@@ -1,64 +1,131 @@
 .card{
-    width:8rem;
-    height:10rem;
-    margin-top: 20px;
-    margin-left: 20px;
-    color:black;
-    box-shadow: 2px 2px 2px rgb(206, 238, 238);
-    border-radius: 25px;
-    
-  }
-
-
-  .footer1{
-    margin-left:0px;
-    width:80px;
-    color: black;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;      
-
+  width:8rem;
+  height:10rem;
+  margin-top: 20px;
+  margin-left: 20px;
+  color:black;
+  box-shadow: 2px 2px 2px rgb(206, 238, 238);
+  border-radius: 25px;
   
-  }
-  
+}
+
+
+.footer1{
+  margin-left:0px;
+  width:80px;
+  color: black;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;      
+
+
+}
+
 .dropdown{
 
-  color: black;
-  background-color: transparent;
-  border: none;
-  bottom: 22px;
-  left: 30px;
-  height:30px;
-  width: 2px;
+color: black;
+background-color: transparent;
+border: none;
+bottom: 22px;
+left: 30px;
+height:30px;
+width: 2px;
+
+
+}
+.dropdownFolder{
+color: black;
+background-color: transparent;
+border: none;
+margin-top: 8px;
+margin-left:70px;
+height:35px;
+width: 35px;
+ 
+
+}
+.dropdownFolder1{
+color: black;
+background-color: transparent;
+border: none;
+margin-top: 8px;
+margin-left: 25px;
+height:35px;
+width: 35px;
+ 
+
+}
+.mainGradient{
+background-color:#f5f6fb;
+border-radius: 10px;
+
+}
+.dropButton:hover{
+background-color:rgb(197, 253, 253);
+}
+.drop:hover{
+background-color: none;
+
+}
+
+
+  .dropdown-toggle::after{
+   content: none;
+  
+}
+.dropdown-toggle:hover{
+  margin-right: 20px;
+  background-color:whitesmoke ;
+ border: none;
+ color:black;
+}
+
+
+.footer{
+  height: 40px;
+  align-items: center;
+
+  
   
 
 }
-.dropdown:hover{
-  
+.footer1{
+  margin-left:0px;
+  width:80px;
+  color:black;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;  
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;    
+
+
 }
-  
-    .dropdown-toggle::after{
-     content: none;
-    
-  }
-  .dropdown-toggle:hover{
-   border: none;
-  }
-  
-  .footer{
-    height: 40px;
-    align-items: center;
-  
-  }
 
- .dropdown-menu{
-   font-size: 15px;
-   height: auto;
-   width:auto;
-   background-color: whitesmoke;
-   color: black;
-   border-radius: 10px;
-   border: 1px solid aquamarine;
- }
 
-  
+.dropdown-menu{
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  
+ font-size: 15px;
+ height: auto;
+ background-color: lightcyan;
+ color:white;
+ border-radius: 10px;
+ border: 1px solid aquamarine;
+ box-shadow: 0.5px 0.5px 0.5px;
+}
+.menuItem:hover{
+ 
+ background-color: rgb(46, 189, 179);
+ color:white;
+}
+.cardStyle{
+
+background-color: white;
+
+}
+
+.cardStyle1{
+
+background-color: white;
+
+
+}

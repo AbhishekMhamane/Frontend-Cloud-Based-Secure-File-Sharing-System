@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import {
     BrowserRouter,
     Routes,
-    Route,Navigate,Link,useParams,
-  } from "react-router-dom";
+    Route, Navigate, Link, useParams,
+} from "react-router-dom";
 import { Container } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
@@ -17,14 +17,18 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from 'react-bootstrap';
 import { ThreeDotsVertical } from 'react-bootstrap-icons';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, Modal, Button } from 'react-bootstrap';
 import './MainView.css';
+
+
 
 function MainView() {
 
-    const [user, setUser] = useState({userId:'maheshkadam@gmail.com',
-    Path:'C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b',
-    parentFolderId : 'mydash'});
+    const [user, setUser] = useState({
+        userId: 'maheshkadam@gmail.com',
+        Path: 'C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b',
+        parentFolderId: 'mydash'
+    });
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
 
@@ -65,19 +69,9 @@ function MainView() {
 
     }
 
-    const handleChange=()=>{
-        console.log("calling change");
-        getFolders();
-    }
-    
-    const handleView=(e)=>{
-        
-    } 
-    
     return (
         <div>
             <Container fluid>
-        
                 <Row>
                     <Col style={{ border: '1px solid black' }}>
                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
@@ -90,7 +84,7 @@ function MainView() {
                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
                             <UploadButton user={user} />
                             {/* <UploadButtonF user={user} /> */}
-                            <Sidenavoptions></Sidenavoptions> 
+                            <Sidenavoptions></Sidenavoptions>
                         </Col>
                     </Col>
                     <Col xs={10}>
@@ -102,8 +96,12 @@ function MainView() {
                                     return (
 
                                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                                            <Link to={{ pathname: `/folder/${i._id}` }} state={{ user: { userId: user.userId, 
-                                                Path: i.folderPath+'/'+i.folderName} }} >
+                                            <Link to={{ pathname: `/folder/${i._id}` }} state={{
+                                                user: {
+                                                    userId: user.userId,
+                                                    Path: i.folderPath + '/' + i.folderName
+                                                }
+                                            }} >
                                                 <Card id={i._id} key={i._id} style={{
                                                     width: "7rem", height: "2.8rem", marginRight: '-0.2rem',
                                                     borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px "
@@ -127,50 +125,56 @@ function MainView() {
                                 files.filter(i => i.parentFolderId === 'mydash').map((i) => {
                                     return (
                                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                                            <Card onDoubleClick={()=>handleView(i)} style={{
+                                            <Card onDoubleClick={() =>{ 
+                                            window.open(`http://localhost:3000/files/file/${i._id}`)
+
+                                        }} style={{
                                                 width: "7rem", height: "7rem", marginRight: '-0.2rem',
                                                 borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px "
                                             }} >
-                                          
+
                                                 <Card.Body>
 
                                                     <Card.Text>
 
                                                     </Card.Text>
+
                                                 </Card.Body>
                                                 <Card.Footer className='footer'>
 
                                                     <Card.Text className='footer1' style={{ marginLeft: "-5px", overFlow: "scroll", color: "black" }}>
                                                         {i.fileName}
-                                                        </Card.Text>
+                                                    </Card.Text>
 
-                                                        
 
-                                                        <Dropdown>
-                                                            <Dropdown.Toggle className='dropdown' >
-                                                                <ThreeDotsVertical />
-                                                            </Dropdown.Toggle>
-                                                            <Dropdown.Menu className='dropdown-menu'>
-                                                                <Dropdown.Item href={'http://localhost:3000/files/file/download/' + i._id}>
-                                                                    Download
-                                                                </Dropdown.Item>
-                                                                <Dropdown.Item onClick={dropdownItemRename} >
-                                                                    Rename
-                                                                </Dropdown.Item>
-                                                                <Dropdown.Item onClick={dropdownItemShare}>
-                                                                    Share
-                                                                </Dropdown.Item>
-                                                                <Dropdown.Item onClick={dropdownItemDelete}>
-                                                                    Delete
-                                                                </Dropdown.Item>
-                                                            </Dropdown.Menu>
-                                                        </Dropdown>
+
+                                                    <Dropdown>
+                                                        <Dropdown.Toggle className='dropdown' >
+                                                            <ThreeDotsVertical />
+                                                        </Dropdown.Toggle>
+                                                        <Dropdown.Menu className='dropdown-menu'>
+                                                            <Dropdown.Item href={'http://localhost:3000/files/file/download/' + i._id}>
+                                                                Download
+                                                            </Dropdown.Item>
+                                                            <Dropdown.Item onClick={dropdownItemRename} >
+                                                                Rename
+                                                            </Dropdown.Item>
+                                                            <Dropdown.Item onClick={dropdownItemShare}>
+                                                                Share
+                                                            </Dropdown.Item>
+                                                            <Dropdown.Item onClick={dropdownItemDelete}>
+                                                                Delete
+                                                            </Dropdown.Item>
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
                                                 </Card.Footer>
                                             </Card>
+
                                         </Col>
                                     )
                                 })
                             }
+
                         </Row>
                     </Col>
 
