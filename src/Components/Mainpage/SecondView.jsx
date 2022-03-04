@@ -71,13 +71,13 @@ function SecondView() {
      return (
          <div>
              <Container fluid>
-                 <Row>
+                 {/* <Row>
                      <Col style={{ border: '1px solid black' }}>
                          <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
                              <Header1></Header1>
                          </Col>
                      </Col>
-                 </Row>
+                 </Row> */}
                  <Row >
                      <Col xs={2}>
                          <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
