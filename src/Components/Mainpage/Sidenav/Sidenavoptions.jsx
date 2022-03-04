@@ -11,8 +11,12 @@ import {ShareFill} from 'react-bootstrap-icons';
 import {Button} from 'react-bootstrap';
 import UploadButton from './UploadButton';
 
-function Sidenavoptions()
+function Sidenavoptions(props)
 {
+    console.log("In side " + props.user.userId);
+    console.log("In side " + props.user.Path);
+    console.log("In side " + props.user.parentFolderId);
+
     return(
       <div className='sidenav'>
           <div className='sidenav__options '>
@@ -40,7 +44,7 @@ function Sidenavoptions()
           </span>
           </div>
           <div id='buttonSide' style={{marginTop:"240px",marginLeft:"20px"}}>
-          <UploadButton/>
+          <UploadButton  user={props} />
           </div>
       </div>
     )

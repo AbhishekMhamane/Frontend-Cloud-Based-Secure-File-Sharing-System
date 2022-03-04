@@ -19,6 +19,7 @@ import { Card } from 'react-bootstrap';
 import { ThreeDotsVertical } from 'react-bootstrap-icons';
 import { Dropdown, Modal, Button } from 'react-bootstrap';
 import './MainView.css';
+import {FolderFill,FileEarmarkTextFill} from 'react-bootstrap-icons';
 
 
 
@@ -67,7 +68,7 @@ function MainView() {
         console.log("Share");
 
     }
-    const dropdownItemDelete = () => {
+    const dropdownItemDelete = (props) => {
 
         console.log("Delete");
 
@@ -78,7 +79,7 @@ function MainView() {
             <Container fluid>
                 <Row style={{ marginLeft: "-10px", marginRight: "-10px" }}>
                     <Col style={{ marginLeft: "0px", paddingLeft: "0px", paddingRight: "0px" }}>
-                        <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto'  sm='auto' xs='auto' style={{ paddingLeft: 0, paddingRight: "0px" }} >
+                        <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' style={{ paddingLeft: 0, paddingRight: "0px" }} >
                             <Header1></Header1>
                         </Col>
                     </Col>
@@ -86,9 +87,9 @@ function MainView() {
                 <Row >
                     <Col xs={2}>
                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                            <UploadButton user={user} />
+                            {/* <UploadButton user={user} /> */}
                             {/* <UploadButtonF user={user} /> */}
-                            <Sidenavoptions></Sidenavoptions>
+                            <Sidenavoptions user={user} ></Sidenavoptions>
                         </Col>
                     </Col>
                     <Col xs={10} className="mainGradient" style={{ paddingBottom: "5rem", borderRadius: "10px", marginTop: "5px", marginBottom: "5px" }}>
@@ -100,12 +101,7 @@ function MainView() {
                                     return (
 
                                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                                            <Link to={{ pathname: `/folder/${i._id}` }} state={{
-                                                user: {
-                                                    userId: user.userId,
-                                                    Path: i.folderPath + '/' + i.folderName
-                                                }
-                                            }} >
+                                           
                                                 <Card id={i._id} key={i._id} className='cardStyle' style={{
                                                     width: "10rem", height: "7rem", marginRight: '-0.2rem',
                                                     borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px ",
@@ -150,7 +146,7 @@ function MainView() {
                                                             <Dropdown.Item className='menuItem' onClick={dropdownItemShare}>
                                                                 Share
                                                             </Dropdown.Item>
-                                                            <Dropdown.Item className='menuItem' onClick={dropdownItemMove}>
+                                                            <Dropdown.Item className='menuItem' onClick="" >
                                                                 Move
                                                             </Dropdown.Item>
                                                             <Dropdown.Item className='menuItem' onClick={dropdownItemDelete}>
@@ -159,18 +155,23 @@ function MainView() {
                                                         </Dropdown.Menu>
                                                     </Dropdown>
                                                     <FolderFill style={{ color: "rgba(245, 245, 43, 0.938)", fontSize: "55px", marginTop: "-50px" }}></FolderFill>
-
-
-
+                                                    <Link to={{ pathname: `/folder/${i._id}` }} state={{
+                                                user: {
+                                                    userId: user.userId,
+                                                    Path: i.folderPath + '/' + i.folderName
+                                                }
+                                            }} >
                                                     <Card.Text className='footer1'>
                                                         {i.folderName}
                                                     </Card.Text>
+
+                                                    </Link>
 
                                                 </Card.Body>    
 
                                                     
                                                 </Card>
-                                            </Link>
+                                            
                                         </Col>
                                     )
                                 })
@@ -227,7 +228,7 @@ function MainView() {
                                                             <Dropdown.Item className='menuItem' onClick={dropdownItemShare}>
                                                                 Share
                                                             </Dropdown.Item>
-                                                            <Dropdown.Item className='menuItem' onClick={dropdownItemMove}>
+                                                            <Dropdown.Item className='menuItem' onClick="">
                                                                 Move
                                                             </Dropdown.Item>
                                                             <Dropdown.Item className=" menuItem" onClick={dropdownItemDelete}>
