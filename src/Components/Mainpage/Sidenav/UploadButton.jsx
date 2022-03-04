@@ -6,43 +6,75 @@ import "./UploadButton.css";
 
 export default function UploadButton(props) {
   const fileRef = useRef();
+  const fileRef1 = useref();
 
   const handleChange = (e) => {
     const files = e.target.files;
     console.log(files);
-    console.log("In upload "+props.user.userId);
-    console.log("In upload "+props.user.Path);
-    console.log("In upload "+props.user.parentFolderId);
+    console.log("In upload " + props.user.userId);
+    console.log("In upload " + props.user.Path);
+    console.log("In upload " + props.user.parentFolderId);
 
     const fdata = new FormData();
 
-        fdata.append('userid',props.user.userId);
-        fdata.append('userpath', props.user.Path);
-        fdata.append('parentfolderid',props.user.parentFolderId);
+    fdata.append('userid', props.user.userId);
+    fdata.append('userpath', props.user.Path);
+    fdata.append('parentfolderid', props.user.parentFolderId);
 
-        for (let i = 0; i < files.length; i++) {
-            fdata.append('files', files[i]);
-            // console.log(data.file[i]);
-        }
-        axios.post("http://localhost:3000/files", fdata)
-        .then(response => console.log(response.data)).catch(err => console.log(err));
+    for (let i = 0; i < files.length; i++) {
+      fdata.append('files', files[i]);
+      // console.log(data.file[i]);
+    }
+    axios.post("http://localhost:3000/files", fdata)
+      .then(response => console.log(response.data)).catch(err => console.log(err));
   };
+  const myFunction = () => {
+    var x = document.getElementById("button");
+    if (x.style.display === "block") {
+      x.style.display = "none";
+    }
+    else {
+      x.style.display = "block";
+    }
+
+
+  }
 
 
   return (
     <div>
-      <button  onClick={() => fileRef.current.click()} className="button">
+      <div id="button" style={{ display: "none" }}>
+        <button id="hi" className="button1"  style={{ borderRadius: "5px", border: "1px solid skyblue" }} onClick={() => fileRef1.current.click()}>FileUpload</button>
+        <button id="my2" className="button1"  style={{ borderRadius: "5px", border: "1px solid skyblue" }} onClick={() => fileRef.current.click()}>FolderUpload</button>
+      </div>
+
+      <button onClick={myFunction} className="button">
         Upload
       </button>
+      <div>
       <input
+      id="hi"
         ref={fileRef}
         onChange={handleChange}
         multiple={true}
-      //  directory={fileRef.directory}
-       // webkitdirectory=""
+        //  directory={fileRef.directory}
+         webkitdirectory=""
         type="file"
         hidden
       />
+      </div>
+      <div>
+      <input
+      id="hi"
+        ref={fileRef1}
+        onChange={handleChange}
+        multiple={true}
+        //  directory={fileRef.directory}
+         //webkitdirectory=""
+        type="file"
+        hidden
+      />
+      </div>
     </div>
   );
 }

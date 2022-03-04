@@ -5,23 +5,22 @@ import {Star} from 'react-bootstrap-icons';
 import {Trash} from 'react-bootstrap-icons';
 import {ClockHistory} from 'react-bootstrap-icons';
 import {Tablet} from 'react-bootstrap-icons';
+import {Grid3x3GapFill} from 'react-bootstrap-icons';
+import {QuestionCircle} from 'react-bootstrap-icons';
+import {ShareFill} from 'react-bootstrap-icons';
+import {Button} from 'react-bootstrap';
+import UploadButton from './UploadButton';
 
 function Sidenavoptions()
 {
     return(
       <div className='sidenav'>
-          <div className='sidenav__options sidenav__options-active'>
-          <Tablet/>
+          <div className='sidenav__options '>
+          <Grid3x3GapFill/>
           <span className='buttonSide'>
-              My Storage
+              Dashboard
           </span>
           </div>
-          <div className='sidenav__options'>
-          <ClockHistory/>
-          <span className='buttonSide'>
-              Recent
-          </span>
-          </div >
           <div className='sidenav__options'>
           <Star/>
           <span className='buttonSide'>
@@ -29,10 +28,19 @@ function Sidenavoptions()
           </span>
           </div >
           <div className='sidenav__options'>
-              <Trash/>
+          <ShareFill/>
           <span className='buttonSide'>
-              Trash
+              Shared
           </span>
+          </div >
+          <div className='sidenav__options'>
+              <QuestionCircle/>
+          <span className='buttonSide'>
+              Help
+          </span>
+          </div>
+          <div id='buttonSide' style={{marginTop:"240px",marginLeft:"20px"}}>
+          <UploadButton/>
           </div>
       </div>
     )
