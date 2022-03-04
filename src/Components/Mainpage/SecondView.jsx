@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import {
     BrowserRouter,
     Routes,
-    Route, Navigate, Link, useParams,
+    Route, Navigate, Link, useParams,useLocation
 } from "react-router-dom";
 import { Container } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
@@ -18,7 +18,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from 'react-bootstrap';
 import { ThreeDotsVertical } from 'react-bootstrap-icons';
 import { Dropdown, Modal, Button } from 'react-bootstrap';
-
+import {FolderFill,FileEarmarkTextFill} from 'react-bootstrap-icons';
 import './SecondView.css';
 
 function SecondView() {
@@ -82,11 +82,13 @@ function SecondView() {
                      <Col xs={2}>
                          <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
                              {/* <UploadButton user={location.state['user']} /> */}
-                             <UploadButton 
+                             {/* <UploadButton 
                              user={{userId:location.state['user'].userId,
                              Path:location.state['user'].Path,
-                             parentFolderId : id }} />
-                             <Sidenavoptions></Sidenavoptions>
+                             parentFolderId : id }}/> */}
+                             <Sidenavoptions  user={{userId:location.state['user'].userId,
+                             Path:location.state['user'].Path,
+                             parentFolderId : id }} ></Sidenavoptions>
                          </Col>
                      </Col>
                      <Col xs={10} className="mainGradient" style={{ paddingBottom: "5rem", borderRadius: "10px", marginTop: "5px", marginBottom: "5px" }}>
@@ -98,8 +100,7 @@ function SecondView() {
                                      return (
  
                                          <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                                             <Link to={{ pathname: `/folder/${i._id}` }} state={{ user: { userId: location.state['user'].userId , 
-                                             Path: i.folderPath+'/'+i.folderName } }} >
+                                             
                                                  <Card id={i._id} key={i._id} className='cardStyle' style={{
                                                      width: "10rem", height: "7rem", marginRight: '-0.2rem',
                                                      borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px ", }}
@@ -145,7 +146,7 @@ function SecondView() {
                                                             <Dropdown.Item className='menuItem' onClick={dropdownItemShare}>
                                                                 Share
                                                             </Dropdown.Item>
-                                                            <Dropdown.Item className='menuItem' onClick={dropdownItemMove}>
+                                                            <Dropdown.Item className='menuItem' onClick="">
                                                                 Move
                                                             </Dropdown.Item>
                                                             <Dropdown.Item className='menuItem' onClick={dropdownItemDelete}>
@@ -156,13 +157,16 @@ function SecondView() {
                                                     <FolderFill style={{ color: "rgba(245, 245, 43, 0.938)", fontSize: "55px", marginTop: "-50px" }}></FolderFill>
 
 
-
+                                                    <Link to={{ pathname: `/folder/${i._id}` }} state={{ user: { userId: location.state['user'].userId , 
+                                             Path: i.folderPath+'/'+i.folderName } }} >
                                                     <Card.Text className='footer1'>
                                                         {i.folderName}
                                                     </Card.Text>
+                                                    </Link>
+                                                    
                                                      </Card.Body>
                                                  </Card>
-                                             </Link>
+                                           
                                          </Col>
                                      )
                                  })
@@ -217,7 +221,7 @@ function SecondView() {
                                                             <Dropdown.Item className='menuItem' onClick={dropdownItemShare}>
                                                                 Share
                                                             </Dropdown.Item>
-                                                            <Dropdown.Item className='menuItem' onClick={dropdownItemMove}>
+                                                            <Dropdown.Item className='menuItem' onClick="">
                                                                 Move
                                                             </Dropdown.Item>
                                                             <Dropdown.Item className=" menuItem" onClick={dropdownItemDelete}>

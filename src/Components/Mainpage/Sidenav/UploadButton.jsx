@@ -6,7 +6,7 @@ import "./UploadButton.css";
 
 export default function UploadButton(props) {
   const fileRef = useRef();
-  const fileRef1 = useref();
+  const fileRef1 = useRef();
 
   const handleChange = (e) => {
     const files = e.target.files;
