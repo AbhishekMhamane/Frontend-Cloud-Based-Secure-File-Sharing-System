@@ -81,11 +81,6 @@ function SecondView() {
                  <Row >
                      <Col xs={2}>
                          <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                             {/* <UploadButton user={location.state['user']} /> */}
-                             {/* <UploadButton 
-                             user={{userId:location.state['user'].userId,
-                             Path:location.state['user'].Path,
-                             parentFolderId : id }}/> */}
                              <Sidenavoptions  user={{userId:location.state['user'].userId,
                              Path:location.state['user'].Path,
                              parentFolderId : id }} ></Sidenavoptions>
@@ -114,7 +109,7 @@ function SecondView() {
 
                                                         </Dropdown.Toggle>
                                                         <Dropdown.Menu className='dropdown-menu'>
-                                                            <Dropdown.Item className='menuItem' onClick={dropdownItemDownload}>
+                                                            <Dropdown.Item className='menuItem' >
                                                                 Download
                                                             </Dropdown.Item>
                                                             <Dropdown.Item className='menuItem' onClick={handleShow}>
@@ -158,7 +153,7 @@ function SecondView() {
 
 
                                                     <Link to={{ pathname: `/folder/${i._id}` }} state={{ user: { userId: location.state['user'].userId , 
-                                             Path: i.folderPath+'/'+i.folderName } }} >
+                                                     Path: i.folderPath+'/'+i.folderName } }} >
                                                     <Card.Text className='footer1'>
                                                         {i.folderName}
                                                     </Card.Text>
@@ -192,7 +187,7 @@ function SecondView() {
 
                                                         </Dropdown.Toggle>
                                                         <Dropdown.Menu className='dropdown-menu'>
-                                                            <Dropdown.Item className="menuItem" onClick={dropdownItemDownload}>
+                                                            <Dropdown.Item className="menuItem" href={`http://localhost:3000/files/file/download/${i._id}`} >
                                                                 Download
                                                             </Dropdown.Item>
                                                             <Dropdown.Item className='menuItem' onClick={handleShow} >

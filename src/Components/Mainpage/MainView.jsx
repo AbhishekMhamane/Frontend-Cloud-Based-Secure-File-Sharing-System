@@ -58,11 +58,13 @@ function MainView() {
      let textInput = React.createRef();
      const handleClose = () => setShow(false);
      const handleShow = () => setShow(true);
+
      const handleChange = (e) => {
        
           console.log(textInput.current.value);  
           setShow(false);
      }
+     
     const dropdownItemShare = () => {
 
         console.log("Share");
@@ -199,12 +201,13 @@ function MainView() {
 
                                                         </Dropdown.Toggle>
                                                         <Dropdown.Menu className='dropdown-menu'>
-                                                            <Dropdown.Item className="menuItem" onClick={dropdownItemDownload}>
+                                                            <Dropdown.Item className="menuItem" href={`http://localhost:3000/files/file/download/${i._id}`}>
                                                                 Download
                                                             </Dropdown.Item>
                                                             <Dropdown.Item className='menuItem' onClick={handleShow} >
                                                                 Rename
                                                             </Dropdown.Item>
+
                                                             <Modal show={showModal} onHide={handleClose}>
                                                                 <Modal.Header closeButton>
                                                                     <Modal.Title>Rename Folder</Modal.Title>
@@ -225,6 +228,7 @@ function MainView() {
                                                                     </Button>
                                                                 </Modal.Footer>
                                                             </Modal>
+
                                                             <Dropdown.Item className='menuItem' onClick={dropdownItemShare}>
                                                                 Share
                                                             </Dropdown.Item>
