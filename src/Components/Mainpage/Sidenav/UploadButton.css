@@ -1,25 +1,14 @@
-.button{
-  margin-top:5px ;
-  margin-left: 10px;
-  box-shadow: 0.5px 0.5px 0.5px ;
-  color: #ff9f02;
-  background-color: white;
-  width:100px;
-  height: 40px;
-  border-radius: 25px;
- align-items: center;
-}
-.button:hover{
-  background-color: black;
-  color: white;
-}
-.button1{
-  width: 100%;
+.simple{
   margin-top: 10px;
+  margin-right: 100px;
+}
+
+.button1{
+  width: auto;
+  margin-left: 0px;
+  padding: 20px;
+  margin-right: 100px;
+  margin-bottom: 50px;
   color: black;
 
-}
-.button1:hover{
-  background-color: black;
-  color: white;
 }

@@ -19,7 +19,7 @@ import { Card } from 'react-bootstrap';
 import { ThreeDotsVertical } from 'react-bootstrap-icons';
 import { Dropdown, Modal, Button } from 'react-bootstrap';
 import './MainView.css';
-import {FolderFill,FileEarmarkTextFill} from 'react-bootstrap-icons';
+import { FolderFill, FileEarmarkTextFill, Search } from 'react-bootstrap-icons';
 
 
 
@@ -55,16 +55,15 @@ function MainView() {
 
     }
     const [showModal, setShow] = useState(false);
-     let textInput = React.createRef();
-     const handleClose = () => setShow(false);
-     const handleShow = () => setShow(true);
+    let textInput = React.createRef();
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const handleChange = (e) => {
 
-     const handleChange = (e) => {
-       
-          console.log(textInput.current.value);  
-          setShow(false);
-     }
-     
+        console.log(textInput.current.value);
+        setShow(false);
+    }
+
     const dropdownItemShare = () => {
 
         console.log("Share");
@@ -76,16 +75,37 @@ function MainView() {
 
     }
 
+    //folder options
+
+    const handleFolderRename = (folderId) =>{
+        console.log(textInput.current.value);
+        axios.put('http://localhost:3000/folders/'+folderId,{newName:textInput.current.value});
+        setShow(false);
+    }
+
+    //files options
+
+    const dropdownFileItemDelete = (fileId) => {
+        alert("file deleted");
+        axios.delete('http://localhost:3000/files/file/'+fileId);
+    }
+
+    const handleFileRename = (fileId) =>{
+        console.log(textInput.current.value);
+        axios.put('http://localhost:3000/files/file/'+fileId,{fileName:textInput.current.value});
+        setShow(false);
+    }
+
     return (
         <div>
             <Container fluid>
-                <Row style={{ marginLeft: "-10px", marginRight: "-10px" }}>
+                {/* <Row style={{ marginLeft: "-10px", marginRight: "-10px" }}>
                     <Col style={{ marginLeft: "0px", paddingLeft: "0px", paddingRight: "0px" }}>
                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' style={{ paddingLeft: 0, paddingRight: "0px" }} >
                             <Header1></Header1>
                         </Col>
                     </Col>
-                </Row>
+                </Row> */}
                 <Row >
                     <Col xs={2}>
                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
@@ -95,7 +115,10 @@ function MainView() {
                         </Col>
                     </Col>
                     <Col xs={10} className="mainGradient" style={{ paddingBottom: "5rem", borderRadius: "10px", marginTop: "5px", marginBottom: "5px" }}>
-
+                        <div className='header__search'>
+                            <Search></Search>
+                            <input type="text" placeholder='Search In Clore' />
+                        </div>
                         <Row>
 
                             {
@@ -103,12 +126,12 @@ function MainView() {
                                     return (
 
                                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                                           
-                                                <Card id={i._id} key={i._id} className='cardStyle' style={{
-                                                    width: "10rem", height: "7rem", marginRight: '-0.2rem',
-                                                    borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px ",
-                                                }}>
-                                                    <Card.Body>
+
+                                            <Card id={i._id} key={i._id} className='cardStyle' style={{
+                                                width: "10rem", height: "7rem", marginRight: '-0.2rem',
+                                                borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px ",
+                                            }}>
+                                                <Card.Body>
                                                     <Dropdown className='drop' variant="outline-light">
                                                         <Dropdown.Toggle className='dropdownFolder' style={{ marginRight: "40px" }}  >
                                                             <Button variant='outline-light' className='dropButton' style={{ marginLeft: "-13px", marginTop: "-8px", border: "none", color: "black" }}><ThreeDotsVertical />
@@ -120,27 +143,24 @@ function MainView() {
                                                                 Download
                                                             </Dropdown.Item>
                                                             <Dropdown.Item className='menuItem' onClick={handleShow}>
-
-
                                                                 Rename
-
                                                             </Dropdown.Item>
                                                             <Modal show={showModal} onHide={handleClose}>
                                                                 <Modal.Header closeButton>
                                                                     <Modal.Title>Rename Folder</Modal.Title>
                                                                 </Modal.Header>
                                                                 <Modal.Body>
-                                                                   <label>
-                                                                     New File name:
-                                                                   </label>
-                                                                   <input  ref={textInput}  type={"text"}></input>
+                                                                    <label>
+                                                                        New Folder name:
+                                                                    </label>
+                                                                    <input ref={textInput} type={"text"}></input>
 
                                                                 </Modal.Body>
                                                                 <Modal.Footer>
                                                                     <Button variant="secondary" onClick={handleClose}>
                                                                         Close
                                                                     </Button>
-                                                                    <Button variant="primary" onClick={handleChange}>
+                                                                    <Button variant="primary" onClick={()=>handleFolderRename(i._id)}>
                                                                         Save Changes
                                                                     </Button>
                                                                 </Modal.Footer>
@@ -158,22 +178,22 @@ function MainView() {
                                                     </Dropdown>
                                                     <FolderFill style={{ color: "rgba(245, 245, 43, 0.938)", fontSize: "55px", marginTop: "-50px" }}></FolderFill>
                                                     <Link to={{ pathname: `/folder/${i._id}` }} state={{
-                                                user: {
-                                                    userId: user.userId,
-                                                    Path: i.folderPath + '/' + i.folderName
-                                                }
-                                            }} >
-                                                    <Card.Text className='footer1'>
-                                                        {i.folderName}
-                                                    </Card.Text>
+                                                        user: {
+                                                            userId: user.userId,
+                                                            Path: i.folderPath 
+                                                        }
+                                                    }} >
+                                                        <Card.Text className='footer1'>
+                                                            {i.folderName}
+                                                        </Card.Text>
 
                                                     </Link>
 
-                                                </Card.Body>    
+                                                </Card.Body>
 
-                                                    
-                                                </Card>
-                                            
+
+                                            </Card>
+
                                         </Col>
                                     )
                                 })
@@ -185,16 +205,16 @@ function MainView() {
                                 files.filter(i => i.parentFolderId === 'mydash').map((i) => {
                                     return (
                                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                                            <Card className='cardStyle1' onDoubleClick={() =>{ 
-                                            window.open(`http://localhost:3000/files/file/${i._id}`)
+                                            <Card id={i._id} key={i._id} className='cardStyle1' onDoubleClick={() => {
+                                                window.open(`http://localhost:3000/files/file/${i._id}`)
 
-                                        }} style={{
-                                            width: "7rem", height: "7rem", marginRight: '-0.2rem',
-                                            borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px "
+                                            }} style={{
+                                                width: "7rem", height: "7rem", marginRight: '-0.2rem',
+                                                borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px "
                                             }} >
 
                                                 <Card.Body>
-                                                <Dropdown className='drop'>
+                                                    <Dropdown className='drop'>
                                                         <Dropdown.Toggle className='dropdownFolder1' style={{ marginRight: "40px" }}  >
                                                             <Button variant='outline-light' className='dropButton' style={{ marginLeft: "-13px", marginTop: "-8px", border: "none", color: "black" }}><ThreeDotsVertical />
                                                             </Button>
@@ -210,20 +230,20 @@ function MainView() {
 
                                                             <Modal show={showModal} onHide={handleClose}>
                                                                 <Modal.Header closeButton>
-                                                                    <Modal.Title>Rename Folder</Modal.Title>
+                                                                    <Modal.Title>Rename File</Modal.Title>
                                                                 </Modal.Header>
                                                                 <Modal.Body>
-                                                                   <label>
-                                                                     New File name:
-                                                                   </label>
-                                                                   <input  ref={textInput}  type={"text"}></input>
+                                                                    <label>
+                                                                        New File name:
+                                                                    </label>
+                                                                    <input ref={textInput} type={"text"}></input>
 
                                                                 </Modal.Body>
                                                                 <Modal.Footer>
                                                                     <Button variant="secondary" onClick={handleClose}>
                                                                         Close
                                                                     </Button>
-                                                                    <Button variant="primary" onClick={handleChange}>
+                                                                    <Button variant="primary" onClick={()=>handleFileRename(i._id)}>
                                                                         Save Changes
                                                                     </Button>
                                                                 </Modal.Footer>
@@ -235,7 +255,7 @@ function MainView() {
                                                             <Dropdown.Item className='menuItem' onClick="">
                                                                 Move
                                                             </Dropdown.Item>
-                                                            <Dropdown.Item className=" menuItem" onClick={dropdownItemDelete}>
+                                                            <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemDelete(i._id)}>
                                                                 Delete
                                                             </Dropdown.Item>
                                                         </Dropdown.Menu>
@@ -249,13 +269,7 @@ function MainView() {
                                                     </Card.Text>
 
                                                 </Card.Body>
-                                               
 
-                                                
-                                               
-
-
-                                                    
                                             </Card>
 
                                         </Col>

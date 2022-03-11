@@ -2,6 +2,8 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
 import "./UploadButton.css";
+import { Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 
 export default function UploadButton(props) {
@@ -28,6 +30,7 @@ export default function UploadButton(props) {
     axios.post("http://localhost:3000/files", fdata)
       .then(response => console.log(response.data)).catch(err => console.log(err));
   };
+  
   const myFunction = () => {
     var x = document.getElementById("button");
     if (x.style.display === "block") {
@@ -43,14 +46,18 @@ export default function UploadButton(props) {
 
   return (
     <div>
-      <div id="button" style={{ display: "none" }}>
-        <button id="hi" className="button1"  style={{ borderRadius: "5px", border: "1px solid skyblue" }} onClick={() => fileRef1.current.click()}>FileUpload</button>
-        <button id="my2" className="button1"  style={{ borderRadius: "5px", border: "1px solid skyblue" }} onClick={() => fileRef.current.click()}>FolderUpload</button>
+      <div id="button" className="simple" style={{display:"none",marginTop:"150px",marginLeft:"20px"}}>
+        <Container fluid>
+        
+        
+        <Button id="my2" className="button1"  style={{ borderRadius: "5px", border: "1px solid skyblue" }} onClick={() => fileRef.current.click()}>FolderUpload</Button>
+        <Button id="hi" className="button1"  style={{ borderRadius: "5px", border: "1px solid skyblue" }} onClick={() => fileRef1.current.click()}>FileUpload</Button>
+        </Container>
       </div>
 
-      <button onClick={myFunction} className="button">
+      <Button  variant="warning" size="lg-4" style={{width:"70%",backgroundColor:" #ff9f02",color:"white"}} onClick={myFunction} >
         Upload
-      </button>
+      </Button>
       <div>
       <input
       id="hi"

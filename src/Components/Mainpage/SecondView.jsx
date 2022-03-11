@@ -66,18 +66,31 @@ function SecondView() {
          console.log("Delete");
  
      }
- 
+
+     //folder options
+
+     //files options
+     const dropdownFileItemDelete = (fileId) => {
+        alert("file deleted");
+        axios.delete('http://localhost:3000/files/file/'+fileId);
+    }
+
+    const handleFileRename = (fileId) =>{
+        console.log(textInput.current.value);
+        axios.put('http://localhost:3000/files/file/'+fileId,{fileName:textInput.current.value});
+        setShow(false);
+    }
  
      return (
          <div>
              <Container fluid>
-                 <Row>
+                 {/* <Row>
                      <Col style={{ border: '1px solid black' }}>
                          <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
                              <Header1></Header1>
                          </Col>
                      </Col>
-                 </Row>
+                 </Row> */}
                  <Row >
                      <Col xs={2}>
                          <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
@@ -124,7 +137,7 @@ function SecondView() {
                                                                 </Modal.Header>
                                                                 <Modal.Body>
                                                                    <label>
-                                                                     New File name:
+                                                                     New Folder name:
                                                                    </label>
                                                                    <input  ref={textInput}  type={"text"}></input>
 
@@ -153,7 +166,7 @@ function SecondView() {
 
 
                                                     <Link to={{ pathname: `/folder/${i._id}` }} state={{ user: { userId: location.state['user'].userId , 
-                                                     Path: i.folderPath+'/'+i.folderName } }} >
+                                                     Path: i.folderPath } }} >
                                                     <Card.Text className='footer1'>
                                                         {i.folderName}
                                                     </Card.Text>
@@ -195,7 +208,7 @@ function SecondView() {
                                                             </Dropdown.Item>
                                                             <Modal show={showModal} onHide={handleClose}>
                                                                 <Modal.Header closeButton>
-                                                                    <Modal.Title>Rename Folder</Modal.Title>
+                                                                    <Modal.Title>Rename File</Modal.Title>
                                                                 </Modal.Header>
                                                                 <Modal.Body>
                                                                    <label>
@@ -208,7 +221,7 @@ function SecondView() {
                                                                     <Button variant="secondary" onClick={handleClose}>
                                                                         Close
                                                                     </Button>
-                                                                    <Button variant="primary" onClick={handleChange}>
+                                                                    <Button variant="primary" onClick={()=>handleFileRename(i._id)}>
                                                                         Save Changes
                                                                     </Button>
                                                                 </Modal.Footer>
@@ -219,7 +232,7 @@ function SecondView() {
                                                             <Dropdown.Item className='menuItem' onClick="">
                                                                 Move
                                                             </Dropdown.Item>
-                                                            <Dropdown.Item className=" menuItem" onClick={dropdownItemDelete}>
+                                                            <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemDelete(i._id)} >
                                                                 Delete
                                                             </Dropdown.Item>
                                                         </Dropdown.Menu>
