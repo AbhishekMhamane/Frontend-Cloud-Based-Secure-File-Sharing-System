@@ -68,6 +68,9 @@ function SecondView() {
      }
 
      //folder options
+     const dropdownFolderDelete = (folderId) =>{
+        axios.delete(`http://localhost:3000/folders/${folderId}`);
+     }
 
      //files options
      const dropdownFileItemDelete = (fileId) => {
@@ -157,7 +160,7 @@ function SecondView() {
                                                             <Dropdown.Item className='menuItem' onClick="">
                                                                 Move
                                                             </Dropdown.Item>
-                                                            <Dropdown.Item className='menuItem' onClick={dropdownItemDelete}>
+                                                            <Dropdown.Item className='menuItem' onClick={() => dropdownFolderDelete(i._id)}>
                                                                 Delete
                                                             </Dropdown.Item>
                                                         </Dropdown.Menu>

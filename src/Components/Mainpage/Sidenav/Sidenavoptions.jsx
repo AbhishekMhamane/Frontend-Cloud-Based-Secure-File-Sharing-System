@@ -66,13 +66,13 @@ function Sidenavoptions(props) {
 
    const handleCreateFolder = () =>{
        
-    alert("In upload " + props.user.userId);
-    alert("In upload " + props.user.Path);
-    alert("In upload " + props.user.parentFolderId);
-
+    alert("In foldercreate " + props.user.userId);
+    alert("In foldercreate " + props.user.Path);
+    alert("In foldercreate " + props.user.parentFolderId);
+    console.log(props.user.parentFolderId);
     axios.post('http://localhost:3000/folders/',{
         userId : props.user.userId,
-        folderName : "while",
+        folderName : "tst",
         folderPath : props.user.Path,
         parentFolderId : props.user.parentFolderId
     });
