@@ -1,6 +1,7 @@
-import {useRef} from 'react';
+import {useRef,useState} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import './Sidenavoptions.css';
+import './Sidenav/Sidenavoptions.css';
 import { Star } from 'react-bootstrap-icons';
 import { Trash } from 'react-bootstrap-icons';
 import { ClockHistory } from 'react-bootstrap-icons';
@@ -14,10 +15,11 @@ import { Button } from 'react-bootstrap';
 import {Container} from 'react-bootstrap';
 import axios from 'axios';
 import { Dropdown } from 'react-bootstrap';
-import UploadButton from './UploadButton';
+import { Modal } from 'react-bootstrap';
 
-import Logo from './Clore_Logo.png';
+import Logo from './Sidenav/Clore_Logo.png';
 import {Image} from 'react-bootstrap';
+import { getValue } from '@testing-library/user-event/dist/utils';
 
 function Sidenavoptions(props) {
     console.log("In side " + props.user.userId);
@@ -79,17 +81,19 @@ function Sidenavoptions(props) {
     
    }
 
-    const myFunction = () => {
-        var x = document.getElementById("button");
-        if (x.style.display === "block") {
-          x.style.display = "none";
-        }
-        else {
-          x.style.display = "block";
-        }
-    
-    
+
+
+      const [showModal, setShow] = useState(false);
+      let textInput = React.createRef();
+      const handleClose = () => setShow(false);
+      const handleShow = () => setShow(true);
+
+      const handleShow1 =() =>{
+          let folderName = textInput.current.value;
+          console.log("Folder Created "+folderName);
+          setShow(false);
       }
+    
 
     return (
         <div>
@@ -157,12 +161,30 @@ function Sidenavoptions(props) {
                             <Dropdown.Item onClick={() => fileRef1.current.click()} className="dropHover" >
                                 File Upload
                             </Dropdown.Item>
-                            <Dropdown.Item onClick={() => fileRef.current.click()} className="dropHover">
-                                Upload Folder
-                            </Dropdown.Item>
-                            <Dropdown.Item className="dropHover" onClick={()=>handleCreateFolder()}>
+                            
+                            <Dropdown.Item className="dropHover" onClick={handleShow}>
                                 Create New Folder
                             </Dropdown.Item>
+                            <Modal show={showModal} onHide={handleClose}>
+                                                                <Modal.Header >
+                                                                    <Modal.Title>Craete New Folder</Modal.Title>
+                                                                </Modal.Header>
+                                                                <Modal.Body>
+                                                                    <label>
+                                                                        New Folder name:
+                                                                    </label>
+                                                                    <input id= "textid" ref={textInput} type={"text"}></input>
+
+                                                                </Modal.Body>
+                                                                <Modal.Footer>
+                                                                    <Button variant="secondary" onClick={handleClose}>
+                                                                        Close
+                                                                    </Button>
+                                                                    <Button variant="primary" onClick={handleShow1}>
+                                                                        Save Changes
+                                                                    </Button>
+                                                                </Modal.Footer>
+                                                            </Modal>
                         </Dropdown.Menu>
                     </Dropdown>
 

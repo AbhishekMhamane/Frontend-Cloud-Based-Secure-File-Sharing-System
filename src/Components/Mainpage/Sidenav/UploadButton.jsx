@@ -30,6 +30,7 @@ export default function UploadButton(props) {
     axios.post("http://localhost:3000/files", fdata)
       .then(response => console.log(response.data)).catch(err => console.log(err));
   };
+  
   const myFunction = () => {
     var x = document.getElementById("button");
     if (x.style.display === "block") {
