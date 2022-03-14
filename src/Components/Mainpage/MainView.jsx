@@ -92,7 +92,7 @@ function MainView() {
                             <Sidenavoptions user={user} ></Sidenavoptions>
                         </Col>
                     </Col>
-                    <Col xs={10} className="mainGradient" style={{ paddingBottom: "5rem", borderRadius: "10px", marginTop: "5px", marginBottom: "5px" }}>
+                    <Col xs={10} className="mainGradient" style={{ paddingBottom: "3rem", borderRadius: "10px", marginBottom: "5px" }}>
                         <div className='header__search'>
                             <Search></Search>
                             <input type="text" placeholder='Search In Clore' />
@@ -126,7 +126,7 @@ function MainView() {
                                                                     Rename
 
                                                                 </Dropdown.Item>
-                                                                <Modal show={showModal} onHide={handleClose}>
+                                                                <Modal show={showModal} onHide={handleClose} className="center">
                                                                     <Modal.Header closeButton>
                                                                         <Modal.Title>Rename Folder</Modal.Title>
                                                                     </Modal.Header>
