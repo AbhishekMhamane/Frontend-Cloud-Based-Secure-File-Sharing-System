@@ -18,10 +18,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from 'react-bootstrap';
 import { ThreeDotsVertical } from 'react-bootstrap-icons';
 import { Dropdown, Modal, Button } from 'react-bootstrap';
-import { FolderFill, FileEarmarkTextFill } from 'react-bootstrap-icons';
+import { FolderFill, FileEarmarkTextFill ,Search} from 'react-bootstrap-icons';
 import './SecondView.css';
 
 function SecondView() {
+
+    const API_URL = 'http://localhost:3000';
 
     const { id } = useParams();
     const location = useLocation()
@@ -35,8 +37,8 @@ function SecondView() {
 
 
     const getFolders = async () => {
-        const resFolders = await axios.get("http://localhost:3000/folders/" + location.state['user'].userId);
-        const resFiles = await axios.get("http://localhost:3000/files/" + location.state['user'].userId);
+        const resFolders = await axios.get(`${API_URL}/folders/${location.state['user'].userId}`);
+        const resFiles = await axios.get(`${API_URL}/files/${location.state['user'].userId}`);
         setFolders(resFolders.data);
         setFiles(resFiles.data);
     }
@@ -69,7 +71,7 @@ function SecondView() {
 
     //folder options
     const dropdownFolderDelete = (folderId) => {
-        axios.delete(`http://localhost:3000/folders/${folderId}`);
+        axios.delete(`${API_URL}/folders/${folderId}`);
     }
 
     const dropdownFileItemStarred = (fileId) => {
@@ -80,12 +82,12 @@ function SecondView() {
     //files options
     const dropdownFileItemDelete = (fileId) => {
         alert("file deleted");
-        axios.delete('http://localhost:3000/files/file/' + fileId);
+        axios.delete(`${API_URL}/files/file/${fileId}`);
     }
 
     const handleFileRename = (fileId) => {
         console.log(textInput.current.value);
-        axios.put('http://localhost:3000/files/file/' + fileId, { fileName: textInput.current.value });
+        axios.put(`${API_URL}/files/file/${fileId}`, { fileName: textInput.current.value });
         setShow(false);
     }
 
@@ -213,7 +215,7 @@ function SecondView() {
                                                 width: "7rem", height: "7rem", marginRight: '-0.2rem',
                                                 borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px "
                                             }} onDoubleClick={() => {
-                                                window.open(`http://localhost:3000/files/file/${i._id}`)
+                                                window.open(`${API_URL}/files/file/${i._id}`)
                                             }}>
                                                 <Card.Body>
                                                     <Dropdown className='drop'>
@@ -223,7 +225,7 @@ function SecondView() {
 
                                                         </Dropdown.Toggle>
                                                         <Dropdown.Menu className='dropdown-menu'>
-                                                            <Dropdown.Item className="menuItem" href={`http://localhost:3000/files/file/download/${i._id}`} >
+                                                            <Dropdown.Item className="menuItem" href={`${API_URL}/files/file/download/${i._id}`} >
                                                                 Download
                                                             </Dropdown.Item>
                                                             <Dropdown.Item className='menuItem' onClick={handleShow} >

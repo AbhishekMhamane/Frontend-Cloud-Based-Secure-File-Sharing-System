@@ -7,6 +7,9 @@ import { Container } from "react-bootstrap";
 
 
 export default function UploadButton(props) {
+
+  const API_URL = 'http://localhost:3000';
+
   const fileRef = useRef();
   const fileRef1 = useRef();
 
@@ -27,7 +30,7 @@ export default function UploadButton(props) {
       fdata.append('files', files[i]);
       // console.log(data.file[i]);
     }
-    axios.post("http://localhost:3000/files", fdata)
+    axios.post(`${API_URL}/files`, fdata)
       .then(response => console.log(response.data)).catch(err => console.log(err));
   };
   

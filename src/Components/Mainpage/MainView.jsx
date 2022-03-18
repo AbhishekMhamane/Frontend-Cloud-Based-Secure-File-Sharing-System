@@ -25,21 +25,41 @@ import { FolderFill, FileEarmarkTextFill, Search } from 'react-bootstrap-icons';
 
 function MainView() {
 
-    const [user, setUser] = useState({
-        userId: 'maheshkadam@gmail.com',
-        Path: 'C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b',
-        parentFolderId: 'mydash'
-    });
+    const API_URL = 'http://localhost:3000';
+    
+    // const [user, setUser] = useState({
+    //     userId: 'maheshkadam@gmail.com',
+    //     Path: 'C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b',
+    //     parentFolderId: 'mydash'
+    // });
+
+    const emailId = 'abhimhamane13@gmail.com';
+    const [user,setUser] = useState([]);
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
 
     useEffect(() => {
-        getFolders();
+        
+        getUser();
     }, [])
 
+    const getUser = async() => {
+        const resUser = await axios.get(`${API_URL}/users/${emailId}`);
+        setUser({
+            userId : resUser.data[0].userId,
+            Path : resUser.data[0].userPath,
+            parentFolderId : 'mydash'
+        });
+        console.log(user);
+        if(user)
+        {
+            getFolders();
+        }
+        
+    }
     const getFolders = async () => {
-        const resFolders = await axios.get("http://localhost:3000/folders/maheshkadam@gmail.com");
-        const resFiles = await axios.get("http://localhost:3000/files/maheshkadam@gmail.com");
+        const resFolders = await axios.get(`${API_URL}/folders/${emailId}`);
+        const resFiles = await axios.get(`${API_URL}/files/${emailId}`);
         setFolders(resFolders.data);
         setFiles(resFiles.data);
 
@@ -49,8 +69,8 @@ function MainView() {
 
     const dropdownItemDownload = (e) => {
 
-        axios.get("http://localhost:3000/files/file/download/" + e);
-        alert("http://localhost:3000/files/file/download/" + e);
+        axios.get(`${API_URL}/files/file/download/${e}`);
+        alert(`${API_URL}/files/file/download/${e}`);
         console.log("Download");
 
     }
@@ -69,37 +89,35 @@ function MainView() {
         console.log("Share");
 
     }
-    const dropdownItemDelete = (props) => {
 
-        console.log("Delete");
-
-    }
 
     //folder options
 
     const handleFolderRename = (folderId) =>{
         console.log(textInput.current.value);
-        axios.put('http://localhost:3000/folders/'+folderId,{newName:textInput.current.value});
+        axios.put(`${API_URL}/folders/${folderId}`,{newName:textInput.current.value});
         setShow(false);
     }
 
     const dropdownFolderDelete = (folderId) =>{
-        axios.delete(`http://localhost:3000/folders/${folderId}`);
+        axios.delete(`${API_URL}/folders/${folderId}`);
     }
 
     //files options
     const dropdownFileItemStarred = (fileId) => {
         console.log(fileId +"File Added in Starred Section");
 
+        axios.put(`${API_URL}/files/starred/${fileId}`,{starred:true});
+
     }
     const dropdownFileItemDelete = (fileId) => {
         alert("file deleted");
-        axios.delete('http://localhost:3000/files/file/'+fileId);
+        axios.delete(`${API_URL}/files/file/${fileId}`);
     }
 
     const handleFileRename = (fileId) =>{
         console.log(textInput.current.value);
-        axios.put('http://localhost:3000/files/file/'+fileId,{fileName:textInput.current.value});
+        axios.put(`${API_URL}/files/file/${fileId}`,{fileName:textInput.current.value});
         setShow(false);
     }
 
@@ -213,7 +231,7 @@ function MainView() {
                                     return (
                                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
                                             <Card id={i._id} key={i._id} className='cardStyle1' onDoubleClick={() => {
-                                                window.open(`http://localhost:3000/files/file/${i._id}`)
+                                                window.open(`${API_URL}/files/file/${i._id}`)
 
                                             }} style={{
                                                 width: "7rem", height: "7rem", marginRight: '-0.2rem',
@@ -228,7 +246,7 @@ function MainView() {
 
                                                         </Dropdown.Toggle>
                                                         <Dropdown.Menu className='dropdown-menu'>
-                                                            <Dropdown.Item className="menuItem" href={`http://localhost:3000/files/file/download/${i._id}`}>
+                                                            <Dropdown.Item className="menuItem" href={ `${API_URL}/files/file/download/${i._id}` }>
                                                                 Download
                                                             </Dropdown.Item>
                                                             <Dropdown.Item className='menuItem' onClick={handleShow} >
