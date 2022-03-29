@@ -1,4 +1,4 @@
-import {useRef} from 'react';
+import {useRef,useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import './Sidenavoptions.css';
 import { Star } from 'react-bootstrap-icons';
@@ -20,6 +20,9 @@ import Logo from './Clore_Logo.png';
 import {Image} from 'react-bootstrap';
 
 function Sidenavoptions(props) {
+
+    const API_URL = 'http://localhost:3000';
+
     console.log("In side " + props.user.userId);
     console.log("In side " + props.user.Path);
     console.log("In side " + props.user.parentFolderId);
@@ -42,7 +45,7 @@ function Sidenavoptions(props) {
         fdata.append('userpath', props.user.Path);
         fdata.append('parentfolderid', props.user.parentFolderId);
         fdata.append('files', files[i]);
-        axios.post("http://localhost:3000/files", fdata)
+        axios.post(`${API_URL}/files`, fdata)
             .then(response => console.log(response.data)).catch(err => console.log(err));
         // console.log(data.file[i]);
     }
@@ -70,7 +73,7 @@ function Sidenavoptions(props) {
     alert("In foldercreate " + props.user.Path);
     alert("In foldercreate " + props.user.parentFolderId);
     console.log(props.user.parentFolderId);
-    axios.post('http://localhost:3000/folders/',{
+    axios.post(`${API_URL}/folders`,{
         userId : props.user.userId,
         folderName : "tst",
         folderPath : props.user.Path,
@@ -79,17 +82,6 @@ function Sidenavoptions(props) {
     
    }
 
-    const myFunction = () => {
-        var x = document.getElementById("button");
-        if (x.style.display === "block") {
-          x.style.display = "none";
-        }
-        else {
-          x.style.display = "block";
-        }
-    
-    
-      }
 
     return (
         <div>
@@ -157,9 +149,9 @@ function Sidenavoptions(props) {
                             <Dropdown.Item onClick={() => fileRef1.current.click()} className="dropHover" >
                                 File Upload
                             </Dropdown.Item>
-                            <Dropdown.Item onClick={() => fileRef.current.click()} className="dropHover">
-                                Upload Folder
-                            </Dropdown.Item>
+                                <Dropdown.Item onClick={() => fileRef.current.click()} className="dropHover">
+                                    Upload Folder
+                                </Dropdown.Item>
                             <Dropdown.Item className="dropHover" onClick={()=>handleCreateFolder()}>
                                 Create New Folder
                             </Dropdown.Item>
