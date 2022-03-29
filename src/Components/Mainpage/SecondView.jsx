@@ -18,12 +18,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from 'react-bootstrap';
 import { ThreeDotsVertical } from 'react-bootstrap-icons';
 import { Dropdown, Modal, Button } from 'react-bootstrap';
-<<<<<<< HEAD
 import { FolderFill, FileEarmarkTextFill,Search } from 'react-bootstrap-icons';
 import SearchView from './SearchView.jsx';
-=======
-import { FolderFill, FileEarmarkTextFill ,Search} from 'react-bootstrap-icons';
->>>>>>> 6ef33370e60d9f6d0164a1fb19616af2f0a14286
 import './SecondView.css';
 
 function SecondView() {

@@ -26,14 +26,12 @@ import SearchView from './SearchView.jsx';
 
 function MainView() {
 
-<<<<<<< HEAD
 
     const [user, setUser] = useState({
         userId: 'maheshkadam@gmail.com',
         Path: 'C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b',
         parentFolderId: 'mydash'
     });
-=======
     const API_URL = 'http://localhost:3000';
     
     // const [user, setUser] = useState({
@@ -43,8 +41,6 @@ function MainView() {
     // });
 
     const emailId = 'abhimhamane13@gmail.com';
-    const [user,setUser] = useState([]);
->>>>>>> 6ef33370e60d9f6d0164a1fb19616af2f0a14286
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
     const [search, updateSearch] = useState("");
@@ -113,46 +109,30 @@ function MainView() {
 
     const handleFolderRename = (folderId) => {
         console.log(textInput.current.value);
-<<<<<<< HEAD
-        axios.put('http://localhost:3000/folders/' + folderId, { newName: textInput.current.value });
-        setShow(false);
-    }
-
-    const dropdownFolderDelete = (folderId) => {
-        axios.delete(`http://localhost:3000/folders/${folderId}`);
-=======
-        axios.put(`${API_URL}/folders/${folderId}`,{newName:textInput.current.value});
+        axios.put(`${API_URL}/folders/${folderId}`, { newName: textInput.current.value });
         setShow(false);
     }
 
     const dropdownFolderDelete = (folderId) =>{
         axios.delete(`${API_URL}/folders/${folderId}`);
->>>>>>> 6ef33370e60d9f6d0164a1fb19616af2f0a14286
+        setShow(false);
+
     }
 
     //files options
     const dropdownFileItemStarred = (fileId) => {
         console.log(fileId + "File Added in Starred Section");
-
         axios.put(`${API_URL}/files/starred/${fileId}`,{starred:true});
 
     }
     const dropdownFileItemDelete = (fileId) => {
         alert("file deleted");
-<<<<<<< HEAD
-        axios.delete('http://localhost:3000/files/file/' + fileId);
-=======
         axios.delete(`${API_URL}/files/file/${fileId}`);
->>>>>>> 6ef33370e60d9f6d0164a1fb19616af2f0a14286
     }
 
     const handleFileRename = (fileId) => {
         console.log(textInput.current.value);
-<<<<<<< HEAD
         axios.put('http://localhost:3000/files/file/' + fileId, { fileName: textInput.current.value });
-=======
-        axios.put(`${API_URL}/files/file/${fileId}`,{fileName:textInput.current.value});
->>>>>>> 6ef33370e60d9f6d0164a1fb19616af2f0a14286
         setShow(false);
     }
 
