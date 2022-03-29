@@ -20,10 +20,12 @@ import { ThreeDotsVertical } from 'react-bootstrap-icons';
 import { Dropdown, Modal, Button } from 'react-bootstrap';
 import './MainView.css';
 import { FolderFill, FileEarmarkTextFill, Search } from 'react-bootstrap-icons';
+import SearchView from './SearchView.jsx';
 
 
 
 function MainView() {
+
 
     const [user, setUser] = useState({
         userId: 'maheshkadam@gmail.com',
@@ -32,6 +34,7 @@ function MainView() {
     });
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
+    const [search, updateSearch] = useState("");
 
     useEffect(() => {
         getFolders();
@@ -42,6 +45,13 @@ function MainView() {
         const resFiles = await axios.get("http://localhost:3000/files/maheshkadam@gmail.com");
         setFolders(resFolders.data);
         setFiles(resFiles.data);
+
+    }
+
+    const inputClicked = (data) => {
+        const info = data.target.value;
+        console.log(info);
+        updateSearch(info);
 
     }
 
@@ -77,29 +87,29 @@ function MainView() {
 
     //folder options
 
-    const handleFolderRename = (folderId) =>{
+    const handleFolderRename = (folderId) => {
         console.log(textInput.current.value);
-        axios.put('http://localhost:3000/folders/'+folderId,{newName:textInput.current.value});
+        axios.put('http://localhost:3000/folders/' + folderId, { newName: textInput.current.value });
         setShow(false);
     }
 
-    const dropdownFolderDelete = (folderId) =>{
+    const dropdownFolderDelete = (folderId) => {
         axios.delete(`http://localhost:3000/folders/${folderId}`);
     }
 
     //files options
     const dropdownFileItemStarred = (fileId) => {
-        console.log(fileId +"File Added in Starred Section");
+        console.log(fileId + "File Added in Starred Section");
 
     }
     const dropdownFileItemDelete = (fileId) => {
         alert("file deleted");
-        axios.delete('http://localhost:3000/files/file/'+fileId);
+        axios.delete('http://localhost:3000/files/file/' + fileId);
     }
 
-    const handleFileRename = (fileId) =>{
+    const handleFileRename = (fileId) => {
         console.log(textInput.current.value);
-        axios.put('http://localhost:3000/files/file/'+fileId,{fileName:textInput.current.value});
+        axios.put('http://localhost:3000/files/file/' + fileId, { fileName: textInput.current.value });
         setShow(false);
     }
 
@@ -122,10 +132,15 @@ function MainView() {
                         </Col>
                     </Col>
                     <Col xs={10} className="mainGradient" style={{ paddingBottom: "3rem", borderRadius: "10px", marginBottom: "5px" }}>
-                        <div className='header__search'>
+                        <div className='header__search' >
                             <Search></Search>
-                            <input type="text" placeholder='Search In Clore' />
-                        </div>
+                        
+                            <input id='searchId' type="text" placeholder='Search In Clore' value={search} onChange={inputClicked} />
+
+                        </div>    
+                        {search === "" ? null : <SearchView name={search}/>} 
+
+                        
                         <Row>
 
                             {
@@ -167,7 +182,7 @@ function MainView() {
                                                                     <Button variant="secondary" onClick={handleClose}>
                                                                         Close
                                                                     </Button>
-                                                                    <Button variant="primary" onClick={()=>handleFolderRename(i._id)}>
+                                                                    <Button variant="primary" onClick={() => handleFolderRename(i._id)}>
                                                                         Save Changes
                                                                     </Button>
                                                                 </Modal.Footer>
@@ -187,7 +202,7 @@ function MainView() {
                                                     <Link to={{ pathname: `/folder/${i._id}` }} state={{
                                                         user: {
                                                             userId: user.userId,
-                                                            Path: i.folderPath 
+                                                            Path: i.folderPath
                                                         }
                                                     }} >
                                                         <Card.Text className='footer1'>
@@ -250,7 +265,7 @@ function MainView() {
                                                                     <Button variant="secondary" onClick={handleClose}>
                                                                         Close
                                                                     </Button>
-                                                                    <Button variant="primary" onClick={()=>handleFileRename(i._id)}>
+                                                                    <Button variant="primary" onClick={() => handleFileRename(i._id)}>
                                                                         Save Changes
                                                                     </Button>
                                                                 </Modal.Footer>
@@ -274,7 +289,7 @@ function MainView() {
                                                     </Dropdown>
                                                     <FileEarmarkTextFill style={{ color: "rgb(54, 152, 243)", fontSize: "55px", marginTop: "-50px" }}></FileEarmarkTextFill>
 
-                                                      
+
 
                                                     <Card.Text className='footer1'>
                                                         {i.fileName}

@@ -18,7 +18,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from 'react-bootstrap';
 import { ThreeDotsVertical } from 'react-bootstrap-icons';
 import { Dropdown, Modal, Button } from 'react-bootstrap';
-import { FolderFill, FileEarmarkTextFill } from 'react-bootstrap-icons';
+import { FolderFill, FileEarmarkTextFill,Search } from 'react-bootstrap-icons';
+import SearchView from './SearchView.jsx';
 import './SecondView.css';
 
 function SecondView() {
@@ -27,6 +28,7 @@ function SecondView() {
     const location = useLocation()
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
+    const [search, updateSearch] = useState("");
 
     useEffect(() => {
         getFolders();
@@ -41,7 +43,12 @@ function SecondView() {
         setFiles(resFiles.data);
     }
 
+    const inputClicked = (data) => {
+        const info = data.target.value;
+        console.log(info);
+        updateSearch(info);
 
+    }
 
     const dropdownItemDownload = (e) => {
 
@@ -112,8 +119,10 @@ function SecondView() {
                     <Col xs={10} className="mainGradient" style={{ paddingBottom: "5rem", borderRadius: "10px", marginTop: "5px", marginBottom: "5px" }}>
                         <div className='header__search'>
                             <Search></Search>
-                            <input type="text" placeholder='Search In Clore' />
+                            <input id='searchId' type="text" placeholder='Search In Clore' value={search} onChange={inputClicked} />
                         </div>
+                        {search === "" ? null : <SearchView name={search}/>} 
+
                         <Row>
 
                             {
@@ -171,7 +180,7 @@ function SecondView() {
                                                             <Dropdown.Item className='menuItem' onClick="">
                                                                 Move
                                                             </Dropdown.Item>
-
+                                                            
                                                             <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemStarred(i._id)}>
                                                                 Add to Starred
                                                             </Dropdown.Item>
