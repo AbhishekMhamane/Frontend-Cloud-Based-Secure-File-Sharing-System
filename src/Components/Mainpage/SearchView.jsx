@@ -1,4 +1,4 @@
-import {React ,useState} from 'react';
+import {React ,useEffect,useState} from 'react';
 import {Card} from 'react-bootstrap';
 import './SearchView.css';
 
@@ -12,7 +12,6 @@ function SearchView(props)
              <Card.Body>
                  <Card.Text>{props.name}</Card.Text>
              </Card.Body>
-
             </Card> 
         </div>
         </>

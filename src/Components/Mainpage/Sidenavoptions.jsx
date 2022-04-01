@@ -48,19 +48,6 @@ function Sidenavoptions(props) {
             .then(response => console.log(response.data)).catch(err => console.log(err));
         // console.log(data.file[i]);
     }
-    
-    // const fdata = new FormData();
-
-    // fdata.append('userid', props.user.userId);
-    // fdata.append('userpath', props.user.Path);
-    // fdata.append('parentfolderid', props.user.parentFolderId);
-
-    // for (let i = 0; i < files.length; i++) {
-    //   fdata.append('files', files[i]);
-    //   // console.log(data.file[i]);
-    // }
-    // axios.post("http://localhost:3000/files", fdata)
-    //   .then(response => console.log(response.data)).catch(err => console.log(err));
 
 
   };
