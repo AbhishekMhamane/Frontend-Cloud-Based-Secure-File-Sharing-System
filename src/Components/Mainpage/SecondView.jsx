@@ -24,7 +24,7 @@ import './SecondView.css';
 
 function SecondView() {
 
-    const API_URL = 'http://localhost:3000';
+    
 
     const { id } = useParams();
     const location = useLocation()
@@ -39,8 +39,8 @@ function SecondView() {
 
 
     const getFolders = async () => {
-        const resFolders = await axios.get(`${API_URL}/folders/${location.state['user'].userId}`);
-        const resFiles = await axios.get(`${API_URL}/files/${location.state['user'].userId}`);
+        const resFolders = await axios.get("http://localhost:3000/folders/" + location.state['user'].userId);
+        const resFiles = await axios.get("http://localhost:3000/files/" + location.state['user'].userId);
         setFolders(resFolders.data);
         setFiles(resFiles.data);
     }
@@ -78,7 +78,7 @@ function SecondView() {
 
     //folder options
     const dropdownFolderDelete = (folderId) => {
-        axios.delete(`${API_URL}/folders/${folderId}`);
+        axios.delete(`http://localhost:3000/folders/${folderId}`);
     }
 
     const dropdownFileItemStarred = (fileId) => {
@@ -89,12 +89,12 @@ function SecondView() {
     //files options
     const dropdownFileItemDelete = (fileId) => {
         alert("file deleted");
-        axios.delete(`${API_URL}/files/file/${fileId}`);
+        axios.delete('http://localhost:3000/files/file/' + fileId);
     }
 
     const handleFileRename = (fileId) => {
         console.log(textInput.current.value);
-        axios.put(`${API_URL}/files/file/${fileId}`, { fileName: textInput.current.value });
+        axios.put('http://localhost:3000/files/file/' + fileId, { fileName: textInput.current.value });
         setShow(false);
     }
 
@@ -182,11 +182,14 @@ function SecondView() {
                                                             <Dropdown.Item className='menuItem' onClick="">
                                                                 Move
                                                             </Dropdown.Item>
-                                                            
+                                                            {/* {value==="false"}: */}
                                                             <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemStarred(i._id)}>
                                                                 Add to Starred
                                                             </Dropdown.Item>
-
+                                                             ?
+                                                             <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemStarred(i._id)}>
+                                                                Remove From Starred
+                                                            </Dropdown.Item>
                                                             <Dropdown.Item className='menuItem' onClick={() => dropdownFolderDelete(i._id)}>
                                                                 Delete
                                                             </Dropdown.Item>
@@ -224,7 +227,7 @@ function SecondView() {
                                                 width: "7rem", height: "7rem", marginRight: '-0.2rem',
                                                 borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px "
                                             }} onDoubleClick={() => {
-                                                window.open(`${API_URL}/files/file/${i._id}`)
+                                                window.open(`http://localhost:3000/files/file/${i._id}`)
                                             }}>
                                                 <Card.Body>
                                                     <Dropdown className='drop'>
@@ -234,7 +237,7 @@ function SecondView() {
 
                                                         </Dropdown.Toggle>
                                                         <Dropdown.Menu className='dropdown-menu'>
-                                                            <Dropdown.Item className="menuItem" href={`${API_URL}/files/file/download/${i._id}`} >
+                                                            <Dropdown.Item className="menuItem" href={`http://localhost:3000/files/file/download/${i._id}`} >
                                                                 Download
                                                             </Dropdown.Item>
                                                             <Dropdown.Item className='menuItem' onClick={handleShow} >

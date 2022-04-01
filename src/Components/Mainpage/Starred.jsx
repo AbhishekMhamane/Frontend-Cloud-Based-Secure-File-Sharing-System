@@ -1,17 +1,32 @@
-import {React ,useEffect,useState} from 'react';
-import {Card} from 'react-bootstrap';
-import './SearchView.css';
+import React from 'react';
+import { Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+import Sidenavoptions from './Sidenavoptions.jsx';
+import { Card } from 'react-bootstrap';
+import './Starred.css';
 
-
-function SearchView(props)
-{
+function Starred() {
     return(
         <>
-        <div>
-           <Card style={{height:"400px",width:"790px",marginTop:"5px"}}>
-             <Card.Body>
-            
-             <Row>
+         <div>
+            <Container fluid>
+                {/* <Row style={{ marginLeft: "-10px", marginRight: "-10px" }}>
+                    <Col style={{ marginLeft: "0px", paddingLeft: "0px", paddingRight: "0px" }}>
+                        <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' style={{ paddingLeft: 0, paddingRight: "0px" }} >
+                            <Header1></Header1>
+                        </Col>
+                    </Col>
+                </Row> */}
+                <Row >
+                    <Col xs={2}>
+                        <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
+                            {/* <UploadButton user={user} /> */}
+                            {/* <UploadButtonF user={user} /> */}
+                            <Sidenavoptions user={user} ></Sidenavoptions>
+                        </Col>
+                    </Col>
+                    
+                    <Row>
                             {
 
                                 files.filter(i => i.parentFolderId === 'mydash').map((i) => {
@@ -21,8 +36,8 @@ function SearchView(props)
                                                 window.open(`${API_URL}/files/file/${i._id}`)
 
                                             }} style={{
-                                                width: "5rem", height: "4rem", marginRight: '-0.2rem',
-                                                borderRadius: "5px", boxShadow: "0.5px 0.5px 0.5px "
+                                                width: "7rem", height: "7rem", marginRight: '-0.2rem',
+                                                borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px "
                                             }} >
 
                                                 <Card.Body>
@@ -69,7 +84,7 @@ function SearchView(props)
                                                             </Dropdown.Item> */}
 
                                                             {/* {value === "false"}: */}
-                                                            {/* <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemStarred(i._id)}>
+                                                            <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemStarred(i._id)}>
                                                                 Add to Starred
                                                             </Dropdown.Item>
                                                              ?
@@ -79,7 +94,7 @@ function SearchView(props)
 
                                                             <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemDelete(i._id)}>
                                                                 Delete
-                                                            </Dropdown.Item> */}
+                                                            </Dropdown.Item>
                                                         </Dropdown.Menu>
                                                     </Dropdown>
                                                     <FileEarmarkTextFill style={{ color: "rgb(54, 152, 243)", fontSize: "55px", marginTop: "-50px" }}></FileEarmarkTextFill>
@@ -90,7 +105,7 @@ function SearchView(props)
                                                         {i.fileName}
                                                     </Card.Text>
 
-                                                </Card.Body>s
+                                                </Card.Body>
 
                                             </Card>
 
@@ -101,14 +116,12 @@ function SearchView(props)
 
                         </Row>
 
+                    
 
 
-
-             </Card.Body>
-            </Card> 
-        </div>
+                    </Row>
+                    </Container>
+                    </div>
         </>
     )
 }
-
-export default SearchView;

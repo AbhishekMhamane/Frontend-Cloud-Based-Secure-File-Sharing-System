@@ -26,12 +26,15 @@ import SearchView from './SearchView.jsx';
 
 function MainView() {
 
+<<<<<<< HEAD
+=======
 
     const [user, setUser] = useState({
         userId: 'maheshkadam@gmail.com',
         Path: 'C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b',
         parentFolderId: 'mydash'
     });
+>>>>>>> d39ecb3bbc61cd4404910c7b393aa8a1f6ca4b4d
     const API_URL = 'http://localhost:3000';
     
     // const [user, setUser] = useState({
@@ -41,6 +44,10 @@ function MainView() {
     // });
 
     const emailId = 'abhimhamane13@gmail.com';
+<<<<<<< HEAD
+    const [user,setUser] = useState([]);
+=======
+>>>>>>> d39ecb3bbc61cd4404910c7b393aa8a1f6ca4b4d
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
     const [search, updateSearch] = useState("");
@@ -104,19 +111,29 @@ function MainView() {
 
     }
 
+  
+ 
+
 
     //folder options
 
     const handleFolderRename = (folderId) => {
         console.log(textInput.current.value);
+<<<<<<< HEAD
+        axios.put(`${API_URL}/folders/${folderId}`,{newName:textInput.current.value});
+=======
         axios.put(`${API_URL}/folders/${folderId}`, { newName: textInput.current.value });
+>>>>>>> d39ecb3bbc61cd4404910c7b393aa8a1f6ca4b4d
         setShow(false);
     }
 
     const dropdownFolderDelete = (folderId) =>{
         axios.delete(`${API_URL}/folders/${folderId}`);
+<<<<<<< HEAD
+=======
         setShow(false);
 
+>>>>>>> d39ecb3bbc61cd4404910c7b393aa8a1f6ca4b4d
     }
 
     //files options
@@ -132,7 +149,11 @@ function MainView() {
 
     const handleFileRename = (fileId) => {
         console.log(textInput.current.value);
+<<<<<<< HEAD
+        axios.put(`${API_URL}/files/file/${fileId}`,{fileName:textInput.current.value});
+=======
         axios.put('http://localhost:3000/files/file/' + fileId, { fileName: textInput.current.value });
+>>>>>>> d39ecb3bbc61cd4404910c7b393aa8a1f6ca4b4d
         setShow(false);
     }
 
@@ -301,8 +322,13 @@ function MainView() {
                                                                 Move
                                                             </Dropdown.Item>
 
+                                                            {/* {value === "false"}: */}
                                                             <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemStarred(i._id)}>
                                                                 Add to Starred
+                                                            </Dropdown.Item>
+                                                             ?
+                                                             <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemStarred(i._id)}>
+                                                                Remove From Starred
                                                             </Dropdown.Item>
 
                                                             <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemDelete(i._id)}>
