@@ -7,6 +7,7 @@ import {
 
 import MainView from './Components/Mainpage/MainView';
 import SecondView from './Components/Mainpage/SecondView';
+import Starred from './Components/Mainpage/Starred';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route exact path="/mainpage" element={<Mainpage />} /> */}
           <Route exact path="/mydash" element={<MainView />} />
           <Route path="/folder/:id" element={<SecondView />} />
+          {/* <Route path="/starred/:id" element={<Starred />} /> */}
         </Routes>
       </div>
     </BrowserRouter>

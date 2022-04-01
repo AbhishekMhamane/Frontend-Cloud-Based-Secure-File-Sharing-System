@@ -1,366 +1,413 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React from "react";
+import { useState, useEffect } from "react";
 import {
-    BrowserRouter,
-    Routes,
-    Route, Navigate, Link, useParams,
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Link,
+  useParams,
 } from "react-router-dom";
-import { Container } from 'react-bootstrap';
-import { Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
-import UploadButton from './Sidenav/UploadButton.jsx';
-import UploadButtonF from './Sidenav/UploadButtonF.jsx';
+import { Container } from "react-bootstrap";
+import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
+import UploadButton from "./Sidenav/UploadButton.jsx";
+import UploadButtonF from "./Sidenav/UploadButtonF.jsx";
 
-import Header1 from './Navbar/Header1.jsx';
-import Sidenavoptions from './Sidenavoptions.jsx';
-import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Card } from 'react-bootstrap';
-import { ThreeDotsVertical } from 'react-bootstrap-icons';
-import { Dropdown, Modal, Button } from 'react-bootstrap';
-import './MainView.css';
-import { FolderFill, FileEarmarkTextFill, Search } from 'react-bootstrap-icons';
-import SearchView from './SearchView.jsx';
-
-
+import Header1 from "./Navbar/Header1.jsx";
+import Sidenavoptions from "./Sidenavoptions.jsx";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Card } from "react-bootstrap";
+import { ThreeDotsVertical } from "react-bootstrap-icons";
+import { Dropdown, Modal, Button } from "react-bootstrap";
+import "./MainView.css";
+import { FolderFill, FileEarmarkTextFill, Search } from "react-bootstrap-icons";
+import SearchView from "./SearchView.jsx";
 
 function MainView() {
+  const API_URL = "http://localhost:3000";
 
-<<<<<<< HEAD
-=======
+  const emailId = "abhimhamane13@gmail.com";
+  const [user, setUser] = useState([]);
+  const [folders, setFolders] = useState([]);
+  const [files, setFiles] = useState([]);
+  const [search, updateSearch] = useState("");
 
-    const [user, setUser] = useState({
-        userId: 'maheshkadam@gmail.com',
-        Path: 'C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b',
-        parentFolderId: 'mydash'
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    const resUser = await axios.get(`${API_URL}/users/${emailId}`);
+    setUser({
+      userId: resUser.data[0].userId,
+      Path: resUser.data[0].userPath,
+      parentFolderId: "mydash",
     });
->>>>>>> d39ecb3bbc61cd4404910c7b393aa8a1f6ca4b4d
-    const API_URL = 'http://localhost:3000';
-    
-    // const [user, setUser] = useState({
-    //     userId: 'maheshkadam@gmail.com',
-    //     Path: 'C:\\Users\\abhim\\OneDrive\\Desktop\\upload\\620127cbd5fd607a2321d36b',
-    //     parentFolderId: 'mydash'
-    // });
-
-    const emailId = 'abhimhamane13@gmail.com';
-<<<<<<< HEAD
-    const [user,setUser] = useState([]);
-=======
->>>>>>> d39ecb3bbc61cd4404910c7b393aa8a1f6ca4b4d
-    const [folders, setFolders] = useState([]);
-    const [files, setFiles] = useState([]);
-    const [search, updateSearch] = useState("");
-
-    useEffect(() => {
-        
-        getUser();
-    }, [])
-
-    const getUser = async() => {
-        const resUser = await axios.get(`${API_URL}/users/${emailId}`);
-        setUser({
-            userId : resUser.data[0].userId,
-            Path : resUser.data[0].userPath,
-            parentFolderId : 'mydash'
-        });
-        console.log(user);
-        if(user)
-        {
-            getFolders();
-        }
-        
+    console.log(user);
+    if (user) {
+      getFolders();
     }
-    const getFolders = async () => {
-        const resFolders = await axios.get(`${API_URL}/folders/${emailId}`);
-        const resFiles = await axios.get(`${API_URL}/files/${emailId}`);
-        setFolders(resFolders.data);
-        setFiles(resFiles.data);
+  };
+  const getFolders = async () => {
+    const resFolders = await axios.get(`${API_URL}/folders/${emailId}`);
+    const resFiles = await axios.get(`${API_URL}/files/${emailId}`);
+    setFolders(resFolders.data);
+    setFiles(resFiles.data);
+  };
 
-    }
+  const inputClicked = (data) => {
+    const info = data.target.value;
+    console.log(info);
+    updateSearch(info);
+  };
 
-    const inputClicked = (data) => {
-        const info = data.target.value;
-        console.log(info);
-        updateSearch(info);
+  const dropdownItemDownload = (e) => {
+    axios.get(`${API_URL}/files/file/download/${e}`);
+    alert(`${API_URL}/files/file/download/${e}`);
+    console.log("Download");
+  };
+  const [showModal, setShow] = useState(false);
+  let textInput = React.createRef();
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleChange = (e) => {
+    console.log(textInput.current.value);
+    setShow(false);
+  };
 
-    }
+  const dropdownItemShare = () => {
+    console.log("Share");
+  };
 
+  //folder options
 
+  const handleFolderRename = (folderId) => {
+    console.log(textInput.current.value);
+    axios.put(`${API_URL}/folders/${folderId}`, {
+      newName: textInput.current.value,
+    });
+    setShow(false);
+  };
 
-    const dropdownItemDownload = (e) => {
+  const dropdownFolderDelete = (folderId) => {
+    axios.delete(`${API_URL}/folders/${folderId}`);
+    setShow(false);
+  };
 
-        axios.get(`${API_URL}/files/file/download/${e}`);
-        alert(`${API_URL}/files/file/download/${e}`);
-        console.log("Download");
+  //files options
+  const dropdownFileItemStarred = (fileId, value) => {
+    console.log(fileId + "File Added in Starred Section");
+    axios.put(`${API_URL}/files/starred/${fileId}`, { starred: value });
+  };
+  const dropdownFileItemDelete = (fileId) => {
+    alert("file deleted");
+    axios.delete(`${API_URL}/files/file/${fileId}`);
+  };
 
-    }
-    const [showModal, setShow] = useState(false);
-    let textInput = React.createRef();
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const handleChange = (e) => {
+  const handleFileRename = (fileId) => {
+    console.log(textInput.current.value);
+    axios.put(`${API_URL}/files/file/${fileId}`, {
+      fileName: textInput.current.value,
+    });
+    setShow(false);
+  };
 
-        console.log(textInput.current.value);
-        setShow(false);
-    }
-
-    const dropdownItemShare = () => {
-
-        console.log("Share");
-
-    }
-
-  
- 
-
-
-    //folder options
-
-    const handleFolderRename = (folderId) => {
-        console.log(textInput.current.value);
-<<<<<<< HEAD
-        axios.put(`${API_URL}/folders/${folderId}`,{newName:textInput.current.value});
-=======
-        axios.put(`${API_URL}/folders/${folderId}`, { newName: textInput.current.value });
->>>>>>> d39ecb3bbc61cd4404910c7b393aa8a1f6ca4b4d
-        setShow(false);
-    }
-
-    const dropdownFolderDelete = (folderId) =>{
-        axios.delete(`${API_URL}/folders/${folderId}`);
-<<<<<<< HEAD
-=======
-        setShow(false);
-
->>>>>>> d39ecb3bbc61cd4404910c7b393aa8a1f6ca4b4d
-    }
-
-    //files options
-    const dropdownFileItemStarred = (fileId) => {
-        console.log(fileId + "File Added in Starred Section");
-        axios.put(`${API_URL}/files/starred/${fileId}`,{starred:true});
-
-    }
-    const dropdownFileItemDelete = (fileId) => {
-        alert("file deleted");
-        axios.delete(`${API_URL}/files/file/${fileId}`);
-    }
-
-    const handleFileRename = (fileId) => {
-        console.log(textInput.current.value);
-<<<<<<< HEAD
-        axios.put(`${API_URL}/files/file/${fileId}`,{fileName:textInput.current.value});
-=======
-        axios.put('http://localhost:3000/files/file/' + fileId, { fileName: textInput.current.value });
->>>>>>> d39ecb3bbc61cd4404910c7b393aa8a1f6ca4b4d
-        setShow(false);
-    }
-
-    return (
-        <div>
-            <Container fluid>
-                {/* <Row style={{ marginLeft: "-10px", marginRight: "-10px" }}>
+  return (
+    <div>
+      <Container fluid>
+        {/* <Row style={{ marginLeft: "-10px", marginRight: "-10px" }}>
                     <Col style={{ marginLeft: "0px", paddingLeft: "0px", paddingRight: "0px" }}>
                         <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' style={{ paddingLeft: 0, paddingRight: "0px" }} >
                             <Header1></Header1>
                         </Col>
                     </Col>
                 </Row> */}
-                <Row >
-                    <Col xs={2}>
-                        <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                            {/* <UploadButton user={user} /> */}
-                            {/* <UploadButtonF user={user} /> */}
-                            <Sidenavoptions user={user} ></Sidenavoptions>
-                        </Col>
+        <Row>
+          <Col xs={2}>
+            <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
+              {/* <UploadButton user={user} /> */}
+              {/* <UploadButtonF user={user} /> */}
+              <Sidenavoptions user={user}></Sidenavoptions>
+            </Col>
+          </Col>
+          <Col
+            xs={10}
+            className="mainGradient"
+            style={{
+              paddingBottom: "3rem",
+              borderRadius: "10px",
+              marginBottom: "5px",
+            }}
+          >
+            <div className="header__search">
+              <Search></Search>
+
+              <input
+                id="searchId"
+                type="text"
+                placeholder="Search In Clore"
+                value={search}
+                onChange={inputClicked}
+              />
+            </div>
+            {search === "" ? null : <SearchView name={search} />}
+
+            <Row>
+              {folders
+                .filter((i) => i.parentFolderId === "mydash")
+                .map((i) => {
+                  return (
+                    <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
+                      <Card
+                        id={i._id}
+                        key={i._id}
+                        className="cardStyle"
+                        style={{
+                          width: "10rem",
+                          height: "7rem",
+                          marginRight: "-0.2rem",
+                          borderRadius: "10px",
+                          boxShadow: "0.5px 0.5px 0.5px ",
+                        }}
+                      >
+                        <Card.Body>
+                          <Dropdown className="drop" variant="outline-light">
+                            <Dropdown.Toggle
+                              className="dropdownFolder"
+                              style={{ marginRight: "40px" }}
+                            >
+                              <Button
+                                variant="outline-light"
+                                className="dropButton"
+                                style={{
+                                  marginLeft: "-13px",
+                                  marginTop: "-8px",
+                                  border: "none",
+                                  color: "black",
+                                }}
+                              >
+                                <ThreeDotsVertical />
+                              </Button>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu className="dropdown-menu">
+                              <Dropdown.Item
+                                className="menuItem"
+                                onClick={dropdownItemDownload}
+                              >
+                                Download
+                              </Dropdown.Item>
+                              <Dropdown.Item
+                                className="menuItem"
+                                onClick={handleShow}
+                              >
+                                Rename
+                              </Dropdown.Item>
+                              <Modal show={showModal} onHide={handleClose}>
+                                <Modal.Header closeButton>
+                                  <Modal.Title>Rename Folder</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                  <label>New Folder name:</label>
+                                  <input ref={textInput} type={"text"}></input>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                  <Button
+                                    variant="secondary"
+                                    onClick={handleClose}
+                                  >
+                                    Close
+                                  </Button>
+                                  <Button
+                                    variant="primary"
+                                    onClick={() => handleFolderRename(i._id)}
+                                  >
+                                    Save Changes
+                                  </Button>
+                                </Modal.Footer>
+                              </Modal>
+                              <Dropdown.Item
+                                className="menuItem"
+                                onClick={dropdownItemShare}
+                              >
+                                Share
+                              </Dropdown.Item>
+                              <Dropdown.Item className="menuItem" onClick="">
+                                Move
+                              </Dropdown.Item>
+                              <Dropdown.Item
+                                className="menuItem"
+                                onClick={() => dropdownFolderDelete(i._id)}
+                              >
+                                Delete
+                              </Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                          <FolderFill
+                            style={{
+                              color: "rgba(245, 245, 43, 0.938)",
+                              fontSize: "55px",
+                              marginTop: "-50px",
+                            }}
+                          ></FolderFill>
+                          <Link
+                            to={{ pathname: `/folder/${i._id}` }}
+                            state={{
+                              user: {
+                                userId: user.userId,
+                                Path: i.folderPath,
+                              },
+                            }}
+                          >
+                            <Card.Text className="footer1">
+                              {i.folderName}
+                            </Card.Text>
+                          </Link>
+                        </Card.Body>
+                      </Card>
                     </Col>
-                    <Col xs={10} className="mainGradient" style={{ paddingBottom: "3rem", borderRadius: "10px", marginBottom: "5px" }}>
-                        <div className='header__search' >
-                            <Search></Search>
-                        
-                            <input id='searchId' type="text" placeholder='Search In Clore' value={search} onChange={inputClicked} />
+                  );
+                })}
+            </Row>
+            <Row>
+              {files
+                .filter((i) => i.parentFolderId === "mydash")
+                .map((i) => {
+                  return (
+                    <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
+                      <Card
+                        id={i._id}
+                        key={i._id}
+                        className="cardStyle1"
+                        onDoubleClick={() => {
+                          window.open(`${API_URL}/files/file/${i._id}`);
+                        }}
+                        style={{
+                          width: "7rem",
+                          height: "7rem",
+                          marginRight: "-0.2rem",
+                          borderRadius: "10px",
+                          boxShadow: "0.5px 0.5px 0.5px ",
+                        }}
+                      >
+                        <Card.Body>
+                          <Dropdown className="drop">
+                            <Dropdown.Toggle
+                              className="dropdownFolder1"
+                              style={{ marginRight: "40px" }}
+                            >
+                              <Button
+                                variant="outline-light"
+                                className="dropButton"
+                                style={{
+                                  marginLeft: "-13px",
+                                  marginTop: "-8px",
+                                  border: "none",
+                                  color: "black",
+                                }}
+                              >
+                                <ThreeDotsVertical />
+                              </Button>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu className="dropdown-menu">
+                              <Dropdown.Item
+                                className="menuItem"
+                                href={`${API_URL}/files/file/download/${i._id}`}
+                              >
+                                Download
+                              </Dropdown.Item>
+                              <Dropdown.Item
+                                className="menuItem"
+                                onClick={handleShow}
+                              >
+                                Rename
+                              </Dropdown.Item>
 
-                        </div>    
-                        {search === "" ? null : <SearchView name={search}/>} 
+                              <Modal show={showModal} onHide={handleClose}>
+                                <Modal.Header closeButton>
+                                  <Modal.Title>Rename File</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                  <label>New File name:</label>
+                                  <input ref={textInput} type={"text"}></input>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                  <Button
+                                    variant="secondary"
+                                    onClick={handleClose}
+                                  >
+                                    Close
+                                  </Button>
+                                  <Button
+                                    variant="primary"
+                                    onClick={() => handleFileRename(i._id)}
+                                  >
+                                    Save Changes
+                                  </Button>
+                                </Modal.Footer>
+                              </Modal>
+                              <Dropdown.Item
+                                className="menuItem"
+                                onClick={dropdownItemShare}
+                              >
+                                Share
+                              </Dropdown.Item>
+                              <Dropdown.Item className="menuItem" onClick="">
+                                Move
+                              </Dropdown.Item>
 
-                        
-                        <Row>
+                              {i.starred ? (
+                                <Dropdown.Item
+                                  className=" menuItem"
+                                  onClick={() =>
+                                    dropdownFileItemStarred(i._id, !i.starred)
+                                  }
+                                >
+                                  Remove From Starred
 
-                            {
-                                folders.filter(i => i.parentFolderId === 'mydash').map((i) => {
-                                    return (
+                                </Dropdown.Item>
+                              ) : (
+                                <Dropdown.Item
+                                  className=" menuItem"
+                                  onClick={() =>
+                                    dropdownFileItemStarred(i._id, !i.starred)
+                                  }
+                                >
+                                  Add to Starred                                  
+                                </Dropdown.Item>
+                              )}
 
-                                        <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
+                              <Dropdown.Item
+                                className=" menuItem"
+                                onClick={() => dropdownFileItemDelete(i._id)}
+                              >
+                                Delete
+                              </Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                          <FileEarmarkTextFill
+                            style={{
+                              color: "rgb(54, 152, 243)",
+                              fontSize: "55px",
+                              marginTop: "-50px",
+                            }}
+                          ></FileEarmarkTextFill>
 
-                                            <Card id={i._id} key={i._id} className='cardStyle' style={{
-                                                width: "10rem", height: "7rem", marginRight: '-0.2rem',
-                                                borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px ",
-                                            }}>
-                                                <Card.Body>
-                                                    <Dropdown className='drop' variant="outline-light">
-                                                        <Dropdown.Toggle className='dropdownFolder' style={{ marginRight: "40px" }}  >
-                                                            <Button variant='outline-light' className='dropButton' style={{ marginLeft: "-13px", marginTop: "-8px", border: "none", color: "black" }}><ThreeDotsVertical />
-                                                            </Button>
-
-                                                        </Dropdown.Toggle>
-                                                        <Dropdown.Menu className='dropdown-menu'>
-                                                            <Dropdown.Item className='menuItem' onClick={dropdownItemDownload}>
-                                                                Download
-                                                            </Dropdown.Item>
-                                                            <Dropdown.Item className='menuItem' onClick={handleShow}>
-                                                                Rename
-                                                            </Dropdown.Item>
-                                                            <Modal show={showModal} onHide={handleClose}>
-                                                                <Modal.Header closeButton>
-                                                                    <Modal.Title>Rename Folder</Modal.Title>
-                                                                </Modal.Header>
-                                                                <Modal.Body>
-                                                                    <label>
-                                                                        New Folder name:
-                                                                    </label>
-                                                                    <input ref={textInput} type={"text"}></input>
-
-                                                                </Modal.Body>
-                                                                <Modal.Footer>
-                                                                    <Button variant="secondary" onClick={handleClose}>
-                                                                        Close
-                                                                    </Button>
-                                                                    <Button variant="primary" onClick={() => handleFolderRename(i._id)}>
-                                                                        Save Changes
-                                                                    </Button>
-                                                                </Modal.Footer>
-                                                            </Modal>
-                                                            <Dropdown.Item className='menuItem' onClick={dropdownItemShare}>
-                                                                Share
-                                                            </Dropdown.Item>
-                                                            <Dropdown.Item className='menuItem' onClick="" >
-                                                                Move
-                                                            </Dropdown.Item>
-                                                            <Dropdown.Item className='menuItem' onClick={() => dropdownFolderDelete(i._id)}>
-                                                                Delete
-                                                            </Dropdown.Item>
-                                                        </Dropdown.Menu>
-                                                    </Dropdown>
-                                                    <FolderFill style={{ color: "rgba(245, 245, 43, 0.938)", fontSize: "55px", marginTop: "-50px" }}></FolderFill>
-                                                    <Link to={{ pathname: `/folder/${i._id}` }} state={{
-                                                        user: {
-                                                            userId: user.userId,
-                                                            Path: i.folderPath
-                                                        }
-                                                    }} >
-                                                        <Card.Text className='footer1'>
-                                                            {i.folderName}
-                                                        </Card.Text>
-
-                                                    </Link>
-
-                                                </Card.Body>
-
-
-                                            </Card>
-
-                                        </Col>
-                                    )
-                                })
-                            }
-                        </Row>
-                        <Row>
-                            {
-
-                                files.filter(i => i.parentFolderId === 'mydash').map((i) => {
-                                    return (
-                                        <Col xl='auto' lg='auto' md='auto' sm='auto' xs='auto' >
-                                            <Card id={i._id} key={i._id} className='cardStyle1' onDoubleClick={() => {
-                                                window.open(`${API_URL}/files/file/${i._id}`)
-
-                                            }} style={{
-                                                width: "7rem", height: "7rem", marginRight: '-0.2rem',
-                                                borderRadius: "10px", boxShadow: "0.5px 0.5px 0.5px "
-                                            }} >
-
-                                                <Card.Body>
-                                                    <Dropdown className='drop'>
-                                                        <Dropdown.Toggle className='dropdownFolder1' style={{ marginRight: "40px" }}  >
-                                                            <Button variant='outline-light' className='dropButton' style={{ marginLeft: "-13px", marginTop: "-8px", border: "none", color: "black" }}><ThreeDotsVertical />
-                                                            </Button>
-
-                                                        </Dropdown.Toggle>
-                                                        <Dropdown.Menu className='dropdown-menu'>
-                                                            <Dropdown.Item className="menuItem" href={ `${API_URL}/files/file/download/${i._id}` }>
-                                                                Download
-                                                            </Dropdown.Item>
-                                                            <Dropdown.Item className='menuItem' onClick={handleShow} >
-                                                                Rename
-                                                            </Dropdown.Item>
-
-                                                            <Modal show={showModal} onHide={handleClose}>
-                                                                <Modal.Header closeButton>
-                                                                    <Modal.Title>Rename File</Modal.Title>
-                                                                </Modal.Header>
-                                                                <Modal.Body>
-                                                                    <label>
-                                                                        New File name:
-                                                                    </label>
-                                                                    <input ref={textInput} type={"text"}></input>
-
-                                                                </Modal.Body>
-                                                                <Modal.Footer>
-                                                                    <Button variant="secondary" onClick={handleClose}>
-                                                                        Close
-                                                                    </Button>
-                                                                    <Button variant="primary" onClick={() => handleFileRename(i._id)}>
-                                                                        Save Changes
-                                                                    </Button>
-                                                                </Modal.Footer>
-                                                            </Modal>
-
-                                                            <Dropdown.Item className='menuItem' onClick={dropdownItemShare}>
-                                                                Share
-                                                            </Dropdown.Item>
-                                                            <Dropdown.Item className='menuItem' onClick="" >
-                                                                Move
-                                                            </Dropdown.Item>
-
-                                                            {/* {value === "false"}: */}
-                                                            <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemStarred(i._id)}>
-                                                                Add to Starred
-                                                            </Dropdown.Item>
-                                                             ?
-                                                             <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemStarred(i._id)}>
-                                                                Remove From Starred
-                                                            </Dropdown.Item>
-
-                                                            <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemDelete(i._id)}>
-                                                                Delete
-                                                            </Dropdown.Item>
-                                                        </Dropdown.Menu>
-                                                    </Dropdown>
-                                                    <FileEarmarkTextFill style={{ color: "rgb(54, 152, 243)", fontSize: "55px", marginTop: "-50px" }}></FileEarmarkTextFill>
-
-
-
-                                                    <Card.Text className='footer1'>
-                                                        {i.fileName}
-                                                    </Card.Text>
-
-                                                </Card.Body>
-
-                                            </Card>
-
-                                        </Col>
-                                    )
-                                })
-                            }
-
-                        </Row>
+                          <Card.Text className="footer1">
+                            {i.fileName}
+                          </Card.Text>
+                        </Card.Body>
+                      </Card>
                     </Col>
-
-
-                </Row>
-            </Container>
-        </div>
-    )
+                  );
+                })}
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
 }
 
 export default MainView;

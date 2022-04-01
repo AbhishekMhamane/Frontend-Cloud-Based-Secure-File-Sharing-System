@@ -1,11 +1,42 @@
-import React from 'react';
-import { Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
+import React,{useState,useEffect} from 'react';
+import { Card,Container, Row, Col, Dropdown, Button } from "react-bootstrap";
+import { FolderFill, FileEarmarkTextFill, Search } from "react-bootstrap-icons";
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+    Navigate,
+    Link,
+    useParams,
+    useLocation,
+  } from "react-router-dom";
+
 import Sidenavoptions from './Sidenavoptions.jsx';
-import { Card } from 'react-bootstrap';
+import axios from 'axios';
+
 import './Starred.css';
 
+
 function Starred() {
+
+    const user="";
+    const API_URL = "http://localhost:3000";
+    const [files, setFiles] = useState([]);
+    const { id } = useParams();
+
+    useEffect(async () => {
+      const getFiles = async () => {
+        const res = await axios.get(`${API_URL}/files/public/files`);
+        console.log(res.data);
+        return res.data;
+      };
+      const data = await getFiles();
+      console.log("in search public");
+      console.log(data);
+      setFiles(data);
+    }, []);
+
+
     return(
         <>
          <div>
@@ -43,7 +74,7 @@ function Starred() {
                                                 <Card.Body>
                                                     <Dropdown className='drop'>
                                                         <Dropdown.Toggle className='dropdownFolder1' style={{ marginRight: "40px" }}  >
-                                                            <Button variant='outline-light' className='dropButton' style={{ marginLeft: "-13px", marginTop: "-8px", border: "none", color: "black" }}><ThreeDotsVertical />
+                                                            <Button variant='outline-light' className='dropButton' style={{ marginLeft: "-13px", marginTop: "-8px", border: "none", color: "black" }}>
                                                             </Button>
 
                                                         </Dropdown.Toggle>
@@ -76,7 +107,7 @@ function Starred() {
                                                                 </Modal.Footer>
                                                             </Modal> */}
 
-                                                            <Dropdown.Item className='menuItem' onClick={dropdownItemShare}>
+                                                            <Dropdown.Item className='menuItem' onClick="">
                                                                 Share
                                                             </Dropdown.Item>
                                                             {/* <Dropdown.Item className='menuItem' onClick="" >
@@ -84,15 +115,15 @@ function Starred() {
                                                             </Dropdown.Item> */}
 
                                                             {/* {value === "false"}: */}
-                                                            <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemStarred(i._id)}>
+                                                            <Dropdown.Item className=" menuItem" onClick="">
                                                                 Add to Starred
                                                             </Dropdown.Item>
                                                              ?
-                                                             <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemStarred(i._id)}>
+                                                             <Dropdown.Item className=" menuItem" onClick="">
                                                                 Remove From Starred
                                                             </Dropdown.Item>
 
-                                                            <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemDelete(i._id)}>
+                                                            <Dropdown.Item className=" menuItem" onClick="">
                                                                 Delete
                                                             </Dropdown.Item>
                                                         </Dropdown.Menu>
@@ -125,3 +156,5 @@ function Starred() {
         </>
     )
 }
+
+export default Starred;
