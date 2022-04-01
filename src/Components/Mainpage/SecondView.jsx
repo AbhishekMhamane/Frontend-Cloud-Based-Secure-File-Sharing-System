@@ -144,7 +144,7 @@ function SecondView() {
                 .filter((i) => i.parentFolderId === id)
                 .map((i) => {
                   return (
-                    <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
+                    <Col key={i._id} xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
                       <Card
                         id={i._id}
                         key={i._id}
@@ -278,7 +278,7 @@ function SecondView() {
                 .filter((i) => i.parentFolderId === id)
                 .map((i) => {
                   return (
-                    <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
+                    <Col key={i._id} xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
                       <Card
                         id={i._id}
                         key={i._id}

@@ -1,10 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
   Link,
   useParams,
 } from "react-router-dom";
@@ -15,7 +11,7 @@ import UploadButton from "./Sidenav/UploadButton.jsx";
 import UploadButtonF from "./Sidenav/UploadButtonF.jsx";
 
 import Header1 from "./Navbar/Header1.jsx";
-import Sidenavoptions from "./Sidenavoptions.jsx";
+import Sidenavoptions from "./Sidenav/Sidenavoptions.jsx";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Card } from "react-bootstrap";
@@ -25,15 +21,21 @@ import "./MainView.css";
 import { FolderFill, FileEarmarkTextFill, Search } from "react-bootstrap-icons";
 import SearchView from "./SearchView.jsx";
 
+import {useDispatch,useSelector} from 'react-redux';
+import {userActions} from '../../store/userSlice';
+
 function MainView() {
   const API_URL = "http://localhost:3000";
 
   const emailId = "abhimhamane13@gmail.com";
   const [user, setUser] = useState([]);
+  const [userData, setUserData] = useState([]);
+
   const [folders, setFolders] = useState([]);
   const [files, setFiles] = useState([]);
   const [search, updateSearch] = useState("");
 
+  const dispatch = useDispatch();
   useEffect(() => {
     getUser();
   }, []);
@@ -45,9 +47,17 @@ function MainView() {
       Path: resUser.data[0].userPath,
       parentFolderId: "mydash",
     });
+
+
     console.log(user);
     if (user) {
-      getFolders();
+      
+    dispatch(userActions.updateUser({userId:resUser.data[0].userId,
+    userPath: resUser.data[0].userPath,
+    userName: resUser.data[0].userName,
+    parentFolderId : "mydash"}));
+
+     getFolders();
     }
   };
   const getFolders = async () => {
@@ -155,11 +165,12 @@ function MainView() {
             {search === "" ? null : <SearchView name={search} />}
 
             <Row>
+            
               {folders
                 .filter((i) => i.parentFolderId === "mydash")
                 .map((i) => {
                   return (
-                    <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
+                    <Col key={i._id} xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
                       <Card
                         id={i._id}
                         key={i._id}
@@ -275,7 +286,7 @@ function MainView() {
                 .filter((i) => i.parentFolderId === "mydash")
                 .map((i) => {
                   return (
-                    <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
+                    <Col key={i._id} xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
                       <Card
                         id={i._id}
                         key={i._id}
