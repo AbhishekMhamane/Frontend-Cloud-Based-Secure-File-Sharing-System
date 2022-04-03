@@ -21,12 +21,17 @@ import UploadButton from "./UploadButton";
 import Logo from "./Clore_Logo.png";
 import { Image } from "react-bootstrap";
 
+import {fetchFiles} from '../../../store/filesActions';
+import {useDispatch,useSelector} from 'react-redux';
+
+
 function Sidenavoptions(props) {
 
   const API_URL = "http://localhost:3000";
+  const dispatch = useDispatch();
 
   console.log("In side " + props.user.userId);
-  console.log("In side " + props.user.Path);
+  console.log("In side " + props.user.userPath);
   console.log("In side " + props.user.parentFolderId);
 
   const fileRef = useRef();
@@ -36,19 +41,23 @@ function Sidenavoptions(props) {
     const files = e.target.files;
     console.log(files);
     console.log("In upload " + props.user.userId);
-    console.log("In upload " + props.user.Path);
+    console.log("In upload " + props.user.userPath);
     console.log("In upload " + props.user.parentFolderId);
 
     for (let i = 0; i < files.length; i++) {
       let fdata = new FormData();
 
       fdata.append("userid", props.user.userId);
-      fdata.append("userpath", props.user.Path);
+      fdata.append("userpath", props.user.userPath);
       fdata.append("parentfolderid", props.user.parentFolderId);
       fdata.append("files", files[i]);
       axios
         .post(`${API_URL}/files`, fdata)
-        .then((response) => console.log(response.data))
+        .then((response) => {
+          console.log(response.data);
+          dispatch(fetchFiles(props.user.userId));
+  
+        })
         .catch((err) => console.log(err));
     }
 
@@ -56,13 +65,13 @@ function Sidenavoptions(props) {
 
   const handleCreateFolder = () => {
     alert("In foldercreate " + props.user.userId);
-    alert("In foldercreate " + props.user.Path);
+    alert("In foldercreate " + props.user.userPath);
     alert("In foldercreate " + props.user.parentFolderId);
     console.log(props.user.parentFolderId);
     axios.post(`${API_URL}/folders`, {
       userId: props.user.userId,
       folderName: "tst",
-      folderPath: props.user.Path,
+      folderPath: props.user.userPath,
       parentFolderId: props.user.parentFolderId,
     });
   };
@@ -127,7 +136,10 @@ function Sidenavoptions(props) {
         </div>
         <div className="sidenav__options">
           <PersonCircle />
-          <span>User</span>
+          <Link
+            to={{ pathname: `/account/${props.user.userId}` }}>
+          <span>User Account</span>
+          </Link>
         </div>
         <div className="sidenav__options">
           <QuestionCircle />

@@ -23,6 +23,9 @@ import SearchView from "./SearchView.jsx";
 
 import {useDispatch,useSelector} from 'react-redux';
 import {userActions} from '../../store/userSlice';
+import {fetchUser} from '../../store/userActions';
+import {filesActions} from '../../store/filesSlice';
+import {fetchFiles} from '../../store/filesActions';
 
 function MainView() {
   const API_URL = "http://localhost:3000";
@@ -32,40 +35,67 @@ function MainView() {
   const [userData, setUserData] = useState([]);
 
   const [folders, setFolders] = useState([]);
-  const [files, setFiles] = useState([]);
+  //const [files, setFiles] = useState([]);
   const [search, updateSearch] = useState("");
 
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(fetchUser());
+  // }, [dispatch]);
   const dispatch = useDispatch();
+
+  const userdata = useSelector((state) => state.user.user);
+
   useEffect(() => {
-    getUser();
+    //dispatch(fetchUser(emailId));
+    dispatch(fetchFiles(userdata.userId));
+    
+  }, [dispatch]);
+
+
+  useEffect(() => {
+  
+    setUser({
+      userId: userdata.userId,
+      userPath: userdata.userPath,
+      parentFolderId: "mydash"});
+      console.log(user);
+      //  getFolders();
+  
   }, []);
 
-  const getUser = async () => {
-    const resUser = await axios.get(`${API_URL}/users/${emailId}`);
-    setUser({
-      userId: resUser.data[0].userId,
-      Path: resUser.data[0].userPath,
-      parentFolderId: "mydash",
-    });
+  const files = useSelector((state) => state.files.files);
+
+  // const getUser = async () => {
+  //   const resUser = await axios.get(`${API_URL}/users/${emailId}`);
+    // setUser({
+    //   userId: resUser.data[0].userId,
+    //   Path: resUser.data[0].userPath,
+    //   parentFolderId: "mydash",
+    // });
 
 
-    console.log(user);
-    if (user) {
+  //   console.log(user);
+  //   if (user) {
       
-    dispatch(userActions.updateUser({userId:resUser.data[0].userId,
-    userPath: resUser.data[0].userPath,
-    userName: resUser.data[0].userName,
-    parentFolderId : "mydash"}));
+  //   dispatch(userActions.updateUser({userId:resUser.data[0].userId,
+  //   userPath: resUser.data[0].userPath,
+  //   userName: resUser.data[0].userName,
+  //   parentFolderId : "mydash"}));
 
-     getFolders();
-    }
-  };
-  const getFolders = async () => {
-    const resFolders = await axios.get(`${API_URL}/folders/${emailId}`);
-    const resFiles = await axios.get(`${API_URL}/files/${emailId}`);
-    setFolders(resFolders.data);
-    setFiles(resFiles.data);
-  };
+  //    getFolders();
+  //   }
+  // };
+
+  // const getFolders = async () => {
+  //   console.log("in format");
+  //   console.log(user);
+  //   const resFolders = await axios.get(`${API_URL}/folders/${user.userId}`);
+  //   const resFiles = await axios.get(`${API_URL}/files/${user.userId}`);
+  //   setFolders(resFolders.data);
+  //   setFiles(resFiles.data);
+  // };
 
   const inputClicked = (data) => {
     const info = data.target.value;
@@ -113,7 +143,10 @@ function MainView() {
   };
   const dropdownFileItemDelete = (fileId) => {
     alert("file deleted");
-    axios.delete(`${API_URL}/files/file/${fileId}`);
+    axios.delete(`${API_URL}/files/file/${fileId}`).then(()=> {
+      dispatch(fetchFiles(userdata.userId));
+    });
+   
   };
 
   const handleFileRename = (fileId) => {
@@ -165,6 +198,7 @@ function MainView() {
             {search === "" ? null : <SearchView name={search} />}
 
             <Row>
+
             
               {folders
                 .filter((i) => i.parentFolderId === "mydash")

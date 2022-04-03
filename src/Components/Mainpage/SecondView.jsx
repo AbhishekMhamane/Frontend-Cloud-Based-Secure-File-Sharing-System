@@ -111,7 +111,7 @@ function SecondView() {
               <Sidenavoptions
                 user={{
                   userId: location.state["user"].userId,
-                  Path: location.state["user"].Path,
+                  userPath: location.state["user"].userPath,
                   parentFolderId: id,
                 }}
               ></Sidenavoptions>

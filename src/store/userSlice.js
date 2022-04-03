@@ -5,8 +5,7 @@ const userSlice = createSlice({
     initialState : {user:{}},
     reducers : {
         updateUser(state,action){
-            console.log("in store");
-           // console.log(action.payload.userData);
+            console.log("in user slice");
             state.user.userId = action.payload.userId;
             state.user.userName = action.payload.userName;
             state.user.userPath= action.payload.userPath;

@@ -59,8 +59,8 @@ function Starred() {
                 {/* <UploadButtonF user={user} /> */}
                 <Sidenavoptions
                   user={{
-                    userId: user.userID,
-                    Path: user.userPath,
+                    userId: user.userId,
+                    userPath: user.userPath,
                     parentFolderId: user.parentFolderId,
                   }}
                 ></Sidenavoptions>
