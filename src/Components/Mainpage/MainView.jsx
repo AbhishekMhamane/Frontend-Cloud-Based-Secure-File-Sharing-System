@@ -32,30 +32,37 @@ function MainView() {
 
   const emailId = "abhimhamane13@gmail.com";
   const [user, setUser] = useState([]);
-  const [userData, setUserData] = useState([]);
+  //const [userData, setUserData] = useState([]);
 
   const [folders, setFolders] = useState([]);
   //const [files, setFiles] = useState([]);
   const [search, updateSearch] = useState("");
 
-  // const dispatch = useDispatch();
+   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchUser());
-  // }, [dispatch]);
-  const dispatch = useDispatch();
-
-  const userdata = useSelector((state) => state.user.user);
+   const userdata = useSelector((state) => state.user.user);
 
   useEffect(() => {
-    //dispatch(fetchUser(emailId));
-    dispatch(fetchFiles(userdata.userId));
+
+    if(userdata)
+    {
+      dispatch(fetchUser(emailId));
+    }
     
+  }, [dispatch,userdata]);
+  
+
+  useEffect(() => {
+
+    
+   // dispatch(fetchUser(emailId));
+    dispatch(fetchFiles(emailId));
+
   }, [dispatch]);
 
 
   useEffect(() => {
-  
+
     setUser({
       userId: userdata.userId,
       userPath: userdata.userPath,
@@ -112,6 +119,7 @@ function MainView() {
   let textInput = React.createRef();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const handleChange = (e) => {
     console.log(textInput.current.value);
     setShow(false);
@@ -137,9 +145,18 @@ function MainView() {
   };
 
   //files options
+  const dropdownFileItemPublic= (fileId, value) => {
+    console.log(fileId + "File Added in public Section");
+    axios.put(`${API_URL}/files/public/file/${fileId}`, { public: value }).then(()=>{
+      dispatch(fetchFiles(userdata.userId));
+    });
+  };
+
   const dropdownFileItemStarred = (fileId, value) => {
     console.log(fileId + "File Added in Starred Section");
-    axios.put(`${API_URL}/files/starred/${fileId}`, { starred: value });
+    axios.put(`${API_URL}/files/starred/${fileId}`, { starred: value }).then(()=>{
+      dispatch(fetchFiles(userdata.userId));
+    });
   };
   const dropdownFileItemDelete = (fileId) => {
     alert("file deleted");
@@ -316,7 +333,7 @@ function MainView() {
                 })}
             </Row>
             <Row>
-              {files
+              {files && files
                 .filter((i) => i.parentFolderId === "mydash")
                 .map((i) => {
                   return (
@@ -401,6 +418,27 @@ function MainView() {
                               <Dropdown.Item className="menuItem" onClick="">
                                 Move
                               </Dropdown.Item>
+
+                              {i.public ? (
+                                <Dropdown.Item
+                                  className=" menuItem"
+                                  onClick={() =>
+                                    dropdownFileItemPublic(i._id, !i.public)
+                                  }
+                                >
+                                  Remove From Public
+
+                                </Dropdown.Item>
+                              ) : (
+                                <Dropdown.Item
+                                  className=" menuItem"
+                                  onClick={() =>
+                                    dropdownFileItemPublic(i._id, !i.public)
+                                  }
+                                >
+                                  Add to Public                                
+                                </Dropdown.Item>
+                              )}
 
                               {i.starred ? (
                                 <Dropdown.Item

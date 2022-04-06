@@ -12,36 +12,45 @@ import {fetchUser} from './store/userActions';
 import {fetchFiles} from './store/filesActions';
 
 
-const MainView = React.lazy(() => import('./Components/Mainpage/MainView'));
-const Starred =  React.lazy(() => import('./Components/Mainpage/Starred'));
-const SecondView =  React.lazy(() => import('./Components/Mainpage/SecondView'));
-const Account = React.lazy(() => import('./Components/Mainpage/Account'));
+// const MainView = React.lazy(() => import('./Components/Mainpage/MainView'));
+// const Starred =  React.lazy(() => import('./Components/Mainpage/Starred'));
+// const SecondView =  React.lazy(() => import('./Components/Mainpage/SecondView'));
+// const Account = React.lazy(() => import('./Components/Mainpage/Account'));
+
+import MainView from './Components/Mainpage/MainView';
+import SecondView from './Components/Mainpage/SecondView';
+import Starred from './Components/Mainpage/Starred';
+import Account from './Components/Mainpage/Account';
+import Public from './Components/Mainpage/Public';
+import Publiccard from './Components/Mainpage/Publiccard';
 
 function App() {
 
   // const API_URL = "http://localhost:3000";
-   const emailId = "abhimhamane13@gmail.com";
-   const dispatch = useDispatch();
+  //  const emailId = "abhimhamane13@gmail.com";
+  //  const dispatch = useDispatch();
 
-   useEffect(() => {
-    dispatch(fetchUser(emailId));
-    dispatch(fetchFiles(emailId));
+  //  useEffect(() => {
+  //   dispatch(fetchUser(emailId));
+  //   //dispatch(fetchFiles(emailId));
     
-  }, [dispatch]);
+  // }, [dispatch]);
 
 
   return (
     <BrowserRouter>
       <div className='App'>
      
-      <Suspense fallback={<div>Loading...</div>}>
+      {/* <Suspense fallback={<div>Loading...</div>}> */}
         <Routes>
+        {/* <Route exact path="/" element={<Publiccard/>} /> */}
           <Route exact path="/mydash" element={<MainView />} />
           <Route path="/folder/:id" element={<SecondView />} />
-          <Route path="/starred/:id" element={<Starred />} />
-          <Route path="/account/:id" element={<Account />} />
+          <Route path="/starred" element={<Starred />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/public" element={<Public />} />
         </Routes>
-        </Suspense>
+        {/* </Suspense> */}
       </div>
     </BrowserRouter>
   );

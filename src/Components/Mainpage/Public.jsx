@@ -14,24 +14,24 @@ import {
 import Sidenavoptions from "./Sidenav/Sidenavoptions.jsx";
 import axios from "axios";
 
-import "./Starred.css";
+import "./Public.css";
+import Publiccard from './Publiccard';
 
 import { useSelector } from "react-redux";
 
-function Starred() {
+function Public() {
 
   const user = useSelector((state) => state.user.user);
   console.log("in starred state");
-  //console.log(user.userId);
+ 
   const API_URL = "http://localhost:3000";
   const [files, setFiles] = useState([]);
-  const { id } = useParams();
 
   useEffect(async () => {
     
     const getFiles = async () => {
       const res = await axios.get(
-        `${API_URL}/files/starred/${user.userId}`
+        `${API_URL}/files/public/files`
       );
       console.log(res.data);
       return res.data;
@@ -40,6 +40,7 @@ function Starred() {
     console.log("in starred useeffect");
     console.log(data);
     setFiles(data);
+
   }, []);
 
   return (
@@ -71,10 +72,13 @@ function Starred() {
             <Col sx={10}>
             <Row>
               {files
-                .filter((i) => i.parentFolderId === "mydash")
+                .filter((i) => i.userId === user.userId)
                 .map((i) => {
                   return (
                     <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
+                      
+                     <Publiccard file={i} />
+
                       <Card
                         id={i._id}
                         key={i._id}
@@ -166,6 +170,7 @@ function Starred() {
                           <Card.Text className="footer1">
                             {i.fileName}
                           </Card.Text>
+
                         </Card.Body>
                       </Card>
                     </Col>
@@ -181,4 +186,4 @@ function Starred() {
   );
 }
 
-export default Starred;
+export default Public;

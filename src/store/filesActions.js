@@ -18,6 +18,7 @@ export const fetchFiles = (emailId) =>{
             const files = await fetchHandle();
             console.log(files);
             dispatch(filesActions.updateFiles({files}));
+            return files;
         }
         catch(err)
         {

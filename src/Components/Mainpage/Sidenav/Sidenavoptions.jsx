@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import React,{ useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 
@@ -27,12 +27,14 @@ import {useDispatch,useSelector} from 'react-redux';
 
 function Sidenavoptions(props) {
 
+  const user = useSelector( (state)=> state.user.user);
+
   const API_URL = "http://localhost:3000";
   const dispatch = useDispatch();
 
-  console.log("In side " + props.user.userId);
-  console.log("In side " + props.user.userPath);
-  console.log("In side " + props.user.parentFolderId);
+  console.log("In side " +user.userId);
+  console.log("In side " + user.userPath);
+  console.log("In side " +user.parentFolderId);
 
   const fileRef = useRef();
   const fileRef1 = useRef();
@@ -40,23 +42,22 @@ function Sidenavoptions(props) {
   const handleChange = (e) => {
     const files = e.target.files;
     console.log(files);
-    console.log("In upload " + props.user.userId);
-    console.log("In upload " + props.user.userPath);
-    console.log("In upload " + props.user.parentFolderId);
+    console.log("In upload " + user.userId);
+    console.log("In upload " +user.userPath);
+    console.log("In upload " +user.parentFolderId);
 
     for (let i = 0; i < files.length; i++) {
       let fdata = new FormData();
 
-      fdata.append("userid", props.user.userId);
-      fdata.append("userpath", props.user.userPath);
-      fdata.append("parentfolderid", props.user.parentFolderId);
+      fdata.append("userid", user.userId);
+      fdata.append("userpath", user.userPath);
+      fdata.append("parentfolderid", user.parentFolderId);
       fdata.append("files", files[i]);
       axios
         .post(`${API_URL}/files`, fdata)
         .then((response) => {
           console.log(response.data);
-          dispatch(fetchFiles(props.user.userId));
-  
+          dispatch(fetchFiles(user.userId));
         })
         .catch((err) => console.log(err));
     }
@@ -64,15 +65,15 @@ function Sidenavoptions(props) {
   };
 
   const handleCreateFolder = () => {
-    alert("In foldercreate " + props.user.userId);
-    alert("In foldercreate " + props.user.userPath);
-    alert("In foldercreate " + props.user.parentFolderId);
-    console.log(props.user.parentFolderId);
+    alert("In foldercreate " + user.userId);
+    alert("In foldercreate " + user.userPath);
+    alert("In foldercreate " + user.parentFolderId);
+
     axios.post(`${API_URL}/folders`, {
-      userId: props.user.userId,
+      userId: user.userId,
       folderName: "tst",
-      folderPath: props.user.userPath,
-      parentFolderId: props.user.parentFolderId,
+      folderPath: user.userPath,
+      parentFolderId: user.parentFolderId,
     });
   };
 
@@ -112,14 +113,21 @@ function Sidenavoptions(props) {
         <div className="sidenav__options">
           <Grid3x3GapFill />
           <Link
-            to={{ pathname: '/mydash' }}>
+            to={{ pathname: '/mydash' }} style={{ color: 'inherit', textDecoration: 'inherit'}}>
           <span>Dashboard</span>
+          </Link>
+        </div>
+        <div className="sidenav__options">
+          <Grid3x3GapFill />
+          <Link
+            to={{ pathname: '/public' }} style={{ color: 'inherit', textDecoration: 'inherit'}}>
+          <span>Public</span>
           </Link>
         </div>
         <div className="sidenav__options">
           <Star />
           <Link
-            to={{ pathname: `/starred/${props.user.userId}` }}>
+            to={{ pathname: `/starred` }} style={{ color: 'inherit', textDecoration: 'inherit'}}>
           <span> 
           Starred</span> </Link>
           
@@ -137,7 +145,7 @@ function Sidenavoptions(props) {
         <div className="sidenav__options">
           <PersonCircle />
           <Link
-            to={{ pathname: `/account/${props.user.userId}` }}>
+            to={{ pathname: `/account` }} style={{ color: 'inherit', textDecoration: 'inherit'}}>
           <span>User Account</span>
           </Link>
         </div>
@@ -171,12 +179,12 @@ function Sidenavoptions(props) {
             >
               File Upload
             </Dropdown.Item>
-            <Dropdown.Item
+            {/* <Dropdown.Item
               onClick={() => fileRef.current.click()}
               className="dropHover"
             >
               Upload Folder
-            </Dropdown.Item>
+            </Dropdown.Item> */}
             <Dropdown.Item
               className="dropHover"
               onClick={() => handleCreateFolder()}

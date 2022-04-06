@@ -25,18 +25,6 @@ const Account = () => {
   const [files, setFiles] = useState([]);
   const { id } = useParams();
 
-  useEffect(async () => {
-    const getFiles = async () => {
-      const res = await axios.get(`${API_URL}/files/starred/${id}`);
-      console.log(res.data);
-      return res.data;
-    };
-    const data = await getFiles();
-    console.log("in starred useeffect");
-    console.log(data);
-    setFiles(data);
-  }, []);
-
   return (
     <div>
       <Container fluid>

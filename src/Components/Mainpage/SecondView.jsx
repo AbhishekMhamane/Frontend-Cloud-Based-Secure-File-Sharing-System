@@ -16,7 +16,7 @@ import UploadButton from "./Sidenav/UploadButton.jsx";
 import UploadButtonF from "./Sidenav/UploadButtonF.jsx";
 
 import Header1 from "./Navbar/Header1.jsx";
-import Sidenavoptions from "./Sidenavoptions.jsx";
+import Sidenavoptions from "./Sidenav/Sidenavoptions";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Card } from "react-bootstrap";
