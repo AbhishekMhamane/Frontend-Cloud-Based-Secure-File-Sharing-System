@@ -11,14 +11,22 @@ import {
   useLocation,
 } from "react-router-dom";
 
+import SearchView from "./SearchView.jsx";
+
 import Sidenavoptions from "./Sidenav/Sidenavoptions.jsx";
 import axios from "axios";
 
 import "./Starred.css";
+import {useDispatch,useSelector} from 'react-redux';
+import {userActions} from '../../store/userSlice';
+import {fetchUser} from '../../store/userActions';
+import {filesActions} from '../../store/filesSlice';
+import {fetchFiles} from '../../store/filesActions';
 
-import { useSelector } from "react-redux";
 
 function Starred() {
+
+  const [search, updateSearch] = useState("");
 
   const user = useSelector((state) => state.user.user);
   console.log("in starred state");
@@ -26,6 +34,52 @@ function Starred() {
   const API_URL = "http://localhost:3000";
   const [files, setFiles] = useState([]);
   const { id } = useParams();
+
+  const emailId = "abhimhamane13@gmail.com";
+  const dispatch = useDispatch();
+
+  const userdata = useSelector((state) => state.user.user);
+
+ useEffect(() => {
+
+   if(userdata)
+   {
+     dispatch(fetchUser(emailId));
+   }
+   
+ }, [dispatch,userdata]);
+ 
+
+ useEffect(() => {
+
+   
+  // dispatch(fetchUser(emailId));
+   dispatch(fetchFiles(emailId));
+
+ }, [dispatch]);
+
+
+
+  const inputClicked = (data) => {
+    const info = data.target.value;
+    console.log(info);
+    updateSearch(info);
+  };
+
+  const dropdownFileItemStarred = (fileId, value) => {
+    console.log(fileId + "File Added in Starred Section");
+    axios.put(`${API_URL}/files/starred/${fileId}`, { starred: value }).then(()=>{
+      dispatch(fetchFiles(userdata.userId));
+    });
+  };
+
+  const dropdownFileItemDelete = (fileId) => {
+    alert("file deleted");
+    axios.delete(`${API_URL}/files/file/${fileId}`).then(()=> {
+      dispatch(fetchFiles(userdata.userId));
+    });
+   
+  };
 
   useEffect(async () => {
     
@@ -68,7 +122,28 @@ function Starred() {
               </Col>
             </Col>
 
-            <Col sx={10}>
+            <Col xs={10}
+            className="mainGradient"
+            style={{
+              marginLeft:"-15px",
+              height:"550px",
+              borderRadius:"10px",
+              
+            }}
+          >
+            <div className="header__search">
+              <Search></Search>
+
+              <input
+                id="searchId"
+                type="text"
+                placeholder="Search In Clore"
+                value={search}
+                onChange={inputClicked}
+              />
+            </div>
+            {search === "" ? null : <SearchView name={search} />}
+            
             <Row>
               {files
                 .filter((i) => i.parentFolderId === "mydash")
@@ -143,14 +218,27 @@ function Starred() {
                                 Move
                             </Dropdown.Item> */}
                               {/* {value === "false"}: */}
-                              <Dropdown.Item className=" menuItem" onClick="">
-                                Add to Starred
-                              </Dropdown.Item>
-                              ?
-                              <Dropdown.Item className=" menuItem" onClick="">
-                                Remove From Starred
-                              </Dropdown.Item>
-                              <Dropdown.Item className=" menuItem" onClick="">
+                              {i.starred ? (
+                                <Dropdown.Item
+                                  className=" menuItem"
+                                  onClick={() =>
+                                    dropdownFileItemStarred(i._id, !i.starred)
+                                  }
+                                >
+                                  Remove From Starred
+
+                                </Dropdown.Item>
+                              ) : (
+                                <Dropdown.Item
+                                  className=" menuItem"
+                                  onClick={() =>
+                                    dropdownFileItemStarred(i._id, !i.starred)
+                                  }
+                                >
+                                  Add to Starred                                  
+                                </Dropdown.Item>
+                              )}
+                              <Dropdown.Item className=" menuItem" onClick={() => dropdownFileItemDelete(i._id)}>
                                 Delete
                               </Dropdown.Item>
                             </Dropdown.Menu>

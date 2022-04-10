@@ -186,14 +186,17 @@ function SecondView() {
                               >
                                 Rename
                               </Dropdown.Item>
-                              <Modal show={showModal} onHide={handleClose}>
-                                <Modal.Header closeButton>
+                              <Modal className="modal" show={showModal} onHide={handleClose}>
+                                <div className="modalHeader">
+                                <Modal.Header>
                                   <Modal.Title>Rename Folder</Modal.Title>
                                 </Modal.Header>
+                                </div>
                                 <Modal.Body>
                                   <label>New Folder name:</label>
                                   <input ref={textInput} type={"text"}></input>
                                 </Modal.Body>
+                                <div className="modalBody">
                                 <Modal.Footer>
                                   <Button
                                     variant="secondary"
@@ -208,6 +211,7 @@ function SecondView() {
                                     Save Changes
                                   </Button>
                                 </Modal.Footer>
+                                </div>
                               </Modal>
                               <Dropdown.Item
                                 className="menuItem"
@@ -328,14 +332,18 @@ function SecondView() {
                               >
                                 Rename
                               </Dropdown.Item>
-                              <Modal show={showModal} onHide={handleClose}>
-                                <Modal.Header closeButton>
+                              <Modal className="modal" show={showModal} onHide={handleClose}>
+                              <div className="modalHeader">
+                                <Modal.Header>
                                   <Modal.Title>Rename File</Modal.Title>
+                                  
                                 </Modal.Header>
+                                </div>
                                 <Modal.Body>
                                   <label>New File name:</label>
                                   <input ref={textInput} type={"text"}></input>
                                 </Modal.Body>
+                                <div className="modalBody">
                                 <Modal.Footer>
                                   <Button
                                     variant="secondary"
@@ -350,6 +358,7 @@ function SecondView() {
                                     Save Changes
                                   </Button>
                                 </Modal.Footer>
+                                </div>
                               </Modal>
                               <Dropdown.Item
                                 className="menuItem"

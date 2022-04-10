@@ -1,4 +1,4 @@
-import React,{ useRef, useEffect } from "react";
+import React,{ useRef, useEffect,useState } from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 
@@ -15,7 +15,7 @@ import { PersonCircle } from "react-bootstrap-icons";
 import { Button } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import axios from "axios";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown ,Modal} from "react-bootstrap";
 import UploadButton from "./UploadButton";
 
 import Logo from "./Clore_Logo.png";
@@ -64,21 +64,32 @@ function Sidenavoptions(props) {
 
   };
 
-  const handleCreateFolder = () => {
-    alert("In foldercreate " + user.userId);
-    alert("In foldercreate " + user.userPath);
-    alert("In foldercreate " + user.parentFolderId);
+  const [showModal, setShow] = useState(false);
+  let textInput = React.createRef();
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-    axios.post(`${API_URL}/folders`, {
-      userId: user.userId,
-      folderName: "tst",
-      folderPath: user.userPath,
-      parentFolderId: user.parentFolderId,
-    });
+  const handleChange1 = (e) => {
+    console.log(textInput.current.value);
+    setShow(false);
   };
 
+
+  // const handleCreateFolder = () => {
+  //   alert("In foldercreate " + user.userId);
+  //   alert("In foldercreate " + user.userPath);
+  //   alert("In foldercreate " + user.parentFolderId);
+
+  //   axios.post(`${API_URL}/folders`, {
+  //     userId: user.userId,
+  //     folderName: "tst",
+  //     folderPath: user.userPath,
+  //     parentFolderId: user.parentFolderId,
+  //   });
+  // };
+
   return (
-    <div>
+    <>
       <div className="sidenav">
         <Container fluid>
           <div className="header__logo">
@@ -153,13 +164,13 @@ function Sidenavoptions(props) {
           <QuestionCircle />
           <span>Help</span>
         </div>
-      </div>
+      
       <div>
         <Dropdown>
           <Dropdown.Toggle
             variant="warning"
             style={{
-              marginTop: "-40px",
+              marginTop:"200px",
               backgroundColor: " #ff9f02",
               color: "white",
             }}
@@ -169,7 +180,7 @@ function Sidenavoptions(props) {
           <Dropdown.Menu
             style={{
               marginBottom: "10px",
-              marginLeft: "-30px",
+              marginLeft:"-5px",
               backgroundColor: "transparent",
             }}
           >
@@ -187,10 +198,38 @@ function Sidenavoptions(props) {
             </Dropdown.Item> */}
             <Dropdown.Item
               className="dropHover"
-              onClick={() => handleCreateFolder()}
+              onClick={() => handleShow()}
             >
               Create New Folder
             </Dropdown.Item>
+
+            <Modal className="modal" show={showModal} onHide={handleClose}>
+                                <div className="modalHeader">
+                                <Modal.Header >
+                                  <Modal.Title>Create New Folder</Modal.Title>
+                                </Modal.Header>
+                                </div>
+                                <Modal.Body>
+                                  <label> New Folder Name: </label>
+                                  <input className="modalBody" ref={textInput} type={"text"}></input>
+                                </Modal.Body>
+                                <div className="modalHeader">
+                                <Modal.Footer>
+                                  <Button
+                                    variant="warning"
+                                    onClick={handleClose}
+                                  >
+                                    Close
+                                  </Button>
+                                  <Button
+                                    variant="warning"
+                                    onClick={handleChange1}
+                                  >
+                                    Save Changes
+                                  </Button>
+                                </Modal.Footer>
+                                </div>
+                              </Modal>
           </Dropdown.Menu>
         </Dropdown>
 
@@ -206,6 +245,7 @@ function Sidenavoptions(props) {
             hidden
           />
         </div>
+        
         <div>
           <input
             id="hi"
@@ -217,9 +257,10 @@ function Sidenavoptions(props) {
             type="file"
             hidden
           />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 export default Sidenavoptions;
