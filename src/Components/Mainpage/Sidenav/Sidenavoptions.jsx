@@ -211,7 +211,7 @@ function Sidenavoptions(props) {
                                 </div>
                                 <Modal.Body>
                                   <label> New Folder Name: </label>
-                                  <input className="modalBody" ref={textInput} type={"text"}></input>
+                                  <input  ref={textInput} type={"text"}></input>
                                 </Modal.Body>
                                 <div className="modalHeader">
                                 <Modal.Footer>

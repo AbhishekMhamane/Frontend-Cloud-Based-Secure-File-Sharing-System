@@ -25,17 +25,17 @@ import {fetchFiles} from '../../store/filesActions';
 
 
 function Starred() {
+  const emailId = "abhimhamane13@gmail.com";
 
   const [search, updateSearch] = useState("");
-
-  const user = useSelector((state) => state.user.user);
+  const [user, setUser] = useState([]);
+  //const user = useSelector((state) => state.user.user);
   console.log("in starred state");
   //console.log(user.userId);
   const API_URL = "http://localhost:3000";
   const [files, setFiles] = useState([]);
   const { id } = useParams();
 
-  const emailId = "abhimhamane13@gmail.com";
   const dispatch = useDispatch();
 
   const userdata = useSelector((state) => state.user.user);
@@ -57,6 +57,19 @@ function Starred() {
    dispatch(fetchFiles(emailId));
 
  }, [dispatch]);
+
+ useEffect(() => {
+
+  setUser({
+    userId: userdata.userId,
+    userPath: userdata.userPath,
+    parentFolderId: "mydash"});
+    console.log(user);
+    //  getFolders();
+
+}, []);
+
+//const files = useSelector((state) => state.files.files);
 
 
 

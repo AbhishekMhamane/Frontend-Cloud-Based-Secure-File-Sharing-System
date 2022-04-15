@@ -401,20 +401,20 @@ function MainView() {
                                   <Modal.Title>Rename File</Modal.Title>
                                 </Modal.Header>
                                 </div>
-                                <Modal.Body>
+                                <Modal.Body >
                                   <label>New File name:</label>
                                   <input ref={textInput} type={"text"}></input>
                                 </Modal.Body>
-                                <div className="modalBody">
+                                <div className="modalHeader">
                                 <Modal.Footer>
                                   <Button
-                                    variant="secondary"
+                                    variant="warning"
                                     onClick={handleClose}
                                   >
                                     Close
                                   </Button>
                                   <Button
-                                    variant="primary"
+                                    variant="warning"
                                     onClick={() => handleFileRename(i._id)}
                                   >
                                     Save Changes
@@ -422,7 +422,7 @@ function MainView() {
                                 </Modal.Footer>
                                 </div>
                               </Modal>
-                              <Dropdown.Item
+                              {/* <Dropdown.Item
                                 className="menuItem"
                                 onClick={dropdownItemShare}
                               >
@@ -430,7 +430,7 @@ function MainView() {
                               </Dropdown.Item>
                               <Dropdown.Item className="menuItem" onClick="">
                                 Move
-                              </Dropdown.Item>
+                              </Dropdown.Item> */}
 
                               {i.public ? (
                                 <Dropdown.Item

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Card, Container, Row, Col, Dropdown, Button } from "react-bootstrap";
 import { FolderFill, FileEarmarkTextFill, Search } from "react-bootstrap-icons";
+import Rating from '@mui/material/Rating';
+
 import {
   BrowserRouter,
   Routes,
@@ -21,16 +23,59 @@ import "./Public.css";
 import Publiccard from './Publiccard';
 
 import { useSelector } from "react-redux";
+import {useDispatch} from 'react-redux';
+import {userActions} from '../../store/userSlice';
+import {fetchUser} from '../../store/userActions';
+import {filesActions} from '../../store/filesSlice';
+import {fetchFiles} from '../../store/filesActions';
+import { height } from "@mui/system";
 
 function Public() {
-
+  const emailId = "abhimhamane13@gmail.com";
   const [search, updateSearch] = useState("");
+  const [user, setUser] = useState([]);
 
-  const user = useSelector((state) => state.user.user);
-  console.log("in starred state");
+  //const user = useSelector((state) => state.user.user);
+  console.log("in public state");
 
   const API_URL = "http://localhost:3000";
   const [files, setFiles] = useState([]);
+  
+  const dispatch = useDispatch();
+
+  const userdata = useSelector((state) => state.user.user);
+
+ useEffect(() => {
+
+   if(userdata)
+   {
+     dispatch(fetchUser(emailId));
+   }
+   
+ }, [dispatch,userdata]);
+ 
+
+ useEffect(() => {
+
+   
+  // dispatch(fetchUser(emailId));
+   dispatch(fetchFiles(emailId));
+
+ }, [dispatch]);
+
+
+ useEffect(() => {
+
+   setUser({
+     userId: userdata.userId,
+     userPath: userdata.userPath,
+     parentFolderId: "mydash"});
+     console.log(user);
+     //  getFolders();
+ 
+ }, []);
+
+ //const files = useSelector((state) => state.files.files);
 
   const inputClicked = (data) => {
     const info = data.target.value;
@@ -38,21 +83,28 @@ function Public() {
     updateSearch(info);
   };
 
-  useEffect(async () => {
+  const dropdownFileItemPublic= (fileId, value) => {
+    console.log(fileId + "File Added in public Section");
+    axios.put(`${API_URL}/files/public/file/${fileId}`, { public: value }).then(()=>{
+      dispatch(fetchFiles(userdata.userId));
+    });
+  };
 
-    const getFiles = async () => {
-      const res = await axios.get(
-        `${API_URL}/files/public/files`
-      );
-      console.log(res.data);
-      return res.data;
-    };
-    const data = await getFiles();
-    console.log("in starred useeffect");
-    console.log(data);
-    setFiles(data);
+   useEffect(async () => {
 
-  }, []);
+     const getFiles = async () => {
+     const res = await axios.get(
+         `${API_URL}/files/public/files`
+       );
+       console.log(res.data);
+       return res.data;
+     };
+     const data = await getFiles();
+     console.log("in starred useeffect");
+     console.log(data);
+     setFiles(data);
+
+   }, []);
 
   return (
     <>
@@ -102,6 +154,7 @@ function Public() {
                 />
               </div>
               {search === "" ? null : <SearchView name={search} />}
+              
               <Row>
                 {files
                   .filter((i) => i.userId === user.userId)
@@ -109,7 +162,7 @@ function Public() {
                     return (
                       <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
 
-                        <Publiccard file={i} />
+                       
 
                         <Card
                           id={i._id}
@@ -119,8 +172,8 @@ function Public() {
                             window.open(`${API_URL}/files/file/${i._id}`);
                           }}
                           style={{
-                            width: "7rem",
-                            height: "7rem",
+                            width: "10rem",
+                            height: "8rem",
                             marginRight: "-0.2rem",
                             borderRadius: "10px",
                             boxShadow: "0.5px 0.5px 0.5px ",
@@ -175,6 +228,26 @@ function Public() {
                                 <Dropdown.Item className="menuItem" onClick="">
                                   Share
                                 </Dropdown.Item>
+                                {i.public ? (
+                                <Dropdown.Item
+                                  className=" menuItem"
+                                  onClick={() =>
+                                    dropdownFileItemPublic(i._id, !i.public)
+                                  }
+                                >
+                                  Remove From Public
+
+                                </Dropdown.Item>
+                              ) : (
+                                <Dropdown.Item
+                                  className=" menuItem"
+                                  onClick={() =>
+                                    dropdownFileItemPublic(i._id, !i.public)
+                                  }
+                                >
+                                  Add to Public                                
+                                </Dropdown.Item>
+                              )}
                                 {/* <Dropdown.Item className='menuItem' onClick="" >
                                 Move
                             </Dropdown.Item> */}
@@ -198,7 +271,7 @@ function Public() {
                                 marginTop: "-50px",
                               }}
                             ></FileEarmarkTextFill>
-
+                           <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
                             <Card.Text className="footer1">
                               {i.fileName}
                             </Card.Text>
