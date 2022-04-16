@@ -46,6 +46,8 @@
     border-radius: 10px;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
+    overflow-x: hidden;
+    position: fixed;
 }
 
 .button1{
@@ -70,4 +72,17 @@
     align-items: center;
     padding-top: 10px;
    
+}
+.modal{
+    border-radius: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.modalHeader{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: #343851;
+    color: white;
+}
+.modalBody{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 5px;
 }

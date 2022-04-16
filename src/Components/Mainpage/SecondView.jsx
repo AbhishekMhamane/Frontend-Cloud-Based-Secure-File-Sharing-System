@@ -26,29 +26,74 @@ import { FolderFill, FileEarmarkTextFill, Search } from "react-bootstrap-icons";
 import SearchView from "./SearchView.jsx";
 import "./SecondView.css";
 
+
+import {useDispatch,useSelector} from 'react-redux';
+import {userActions} from '../../store/userSlice';
+import {fetchUser} from '../../store/userActions';
+import {filesActions} from '../../store/filesSlice';
+import {fetchFiles} from '../../store/filesActions';
+import { height } from "@mui/system";
+
 function SecondView() {
   const API_URL = "http://localhost:3000";
 
+const emailId = "abhimhamane13@gmail.com";
   const { id } = useParams();
   const location = useLocation();
   const [folders, setFolders] = useState([]);
-  const [files, setFiles] = useState([]);
+ // const [files, setFiles] = useState([]);
   const [search, updateSearch] = useState("");
+  const [user, setUser] = useState([]);
+  // useEffect(() => {
+  //   getFolders();
+  // }, []);
 
-  useEffect(() => {
-    getFolders();
-  }, []);
+  // const getFolders = async () => {
+  //   const resFolders = await axios.get(
+  //     "http://localhost:3000/folders/" + location.state["user"].userId
+  //   );
+  //   const resFiles = await axios.get(
+  //     "http://localhost:3000/files/" + location.state["user"].userId
+  //   );
+  //   setFolders(resFolders.data);
+  //   setFiles(resFiles.data);
+  // };
 
-  const getFolders = async () => {
-    const resFolders = await axios.get(
-      "http://localhost:3000/folders/" + location.state["user"].userId
-    );
-    const resFiles = await axios.get(
-      "http://localhost:3000/files/" + location.state["user"].userId
-    );
-    setFolders(resFolders.data);
-    setFiles(resFiles.data);
-  };
+  const dispatch = useDispatch();
+
+  const userdata = useSelector((state) => state.user.user);
+
+ useEffect(() => {
+
+   if(userdata)
+   {
+     dispatch(fetchUser(emailId));
+   }
+   
+ }, [dispatch,userdata]);
+ 
+
+ useEffect(() => {
+
+   
+  // dispatch(fetchUser(emailId));
+   dispatch(fetchFiles(emailId));
+
+ }, [dispatch]);
+
+
+ useEffect(() => {
+
+   setUser({
+     userId: userdata.userId,
+     userPath: userdata.userPath,
+     parentFolderId: "mydash"});
+     console.log(user);
+     //  getFolders();
+ 
+ }, []);
+
+ const files = useSelector((state) => state.files.files);
 
   const inputClicked = (data) => {
     const info = data.target.value;
@@ -77,10 +122,18 @@ function SecondView() {
     axios.delete(`http://localhost:3000/folders/${folderId}`);
   };
 
+  const dropdownFileItemPublic= (fileId, value) => {
+    console.log(fileId + "File Added in public Section");
+    axios.put(`${API_URL}/files/public/file/${fileId}`, { public: value }).then(()=>{
+      dispatch(fetchFiles(userdata.userId));
+    });
+  };
   //files options
   const dropdownFileItemStarred = (fileId, value) => {
     console.log(fileId + "File Added in Starred Section");
-    axios.put(`${API_URL}/files/starred/${fileId}`, { starred: value });
+    axios.put(`${API_URL}/files/starred/${fileId}`, { starred: value }).then(()=>{
+      dispatch(fetchFiles(userdata.userId));
+    });
   };
   const dropdownFileItemDelete = (fileId) => {
     alert("file deleted");
@@ -186,14 +239,17 @@ function SecondView() {
                               >
                                 Rename
                               </Dropdown.Item>
-                              <Modal show={showModal} onHide={handleClose}>
-                                <Modal.Header closeButton>
+                              <Modal className="modal" show={showModal} onHide={handleClose}>
+                                <div className="modalHeader">
+                                <Modal.Header>
                                   <Modal.Title>Rename Folder</Modal.Title>
                                 </Modal.Header>
+                                </div>
                                 <Modal.Body>
                                   <label>New Folder name:</label>
                                   <input ref={textInput} type={"text"}></input>
                                 </Modal.Body>
+                                <div className="modalBody">
                                 <Modal.Footer>
                                   <Button
                                     variant="secondary"
@@ -208,6 +264,7 @@ function SecondView() {
                                     Save Changes
                                   </Button>
                                 </Modal.Footer>
+                                </div>
                               </Modal>
                               <Dropdown.Item
                                 className="menuItem"
@@ -218,25 +275,7 @@ function SecondView() {
                               <Dropdown.Item className="menuItem" onClick="">
                                 Move
                               </Dropdown.Item>
-                              {i.starred ? (
-                                <Dropdown.Item
-                                  className=" menuItem"
-                                  onClick={() =>
-                                    dropdownFileItemStarred(i._id, !i.starred)
-                                  }
-                                >
-                                  Remove From Starred
-                                </Dropdown.Item>
-                              ) : (
-                                <Dropdown.Item
-                                  className=" menuItem"
-                                  onClick={() =>
-                                    dropdownFileItemStarred(i._id, !i.starred)
-                                  }
-                                >
-                                  Add to Starred
-                                </Dropdown.Item>
-                              )}
+                             
 
                               <Dropdown.Item
                                 className="menuItem"
@@ -328,30 +367,35 @@ function SecondView() {
                               >
                                 Rename
                               </Dropdown.Item>
-                              <Modal show={showModal} onHide={handleClose}>
-                                <Modal.Header closeButton>
+                              <Modal className="modal" show={showModal} onHide={handleClose}>
+                              <div className="modalHeader">
+                                <Modal.Header>
                                   <Modal.Title>Rename File</Modal.Title>
+                                  
                                 </Modal.Header>
+                                </div>
                                 <Modal.Body>
                                   <label>New File name:</label>
                                   <input ref={textInput} type={"text"}></input>
                                 </Modal.Body>
+                                <div className="modalHeader">
                                 <Modal.Footer>
                                   <Button
-                                    variant="secondary"
+                                    variant="warning"
                                     onClick={handleClose}
                                   >
                                     Close
                                   </Button>
                                   <Button
-                                    variant="primary"
+                                    variant="warning"
                                     onClick={() => handleFileRename(i._id)}
                                   >
                                     Save Changes
                                   </Button>
                                 </Modal.Footer>
+                                </div>
                               </Modal>
-                              <Dropdown.Item
+                              {/* <Dropdown.Item
                                 className="menuItem"
                                 onClick={dropdownItemShare}
                               >
@@ -359,7 +403,49 @@ function SecondView() {
                               </Dropdown.Item>
                               <Dropdown.Item className="menuItem" onClick="">
                                 Move
-                              </Dropdown.Item>
+                              </Dropdown.Item> */}
+
+                              {i.public ? (
+                                <Dropdown.Item
+                                  className=" menuItem"
+                                  onClick={() =>
+                                    dropdownFileItemPublic(i._id, !i.public)
+                                  }
+                                >
+                                  Remove From Public
+
+                                </Dropdown.Item>
+                              ) : (
+                                <Dropdown.Item
+                                  className=" menuItem"
+                                  onClick={() =>
+                                    dropdownFileItemPublic(i._id, !i.public)
+                                  }
+                                >
+                                  Add to Public                                
+                                </Dropdown.Item>
+                              )}
+
+                              {i.starred ? (
+                                <Dropdown.Item
+                                  className=" menuItem"
+                                  onClick={() =>
+                                    dropdownFileItemStarred(i._id, !i.starred)
+                                  }
+                                >
+                                  Remove From Starred
+
+                                </Dropdown.Item>
+                              ) : (
+                                <Dropdown.Item
+                                  className=" menuItem"
+                                  onClick={() =>
+                                    dropdownFileItemStarred(i._id, !i.starred)
+                                  }
+                                >
+                                  Add to Starred                                  
+                                </Dropdown.Item>
+                              )}
                               <Dropdown.Item
                                 className=" menuItem"
                                 onClick={() => dropdownFileItemDelete(i._id)}

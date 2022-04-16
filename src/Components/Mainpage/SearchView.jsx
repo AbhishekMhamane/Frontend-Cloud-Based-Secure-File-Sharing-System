@@ -40,8 +40,8 @@ function SearchView(props) {
                           window.open(`${API_URL}/files/file/${i._id}`);
                         }}
                         style={{
-                          width: "5rem",
-                          height: "4rem",
+                          width: "7rem",
+                          height: "7rem",
                           marginRight: "-0.2rem",
                           borderRadius: "5px",
                           boxShadow: "0.5px 0.5px 0.5px ",

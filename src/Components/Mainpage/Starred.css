@@ -88,3 +88,19 @@
     
     
     }
+    .mainGradient{
+      background-color:#f5f6fb;
+    }
+    .header__search{
+      margin-top: 10px;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      width: 800px;
+      height: 40px;
+      background-color:transparent;
+      padding: 12px;
+      border-radius: 20px;
+      border: 1px solid black;
+      color:#ff9f02;
+    }

@@ -26,6 +26,7 @@ import {userActions} from '../../store/userSlice';
 import {fetchUser} from '../../store/userActions';
 import {filesActions} from '../../store/filesSlice';
 import {fetchFiles} from '../../store/filesActions';
+import { height } from "@mui/system";
 
 function MainView() {
   const API_URL = "http://localhost:3000";
@@ -195,13 +196,15 @@ function MainView() {
               <Sidenavoptions user={user}></Sidenavoptions>
             </Col>
           </Col>
+          <>
           <Col
             xs={10}
             className="mainGradient"
             style={{
-              paddingBottom: "3rem",
-              borderRadius: "10px",
-              marginBottom: "5px",
+              marginLeft:"-15px",
+              height:"550px",
+              borderRadius:"10px",
+              
             }}
           >
             <div className="header__search">
@@ -269,14 +272,19 @@ function MainView() {
                               >
                                 Rename
                               </Dropdown.Item>
-                              <Modal show={showModal} onHide={handleClose}>
-                                <Modal.Header closeButton>
+                              <Modal className="modal" show={showModal} onHide={handleClose}>
+                                <div className="modalHeader">
+                                <Modal.Header>
                                   <Modal.Title>Rename Folder</Modal.Title>
                                 </Modal.Header>
+                                </div>
                                 <Modal.Body>
                                   <label>New Folder name:</label>
                                   <input ref={textInput} type={"text"}></input>
                                 </Modal.Body>
+                                <div className="modalBody">
+
+                               
                                 <Modal.Footer>
                                   <Button
                                     variant="secondary"
@@ -291,6 +299,7 @@ function MainView() {
                                     Save Changes
                                   </Button>
                                 </Modal.Footer>
+                                </div>
                               </Modal>
                               <Dropdown.Item
                                 className="menuItem"
@@ -389,30 +398,34 @@ function MainView() {
                                 Rename
                               </Dropdown.Item>
 
-                              <Modal show={showModal} onHide={handleClose}>
-                                <Modal.Header closeButton>
+                              <Modal className="modal" show={showModal} onHide={handleClose}>
+                                <div className="modalHeader">
+                                <Modal.Header >
                                   <Modal.Title>Rename File</Modal.Title>
                                 </Modal.Header>
-                                <Modal.Body>
+                                </div>
+                                <Modal.Body >
                                   <label>New File name:</label>
                                   <input ref={textInput} type={"text"}></input>
                                 </Modal.Body>
+                                <div className="modalHeader">
                                 <Modal.Footer>
                                   <Button
-                                    variant="secondary"
+                                    variant="warning"
                                     onClick={handleClose}
                                   >
                                     Close
                                   </Button>
                                   <Button
-                                    variant="primary"
+                                    variant="warning"
                                     onClick={() => handleFileRename(i._id)}
                                   >
                                     Save Changes
                                   </Button>
                                 </Modal.Footer>
+                                </div>
                               </Modal>
-                              <Dropdown.Item
+                              {/* <Dropdown.Item
                                 className="menuItem"
                                 onClick={dropdownItemShare}
                               >
@@ -420,7 +433,7 @@ function MainView() {
                               </Dropdown.Item>
                               <Dropdown.Item className="menuItem" onClick="">
                                 Move
-                              </Dropdown.Item>
+                              </Dropdown.Item> */}
 
                               {i.public ? (
                                 <Dropdown.Item
@@ -490,6 +503,7 @@ function MainView() {
                 })}
             </Row>
           </Col>
+          </>
         </Row>
       </Container>
     </div>
