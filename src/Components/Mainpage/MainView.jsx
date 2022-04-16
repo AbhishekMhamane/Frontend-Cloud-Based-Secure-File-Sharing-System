@@ -22,14 +22,15 @@ import { FolderFill, FileEarmarkTextFill, Search } from "react-bootstrap-icons";
 import SearchView from "./SearchView.jsx";
 
 import {useDispatch,useSelector} from 'react-redux';
-import {userActions} from '../../store/userSlice';
-import {fetchUser} from '../../store/userActions';
-import {filesActions} from '../../store/filesSlice';
-import {fetchFiles} from '../../store/filesActions';
+import {userActions} from '../../store/user/userSlice';
+import {fetchUser} from '../../store/user/userActions';
+import {filesActions} from '../../store/file/filesSlice';
+import {fetchFiles} from '../../store/file/filesActions';
 import { height } from "@mui/system";
 
 function MainView() {
   const API_URL = "http://localhost:3000";
+  const API_URL1 = "http://localhost:3002";
 
   const emailId = "abhimhamane13@gmail.com";
   const [user, setUser] = useState([]);
@@ -71,8 +72,6 @@ function MainView() {
       console.log(user);
       //  getFolders();
 
-      const res = await axios.get('http://localhost:3002');
-      console.log(res.data);
 
   }, []);
 
@@ -355,7 +354,7 @@ function MainView() {
                         key={i._id}
                         className="cardStyle1"
                         onDoubleClick={() => {
-                          window.open(`${API_URL}/files/file/${i._id}`);
+                          window.open(`${API_URL1}/getfile/${user.userId}/${i._id}`);
                         }}
                         style={{
                           width: "7rem",
@@ -387,7 +386,7 @@ function MainView() {
                             <Dropdown.Menu className="dropdown-menu">
                               <Dropdown.Item
                                 className="menuItem"
-                                href={`${API_URL}/files/file/download/${i._id}`}
+                                href={`${API_URL1}/downloadfile/${user.userId}/${i._id}`}
                               >
                                 Download
                               </Dropdown.Item>

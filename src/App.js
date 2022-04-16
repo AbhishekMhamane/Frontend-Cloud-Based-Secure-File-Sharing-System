@@ -7,9 +7,9 @@ import {
 } from "react-router-dom";
 import axios from 'axios';
 import {useDispatch,useSelector} from 'react-redux';
-import {userActions} from './store/userSlice';
-import {fetchUser} from './store/userActions';
-import {fetchFiles} from './store/filesActions';
+import {userActions} from './store/user/userSlice';
+import {fetchUser} from './store/user/userActions';
+import {fetchFiles} from './store/file/filesActions';
 
 
 // const MainView = React.lazy(() => import('./Components/Mainpage/MainView'));
@@ -47,7 +47,7 @@ function App() {
      
       {/* <Suspense fallback={<div>Loading...</div>}> */}
         <Routes>
-        <Route exact path="/" element={<Demo/>} />
+        {/* <Route exact path="/" element={<Demo/>} /> */}
           <Route exact path="/mydash" element={<MainView />} />
           <Route path="/folder/:id" element={<SecondView />} />
           <Route path="/starred" element={<Starred />} />

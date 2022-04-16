@@ -24,10 +24,10 @@ import Publiccard from './Publiccard';
 
 import { useSelector } from "react-redux";
 import {useDispatch} from 'react-redux';
-import {userActions} from '../../store/userSlice';
-import {fetchUser} from '../../store/userActions';
-import {filesActions} from '../../store/filesSlice';
-import {fetchFiles} from '../../store/filesActions';
+import {userActions} from '../../store/user/userSlice';
+import {fetchUser} from '../../store/user/userActions';
+import {filesActions} from '../../store/file/filesSlice';
+import {fetchFiles} from '../../store/file/filesActions';
 import { height } from "@mui/system";
 
 function Public() {
