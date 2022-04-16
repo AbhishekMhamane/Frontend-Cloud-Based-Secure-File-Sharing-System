@@ -401,7 +401,7 @@ function MainView() {
                                   <Modal.Title>Rename File</Modal.Title>
                                 </Modal.Header>
                                 </div>
-                                <Modal.Body >
+                                <Modal.Body>
                                   <label>New File name:</label>
                                   <input ref={textInput} type={"text"}></input>
                                 </Modal.Body>
