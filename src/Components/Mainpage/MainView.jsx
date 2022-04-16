@@ -61,7 +61,7 @@ function MainView() {
   }, [dispatch]);
 
 
-  useEffect(() => {
+  useEffect(async() => {
 
     setUser({
       userId: userdata.userId,
@@ -69,7 +69,10 @@ function MainView() {
       parentFolderId: "mydash"});
       console.log(user);
       //  getFolders();
-  
+
+      const res = await axios.get('http://localhost:3002');
+      console.log(res.data);
+
   }, []);
 
   const files = useSelector((state) => state.files.files);

@@ -23,8 +23,12 @@ import Starred from './Components/Mainpage/Starred';
 import Account from './Components/Mainpage/Account';
 import Public from './Components/Mainpage/Public';
 import Publiccard from './Components/Mainpage/Publiccard';
+import Demo from './demo.js';
+
 
 function App() {
+
+
 
   // const API_URL = "http://localhost:3000";
   //  const emailId = "abhimhamane13@gmail.com";
@@ -43,7 +47,7 @@ function App() {
      
       {/* <Suspense fallback={<div>Loading...</div>}> */}
         <Routes>
-        {/* <Route exact path="/" element={<Publiccard/>} /> */}
+        <Route exact path="/" element={<Demo/>} />
           <Route exact path="/mydash" element={<MainView />} />
           <Route path="/folder/:id" element={<SecondView />} />
           <Route path="/starred" element={<Starred />} />
