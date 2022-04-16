@@ -10,13 +10,16 @@ import {
     PURGE,
     REGISTER,
   } from 'redux-persist';
+
 import storage from 'redux-persist/lib/storage';
-import userSlice from './userSlice';
-import filesSlice from './filesSlice';
+import userSlice from './user/userSlice';
+import filesSlice from './file/filesSlice';
+import foldersSlice from './folder/foldersSlice';
 
 const rootReducer = combineReducers({
     user : userSlice.reducer,
     files : filesSlice.reducer,
+    // folders : foldersSlice.reducer
 });
 
 const persistConfig = {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {userActions} from '../store/userSlice';
+import {userActions} from './userSlice';
 import {useDispatch} from 'react-redux';
 
 export const fetchUser = (emailId) =>{

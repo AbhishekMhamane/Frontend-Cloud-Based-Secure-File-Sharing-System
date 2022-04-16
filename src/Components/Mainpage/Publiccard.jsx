@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import axios from 'axios';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -15,9 +16,11 @@ const Publiccard = ({file}) => {
   const API_URL = "http://localhost:3000";
 
 
+
   return (
     <div>
-   <Card sx={{ maxWidth: 190 }} style={{marginTop:'10px',marginLeft:'10px'}}
+
+   {/* <Card sx={{ maxWidth: 190 }} style={{marginTop:'10px',marginLeft:'10px'}}
     onDoubleClick={() => {
       window.open(`${API_URL}/files/file/${file._id}`);
     }} >
@@ -39,7 +42,7 @@ const Publiccard = ({file}) => {
         <Button size="small">Share</Button>
         <Button size="small"  href={`${API_URL}/files/file/download/${file._id}`} >Download</Button>
       </CardActions>
-    </Card>
+    </Card> */}
     </div>
   )
 }

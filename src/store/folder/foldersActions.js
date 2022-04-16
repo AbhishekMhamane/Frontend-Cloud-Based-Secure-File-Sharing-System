@@ -1,8 +1,8 @@
 import axios from 'axios';
-import {filesActions} from '../store/filesSlice';
+import {foldersActions} from './foldersSlice.js';
 import {useDispatch} from 'react-redux';
 
-export const fetchFiles = (emailId) =>{
+export const fetchFolders = (emailId) =>{
 
   const API_URL = "http://localhost:3000";
  // const emailId = "abhimhamane13@gmail.com";
@@ -10,15 +10,15 @@ export const fetchFiles = (emailId) =>{
     return async (dispatch) => {
 
         const fetchHandle = async () =>{
-            const res = await axios.get(`${API_URL}/files/${emailId}`);
+            const res = await axios.get(`${API_URL}/folders/${emailId}`);
             return res.data;
         }
 
         try{
-            const files = await fetchHandle();
-            console.log(files);
-            dispatch(filesActions.updateFiles({files}));
-            return files;
+            const folders = await fetchHandle();
+            console.log(folders);
+            dispatch(foldersActions.updateFolders({folders}));
+            return folders;
         }
         catch(err)
         {

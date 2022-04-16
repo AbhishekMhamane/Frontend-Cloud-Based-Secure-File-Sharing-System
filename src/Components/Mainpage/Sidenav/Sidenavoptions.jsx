@@ -21,7 +21,7 @@ import UploadButton from "./UploadButton";
 import Logo from "./Clore_Logo.png";
 import { Image } from "react-bootstrap";
 
-import {fetchFiles} from '../../../store/filesActions';
+import {fetchFiles} from '../../../store/file/filesActions';
 import {useDispatch,useSelector} from 'react-redux';
 
 
