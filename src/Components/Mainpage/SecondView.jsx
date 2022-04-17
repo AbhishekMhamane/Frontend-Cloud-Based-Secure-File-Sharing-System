@@ -171,15 +171,10 @@ const emailId = "abhimhamane13@gmail.com";
               ></Sidenavoptions>
             </Col>
           </Col>
+          <div className="mainGradient">
           <Col
             xs={10}
-            className="mainGradient"
-            style={{
-              paddingBottom: "5rem",
-              borderRadius: "10px",
-              marginTop: "5px",
-              marginBottom: "5px",
-            }}
+           
           >
             <div className="header__search">
               <Search></Search>
@@ -218,10 +213,10 @@ const emailId = "abhimhamane13@gmail.com";
                               style={{ marginRight: "40px" }}
                             >
                               <Button
-                                variant="outline-light"
+                                variant="warning"
                                 className="dropButton"
                                 style={{
-                                  marginLeft: "-13px",
+                                  marginLeft: "-15px",
                                   marginTop: "-8px",
                                   border: "none",
                                   color: "black",
@@ -343,7 +338,7 @@ const emailId = "abhimhamane13@gmail.com";
                               style={{ marginRight: "40px" }}
                             >
                               <Button
-                                variant="outline-light"
+                                variant="warning"
                                 className="dropButton"
                                 style={{
                                   marginLeft: "-13px",
@@ -473,6 +468,7 @@ const emailId = "abhimhamane13@gmail.com";
                 })}
             </Row>
           </Col>
+          </div>
         </Row>
       </Container>
     </div>

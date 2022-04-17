@@ -189,23 +189,19 @@ function MainView() {
                 </Row> */}
         <Row>
           <Col xs={2}>
-            <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
+            <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto" style={{height:"100%",overflowX:"hidden",position:"fixed"}}>
               {/* <UploadButton user={user} /> */}
               {/* <UploadButtonF user={user} /> */}
               <Sidenavoptions user={user}></Sidenavoptions>
             </Col>
           </Col>
-          <>
+          <div className="mainGradient" >
           <Col
             xs={10}
-            className="mainGradient"
-            style={{
-              marginLeft:"-15px",
-              height:"550px",
-              borderRadius:"10px",
-              
-            }}
+          
+            
           >
+             <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto" >
             <div className="header__search">
               <Search></Search>
 
@@ -240,16 +236,16 @@ function MainView() {
                         }}
                       >
                         <Card.Body>
-                          <Dropdown className="drop" variant="outline-light">
+                          <Dropdown className="drop" variant="warning">
                             <Dropdown.Toggle
                               className="dropdownFolder"
                               style={{ marginRight: "40px" }}
                             >
                               <Button
-                                variant="outline-light"
+                                variant="warning"
                                 className="dropButton"
                                 style={{
-                                  marginLeft: "-13px",
+                                  marginLeft: "-15px",
                                   marginTop: "-8px",
                                   border: "none",
                                   color: "black",
@@ -371,7 +367,7 @@ function MainView() {
                               style={{ marginRight: "40px" }}
                             >
                               <Button
-                                variant="outline-light"
+                                variant="warning"
                                 className="dropButton"
                                 style={{
                                   marginLeft: "-13px",
@@ -501,8 +497,9 @@ function MainView() {
                   );
                 })}
             </Row>
+            </Col>
           </Col>
-          </>
+          </div>
         </Row>
       </Container>
     </div>

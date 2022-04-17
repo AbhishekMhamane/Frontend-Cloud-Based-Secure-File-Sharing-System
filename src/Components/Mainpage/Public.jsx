@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Container, Row, Col, Dropdown, Button } from "react-bootstrap";
+import { Card, Container, Row, Col, Dropdown, Button,Modal } from "react-bootstrap";
 import { FolderFill, FileEarmarkTextFill, Search } from "react-bootstrap-icons";
 import Rating from '@mui/material/Rating';
 
@@ -44,6 +44,19 @@ function Public() {
   const dispatch = useDispatch();
 
   const userdata = useSelector((state) => state.user.user);
+
+  const [showModal, setShow] = useState(false);
+  let textInput = React.createRef();
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  
+  const handleFileReview = (fileId) => {
+    console.log(textInput.current.value);
+    axios.put(`${API_URL}/files/file/${fileId}`, {
+      fileName: textInput.current.value,
+    });
+    setShow(false);
+  };
 
  useEffect(() => {
 
@@ -131,15 +144,11 @@ function Public() {
                 ></Sidenavoptions>
               </Col>
             </Col>
+            <div className="mainGradient">
 
             <Col xs={10}
 
-              className="mainGradient"
-              style={{
-                marginLeft: "-15px",
-                height: "550px",
-                borderRadius: "10px"
-              }}
+              
             >
 
               <div className="header__search">
@@ -186,7 +195,7 @@ function Public() {
                                 style={{ marginRight: "40px" }}
                               >
                                 <Button
-                                  variant="outline-light"
+                                  variant="warning"
                                   className="dropButton"
                                   style={{
                                     marginLeft: "-13px",
@@ -203,6 +212,32 @@ function Public() {
                                 >
                                   Download
                                 </Dropdown.Item>
+                                <Modal className="modal" show={showModal} onHide={handleClose}>
+                                <div className="modalHeader">
+                                <Modal.Header >
+                                  <Modal.Title>Add Review</Modal.Title>
+                                </Modal.Header>
+                                </div>
+                                <Modal.Body>
+                                <Rating name="half-rating-read" defaultValue={0} precision={0.5} />
+                                </Modal.Body>
+                                <div className="modalHeader">
+                                <Modal.Footer>
+                                  <Button
+                                    variant="warning"
+                                    onClick={handleClose}
+                                  >
+                                    Close
+                                  </Button>
+                                  <Button
+                                    variant="warning"
+                                    onClick={() => handleFileReview(i._id)}
+                                  >
+                                    Save Changes
+                                  </Button>
+                                </Modal.Footer>
+                                </div>
+                              </Modal>
                                 {/* <Dropdown.Item className='menuItem' onClick={handleShow} >
                                 Rename
                             </Dropdown.Item>
@@ -282,8 +317,9 @@ function Public() {
                     );
                   })}
               </Row>
+              
             </Col>
-
+            </div>
           </Row>
         </Container>
       </div>

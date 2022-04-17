@@ -54,10 +54,10 @@ function SearchView(props) {
                               style={{ marginRight: "40px" }}
                             >
                               <Button
-                                variant="outline-light"
+                                variant="warning"
                                 className="dropButton"
                                 style={{
-                                  marginLeft: "-13px",
+                                  marginLeft: "-15px",
                                   marginTop: "-8px",
                                   border: "none",
                                   color: "black",
