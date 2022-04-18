@@ -19,7 +19,7 @@ import foldersSlice from './folder/foldersSlice';
 const rootReducer = combineReducers({
     user : userSlice.reducer,
     files : filesSlice.reducer,
-    // folders : foldersSlice.reducer
+    folders : foldersSlice.reducer
 });
 
 const persistConfig = {

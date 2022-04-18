@@ -32,6 +32,7 @@ import {userActions} from '../../store/user/userSlice';
 import {fetchUser} from '../../store/user/userActions';
 import {filesActions} from '../../store/file/filesSlice';
 import {fetchFiles} from '../../store/file/filesActions';
+import {fetchFolders} from '../../store/folder/foldersActions';
 import { height } from "@mui/system";
 
 function SecondView() {
@@ -39,27 +40,13 @@ function SecondView() {
   const API_URL = "http://localhost:3000";
 
 const emailId = "abhimhamane13@gmail.com";
-  const { id } = useParams();
+  const  {id}  = useParams();
+
+  console.log("inside second wise",id);
   const location = useLocation();
-  const [folders, setFolders] = useState([]);
- // const [files, setFiles] = useState([]);
   const [search, updateSearch] = useState("");
   const [user, setUser] = useState([]);
-  // useEffect(() => {
-  //   getFolders();
-  // }, []);
-
-  // const getFolders = async () => {
-  //   const resFolders = await axios.get(
-  //     "http://localhost:3000/folders/" + location.state["user"].userId
-  //   );
-  //   const resFiles = await axios.get(
-  //     "http://localhost:3000/files/" + location.state["user"].userId
-  //   );
-  //   setFolders(resFolders.data);
-  //   setFiles(resFiles.data);
-  // };
-
+  
   const dispatch = useDispatch();
 
   const userdata = useSelector((state) => state.user.user);
@@ -79,6 +66,8 @@ const emailId = "abhimhamane13@gmail.com";
    
   // dispatch(fetchUser(emailId));
    dispatch(fetchFiles(emailId));
+   dispatch(fetchFolders(emailId));
+
 
  }, [dispatch]);
 
@@ -88,13 +77,13 @@ const emailId = "abhimhamane13@gmail.com";
    setUser({
      userId: userdata.userId,
      userPath: userdata.userPath,
-     parentFolderId: "mydash"});
+     parentFolderId: id});
+
      console.log(user);
-     //  getFolders();
- 
  }, []);
 
  const files = useSelector((state) => state.files.files);
+ const folders = useSelector((state) => state.folders.folders);
 
   const inputClicked = (data) => {
     const info = data.target.value;
