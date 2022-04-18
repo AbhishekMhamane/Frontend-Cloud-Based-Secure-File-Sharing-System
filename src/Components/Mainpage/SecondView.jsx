@@ -78,7 +78,6 @@ const emailId = "abhimhamane13@gmail.com";
      userId: userdata.userId,
      userPath: userdata.userPath,
      parentFolderId: id});
-
      console.log(user);
  }, []);
 
@@ -160,10 +159,15 @@ const emailId = "abhimhamane13@gmail.com";
               ></Sidenavoptions>
             </Col>
           </Col>
-          <div className="mainGradient">
           <Col
             xs={10}
-           
+            className="mainGradient"
+            style={{
+              paddingBottom: "5rem",
+              borderRadius: "10px",
+              marginTop: "5px",
+              marginBottom: "5px",
+            }}
           >
             <div className="header__search">
               <Search></Search>
@@ -202,10 +206,10 @@ const emailId = "abhimhamane13@gmail.com";
                               style={{ marginRight: "40px" }}
                             >
                               <Button
-                                variant="warning"
+                                variant="outline-light"
                                 className="dropButton"
                                 style={{
-                                  marginLeft: "-15px",
+                                  marginLeft: "-13px",
                                   marginTop: "-8px",
                                   border: "none",
                                   color: "black",
@@ -327,7 +331,7 @@ const emailId = "abhimhamane13@gmail.com";
                               style={{ marginRight: "40px" }}
                             >
                               <Button
-                                variant="warning"
+                                variant="outline-light"
                                 className="dropButton"
                                 style={{
                                   marginLeft: "-13px",
@@ -457,7 +461,6 @@ const emailId = "abhimhamane13@gmail.com";
                 })}
             </Row>
           </Col>
-          </div>
         </Row>
       </Container>
     </div>

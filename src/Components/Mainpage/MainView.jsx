@@ -35,10 +35,6 @@ function MainView() {
 
   const emailId = "abhimhamane13@gmail.com";
   const [user, setUser] = useState([]);
-  //const [userData, setUserData] = useState([]);
-
-  //const [folders, setFolders] = useState([]);
-  //const [files, setFiles] = useState([]);
   const [search, updateSearch] = useState("");
 
    const dispatch = useDispatch();
@@ -72,42 +68,11 @@ function MainView() {
       userPath: userdata.userPath,
       parentFolderId: "mydash"});
       console.log(user);
-      //  getFolders();
-
 
   }, []);
 
   const files = useSelector((state) => state.files.files);
   const folders = useSelector((state) => state.folders.folders);
-  // const getUser = async () => {
-  //   const resUser = await axios.get(`${API_URL}/users/${emailId}`);
-    // setUser({
-    //   userId: resUser.data[0].userId,
-    //   Path: resUser.data[0].userPath,
-    //   parentFolderId: "mydash",
-    // });
-
-
-  //   console.log(user);
-  //   if (user) {
-      
-  //   dispatch(userActions.updateUser({userId:resUser.data[0].userId,
-  //   userPath: resUser.data[0].userPath,
-  //   userName: resUser.data[0].userName,
-  //   parentFolderId : "mydash"}));
-
-  //    getFolders();
-  //   }
-  // };
-
-  // const getFolders = async () => {
-  //   console.log("in format");
-  //   console.log(user);
-  //   const resFolders = await axios.get(`${API_URL}/folders/${user.userId}`);
-  //   const resFiles = await axios.get(`${API_URL}/files/${user.userId}`);
-  //   setFolders(resFolders.data);
-  //   setFiles(resFiles.data);
-  // };
 
   const inputClicked = (data) => {
     const info = data.target.value;
@@ -191,19 +156,18 @@ function MainView() {
                 </Row> */}
         <Row>
           <Col xs={2}>
-            <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto" style={{height:"100%",overflowX:"hidden",position:"fixed"}}>
+            <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
               {/* <UploadButton user={user} /> */}
               {/* <UploadButtonF user={user} /> */}
               <Sidenavoptions user={user}></Sidenavoptions>
             </Col>
           </Col>
-          <div className="mainGradient" >
+          <>
           <Col
             xs={10}
-          
+            className="mainGradient"
             
           >
-             <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto" >
             <div className="header__search">
               <Search></Search>
 
@@ -238,16 +202,16 @@ function MainView() {
                         }}
                       >
                         <Card.Body>
-                          <Dropdown className="drop" variant="warning">
+                          <Dropdown className="drop" variant="outline-light">
                             <Dropdown.Toggle
                               className="dropdownFolder"
                               style={{ marginRight: "40px" }}
                             >
                               <Button
-                                variant="warning"
+                                variant="outline-light"
                                 className="dropButton"
                                 style={{
-                                  marginLeft: "-15px",
+                                  marginLeft: "-13px",
                                   marginTop: "-8px",
                                   border: "none",
                                   color: "black",
@@ -369,7 +333,7 @@ function MainView() {
                               style={{ marginRight: "40px" }}
                             >
                               <Button
-                                variant="warning"
+                                variant="outline-light"
                                 className="dropButton"
                                 style={{
                                   marginLeft: "-13px",
@@ -401,7 +365,7 @@ function MainView() {
                                   <Modal.Title>Rename File</Modal.Title>
                                 </Modal.Header>
                                 </div>
-                                <Modal.Body>
+                                <Modal.Body >
                                   <label>New File name:</label>
                                   <input ref={textInput} type={"text"}></input>
                                 </Modal.Body>
@@ -499,9 +463,8 @@ function MainView() {
                   );
                 })}
             </Row>
-            </Col>
           </Col>
-          </div>
+          </>
         </Row>
       </Container>
     </div>
