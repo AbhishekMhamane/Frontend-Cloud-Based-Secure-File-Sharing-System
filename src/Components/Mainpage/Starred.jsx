@@ -34,8 +34,8 @@ function Starred() {
 
   const dispatch = useDispatch();
 
-  const userdata = useSelector((state) => state.user.user);
-  const files = useSelector((state) => state.files.files);
+    const userdata = useSelector((state) => state.user.user);
+    const files = useSelector((state) => state.files.files);
 
   const inputClicked = (data) => {
     const info = data.target.value;

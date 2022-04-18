@@ -5,11 +5,13 @@ import axios from "axios";
 import "./SearchView.css";
 
 function SearchView(props) {
+  
   const API_URL = "http://localhost:3000";
 
   const [files, setFiles] = useState([]);
 
   useEffect(async () => {
+
     const getFiles = async () => {
       const res = await axios.get(`${API_URL}/files/public/files`);
       console.log(res.data);
@@ -22,13 +24,12 @@ function SearchView(props) {
   }, []);
 
   return (
-    <>
       <div>
         <Card style={{ height: "400px", width: "790px", marginTop: "5px" }}>
           <Card.Body>
             <Row>
               {files
-                .filter((i) => i.parentFolderId === "mydash")
+                .filter((i) => i.fileName === props.file)
                 .map((i) => {
                   return (
                     <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
@@ -139,7 +140,7 @@ function SearchView(props) {
           </Card.Body>
         </Card>
       </div>
-    </>
+    
   );
 }
 

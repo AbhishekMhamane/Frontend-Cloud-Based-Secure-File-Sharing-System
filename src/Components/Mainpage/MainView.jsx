@@ -167,8 +167,7 @@ function MainView() {
           <Col
             xs={10}
            >
-             
-
+            
                
             <div className="header__search">
               <Search></Search>
@@ -181,7 +180,7 @@ function MainView() {
                 onChange={inputClicked}
               />
             </div>
-            {search === "" ? null : <SearchView name={search} />}
+            {search === "" ? null : <SearchView file={search} />}
          
             <Row>
 
