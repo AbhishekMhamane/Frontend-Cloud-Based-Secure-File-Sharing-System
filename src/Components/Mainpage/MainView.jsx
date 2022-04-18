@@ -189,19 +189,20 @@ function MainView() {
                 </Row> */}
         <Row>
           <Col xs={2}>
-            <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto" style={{height:"100%",overflowX:"hidden",position:"fixed"}}>
+            <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto" >
               {/* <UploadButton user={user} /> */}
               {/* <UploadButtonF user={user} /> */}
               <Sidenavoptions user={user}></Sidenavoptions>
             </Col>
           </Col>
           <div className="mainGradient" >
+         
           <Col
             xs={10}
-          
-            
-          >
-             <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto" >
+           >
+             
+
+               
             <div className="header__search">
               <Search></Search>
 
@@ -214,14 +215,15 @@ function MainView() {
               />
             </div>
             {search === "" ? null : <SearchView name={search} />}
-
+         
             <Row>
 
-            
+         
               {folders
                 .filter((i) => i.parentFolderId === "mydash")
                 .map((i) => {
                   return (
+                   
                     <Col key={i._id} xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
                       <Card
                         id={i._id}
@@ -338,7 +340,9 @@ function MainView() {
                     </Col>
                   );
                 })}
+                
             </Row>
+            
             <Row>
               {files && files
                 .filter((i) => i.parentFolderId === "mydash")
@@ -496,9 +500,11 @@ function MainView() {
                     </Col>
                   );
                 })}
+                
             </Row>
             </Col>
-          </Col>
+
+          
           </div>
         </Row>
       </Container>

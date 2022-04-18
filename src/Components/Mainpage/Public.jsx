@@ -40,6 +40,8 @@ function Public() {
 
   const API_URL = "http://localhost:3000";
   const [files, setFiles] = useState([]);
+
+  const [rating,updateRating]= useState([]);
   
   const dispatch = useDispatch();
 
@@ -50,12 +52,13 @@ function Public() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
-  const handleFileReview = (fileId) => {
-    console.log(textInput.current.value);
-    axios.put(`${API_URL}/files/file/${fileId}`, {
-      fileName: textInput.current.value,
-    });
-    setShow(false);
+  const handleFileReview = (userId,fileId,data) => {
+    const info = data;
+    console.log(data);
+
+
+    updateRating(data);
+    
   };
 
  useEffect(() => {
@@ -219,7 +222,7 @@ function Public() {
                                 </Modal.Header>
                                 </div>
                                 <Modal.Body>
-                                <Rating name="half-rating-read" defaultValue={0} precision={0.5} />
+                                <Rating id="ratingValue" name="half-rating-read" defaultValue={0} precision={0.5} />
                                 </Modal.Body>
                                 <div className="modalHeader">
                                 <Modal.Footer>
@@ -231,7 +234,7 @@ function Public() {
                                   </Button>
                                   <Button
                                     variant="warning"
-                                    onClick={() => handleFileReview(i._id)}
+                                    onClick={() => handleFileReview(i._id,user.userId,Rating.value)}
                                   >
                                     Save Changes
                                   </Button>
@@ -306,7 +309,7 @@ function Public() {
                                 marginTop: "-50px",
                               }}
                             ></FileEarmarkTextFill>
-                           <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
+                           <Rating  name="half-rating-read" defaultValue={{rating}} precision={0.5} readOnly />
                             <Card.Text className="footer1">
                               {i.fileName}
                             </Card.Text>
