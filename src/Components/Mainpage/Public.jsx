@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Container, Row, Col, Dropdown, Button,Modal } from "react-bootstrap";
-import { FolderFill, FileEarmarkTextFill, Search } from "react-bootstrap-icons";
+import { FolderFill, FileEarmarkTextFill, Search, ThreeDotsVertical } from "react-bootstrap-icons";
 import Rating from '@mui/material/Rating';
 
 import {
@@ -206,12 +206,15 @@ function Public() {
                                     border: "none",
                                     color: "black",
                                   }}
-                                ></Button>
+                                >
+                                  <ThreeDotsVertical></ThreeDotsVertical>
+                                </Button>
                               </Dropdown.Toggle>
                               <Dropdown.Menu className="dropdown-menu">
                                 <Dropdown.Item
                                   className="menuItem"
                                   href={`${API_URL}/files/file/download/${i._id}`}
+                                  onClick={handleShow}
                                 >
                                   Download
                                 </Dropdown.Item>

@@ -204,13 +204,13 @@ function MainView() {
                         }}
                       >
                         <Card.Body>
-                          <Dropdown className="drop" variant="outline-light">
+                          <Dropdown className="drop" variant="warning">
                             <Dropdown.Toggle
                               className="dropdownFolder"
                               style={{ marginRight: "40px" }}
                             >
                               <Button
-                                variant="outline-light"
+                                variant="warning"
                                 className="dropButton"
                                 style={{
                                   marginLeft: "-13px",

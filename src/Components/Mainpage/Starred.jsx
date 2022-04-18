@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Container, Row, Col, Dropdown, Button } from "react-bootstrap";
-import { FolderFill, FileEarmarkTextFill, Search } from "react-bootstrap-icons";
+import { FolderFill, FileEarmarkTextFill, Search, ThreeDotsVertical } from "react-bootstrap-icons";
 import {
   BrowserRouter,
   Routes,
@@ -137,7 +137,9 @@ function Starred() {
                                   border: "none",
                                   color: "black",
                                 }}
-                              ></Button>
+                              >
+                                <ThreeDotsVertical></ThreeDotsVertical>
+                              </Button>
                             </Dropdown.Toggle>
                             <Dropdown.Menu className="dropdown-menu">
                               <Dropdown.Item
