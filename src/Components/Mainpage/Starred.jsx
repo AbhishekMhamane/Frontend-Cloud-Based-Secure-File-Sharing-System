@@ -134,15 +134,9 @@ function Starred() {
                 ></Sidenavoptions>
               </Col>
             </Col>
-
+            <div className="mainGradient">
             <Col xs={10}
-            className="mainGradient"
-            style={{
-              marginLeft:"-15px",
-              height:"550px",
-              borderRadius:"10px",
-              
-            }}
+           
           >
             <div className="header__search">
               <Search></Search>
@@ -185,7 +179,7 @@ function Starred() {
                               style={{ marginRight: "40px" }}
                             >
                               <Button
-                                variant="outline-light"
+                                variant="warning"
                                 className="dropButton"
                                 style={{
                                   marginLeft: "-13px",
@@ -274,7 +268,7 @@ function Starred() {
                 })}
             </Row>
             </Col>
-
+            </div>
           </Row>
         </Container>
       </div>
