@@ -29,49 +29,13 @@ function Starred() {
 
   const [search, updateSearch] = useState("");
   const [user, setUser] = useState([]);
-  //const user = useSelector((state) => state.user.user);
-  console.log("in starred state");
-  //console.log(user.userId);
   const API_URL = "http://localhost:3000";
-  const [files, setFiles] = useState([]);
   const { id } = useParams();
 
   const dispatch = useDispatch();
 
   const userdata = useSelector((state) => state.user.user);
-
- useEffect(() => {
-
-   if(userdata)
-   {
-     dispatch(fetchUser(emailId));
-   }
-   
- }, [dispatch,userdata]);
- 
-
- useEffect(() => {
-
-   
-  // dispatch(fetchUser(emailId));
-   dispatch(fetchFiles(emailId));
-
- }, [dispatch]);
-
- useEffect(() => {
-
-  setUser({
-    userId: userdata.userId,
-    userPath: userdata.userPath,
-    parentFolderId: "mydash"});
-    console.log(user);
-    //  getFolders();
-
-}, []);
-
-//const files = useSelector((state) => state.files.files);
-
-
+  const files = useSelector((state) => state.files.files);
 
   const inputClicked = (data) => {
     const info = data.target.value;
@@ -94,21 +58,7 @@ function Starred() {
    
   };
 
-  useEffect(async () => {
-    
-    const getFiles = async () => {
-      const res = await axios.get(
-        `${API_URL}/files/starred/${user.userId}`
-      );
-      console.log(res.data);
-      return res.data;
-    };
-    const data = await getFiles();
-    console.log("in starred useeffect");
-    console.log(data);
-    setFiles(data);
-  }, []);
-
+ 
   return (
     <>
       <div>
@@ -127,9 +77,9 @@ function Starred() {
                 {/* <UploadButtonF user={user} /> */}
                 <Sidenavoptions
                   user={{
-                    userId: user.userId,
-                    userPath: user.userPath,
-                    parentFolderId: user.parentFolderId,
+                    userId: userdata.userId,
+                    userPath: userdata.userPath,
+                    parentFolderId: id,
                   }}
                 ></Sidenavoptions>
               </Col>
@@ -153,7 +103,7 @@ function Starred() {
             
             <Row>
               {files
-                .filter((i) => i.parentFolderId === "mydash")
+                .filter((i) => i.starred === true)
                 .map((i) => {
                   return (
                     <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
