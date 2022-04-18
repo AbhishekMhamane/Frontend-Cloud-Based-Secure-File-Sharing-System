@@ -27,6 +27,7 @@ import {useDispatch,useSelector} from 'react-redux';
 
 function Sidenavoptions(props) {
 
+  
   const user = useSelector( (state)=> state.user.user);
 
   const API_URL = "http://localhost:3000";
@@ -34,24 +35,27 @@ function Sidenavoptions(props) {
 
   console.log("In side " +user.userId);
   console.log("In side " + user.userPath);
-  console.log("In side " +user.parentFolderId);
+  console.log("In side " +props.user.parentFolderId);
 
   const fileRef = useRef();
   const fileRef1 = useRef();
+
 
   const handleChange = (e) => {
     const files = e.target.files;
     console.log(files);
     console.log("In upload " + user.userId);
     console.log("In upload " +user.userPath);
-    console.log("In upload " +user.parentFolderId);
+    console.log("In upload " + props.user.parentFolderId);
+
+    handleCreateFolder();
 
     for (let i = 0; i < files.length; i++) {
       let fdata = new FormData();
 
       fdata.append("userid", user.userId);
       fdata.append("userpath", user.userPath);
-      fdata.append("parentfolderid", user.parentFolderId);
+      fdata.append("parentfolderid", props.user.parentFolderId);
       fdata.append("files", files[i]);
       axios
         .post(`${API_URL}/files`, fdata)
@@ -61,6 +65,8 @@ function Sidenavoptions(props) {
         })
         .catch((err) => console.log(err));
     }
+
+
 
   };
 
@@ -75,18 +81,18 @@ function Sidenavoptions(props) {
   };
 
 
-  // const handleCreateFolder = () => {
-  //   alert("In foldercreate " + user.userId);
-  //   alert("In foldercreate " + user.userPath);
-  //   alert("In foldercreate " + user.parentFolderId);
+  const handleCreateFolder = () => {
+    alert("In foldercreate " + user.userId);
+    alert("In foldercreate " + user.userPath);
+    alert("In foldercreate " +  props.user.parentFolderId);
 
-  //   axios.post(`${API_URL}/folders`, {
-  //     userId: user.userId,
-  //     folderName: "tst",
-  //     folderPath: user.userPath,
-  //     parentFolderId: user.parentFolderId,
-  //   });
-  // };
+    axios.post(`${API_URL}/folders`, {
+      userId: user.userId,
+      folderName: "tst",
+      folderPath: user.userPath,
+      parentFolderId: props.user.parentFolderId,
+    });
+  };
 
   return (
     <>

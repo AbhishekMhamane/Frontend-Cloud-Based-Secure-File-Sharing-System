@@ -26,6 +26,7 @@ import {userActions} from '../../store/user/userSlice';
 import {fetchUser} from '../../store/user/userActions';
 import {filesActions} from '../../store/file/filesSlice';
 import {fetchFiles} from '../../store/file/filesActions';
+import {fetchFolders} from '../../store/folder/foldersActions';
 import { height } from "@mui/system";
 
 function MainView() {
@@ -36,7 +37,7 @@ function MainView() {
   const [user, setUser] = useState([]);
   //const [userData, setUserData] = useState([]);
 
-  const [folders, setFolders] = useState([]);
+  //const [folders, setFolders] = useState([]);
   //const [files, setFiles] = useState([]);
   const [search, updateSearch] = useState("");
 
@@ -59,6 +60,7 @@ function MainView() {
     
    // dispatch(fetchUser(emailId));
     dispatch(fetchFiles(emailId));
+    dispatch(fetchFolders(emailId));
 
   }, [dispatch]);
 
@@ -76,7 +78,7 @@ function MainView() {
   }, []);
 
   const files = useSelector((state) => state.files.files);
-
+  const folders = useSelector((state) => state.folders.folders);
   // const getUser = async () => {
   //   const resUser = await axios.get(`${API_URL}/users/${emailId}`);
     // setUser({

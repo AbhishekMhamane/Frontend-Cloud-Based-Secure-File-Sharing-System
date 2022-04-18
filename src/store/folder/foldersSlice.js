@@ -2,7 +2,7 @@ import {createSlice } from '@reduxjs/toolkit';
 
 const foldersSlice = createSlice({
     name : 'folders',
-    initilState : { folders : null },
+    initialState : { folders : null },
     reducers : {
         updateFolders(state , action) {
             console.log("inside the folder Slice");
