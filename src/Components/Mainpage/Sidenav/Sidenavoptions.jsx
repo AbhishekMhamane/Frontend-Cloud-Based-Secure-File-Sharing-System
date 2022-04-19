@@ -48,7 +48,7 @@ function Sidenavoptions(props) {
     console.log("In upload " +user.userPath);
     console.log("In upload " + props.user.parentFolderId);
 
-    handleCreateFolder();
+    //handleCreateFolder();
 
     for (let i = 0; i < files.length; i++) {
       let fdata = new FormData();

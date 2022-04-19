@@ -39,50 +39,21 @@ function SecondView() {
   
   const API_URL = "http://localhost:3000";
 
-const emailId = "abhimhamane13@gmail.com";
+ //const emailId = "abhimhamane13@gmail.com";
+
   const  {id}  = useParams();
 
   console.log("inside second wise",id);
   const location = useLocation();
   const [search, updateSearch] = useState("");
-  const [user, setUser] = useState([]);
+
+  //const [user, setUser] = useState([]);
   
   const dispatch = useDispatch();
 
   const userdata = useSelector((state) => state.user.user);
-
- useEffect(() => {
-
-   if(userdata)
-   {
-     dispatch(fetchUser(emailId));
-   }
-   
- }, [dispatch,userdata]);
- 
-
- useEffect(() => {
-
-   
-  // dispatch(fetchUser(emailId));
-   dispatch(fetchFiles(emailId));
-   dispatch(fetchFolders(emailId));
-
-
- }, [dispatch]);
-
-
- useEffect(() => {
-
-   setUser({
-     userId: userdata.userId,
-     userPath: userdata.userPath,
-     parentFolderId: id});
-     console.log(user);
- }, []);
-
- const files = useSelector((state) => state.files.files);
- const folders = useSelector((state) => state.folders.folders);
+  const files = useSelector((state) => state.files.files);
+  const folders = useSelector((state) => state.folders.folders);
 
   const inputClicked = (data) => {
     const info = data.target.value;
@@ -152,8 +123,8 @@ const emailId = "abhimhamane13@gmail.com";
             <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
               <Sidenavoptions
                 user={{
-                  userId: location.state["user"].userId,
-                  userPath: location.state["user"].userPath,
+                  userId: userdata.userId,
+                  userPath: userdata.userPath,
                   parentFolderId: id,
                 }}
               ></Sidenavoptions>
