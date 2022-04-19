@@ -180,7 +180,7 @@ function MainView() {
                 onChange={inputClicked}
               />
             </div>
-            {search === "" ? null : <SearchView file={search} />}
+            {/* {search === "" ? null : <SearchView file={search} />} */}
          
             <Row>
 

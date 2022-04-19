@@ -4,17 +4,28 @@ import './index.css';
 
 import reportWebVitals from './reportWebVitals';
 import App from './App';
+import AppMain from './AppMain';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Provider } from 'react-redux';
 import { store, persistor } from './store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 
+import { Auth0Provider } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
+
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={<h1>Loading</h1>} persistor={persistor} >
-        <App />
+        <Auth0Provider
+          domain="https://dev-bbnxpo4o.us.auth0.com"
+          clientId="drWkUAB9XLwuRK20Q8nukMLgrdv4EfmI"
+          redirectUri="http://localhost:3001/mydash">
+          <App/>
+        </Auth0Provider>
       </PersistGate>
     </Provider>
   </React.StrictMode>,
