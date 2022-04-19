@@ -23,6 +23,7 @@ import Demo from './demo.js';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import AppMain from './AppMain';
+import Homepage from './Components/Home/Homepage';
 
 function App() {
 
@@ -47,7 +48,7 @@ function App() {
     ) : (<BrowserRouter>
       <div className='App'>
         <Routes>
-          <Route exact path="/" element={<AppMain />} />
+          <Route exact path="/" element={<Homepage/>} />
           {/* <Route exact path="/*" element={ <Navigate to="/" /> } /> */}
         </Routes>
       </div>
