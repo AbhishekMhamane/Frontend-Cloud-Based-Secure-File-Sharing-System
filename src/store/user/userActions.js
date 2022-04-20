@@ -1,11 +1,9 @@
 import axios from 'axios';
 import {userActions} from './userSlice';
 import {useDispatch} from 'react-redux';
+import {API_URL} from "../../constants/routes";
 
 export const fetchUser = (emailId) =>{
-
-  const API_URL = "http://localhost:3000";
- // const emailId = "abhimhamane13@gmail.com";
 
     return async (dispatch) => {
 

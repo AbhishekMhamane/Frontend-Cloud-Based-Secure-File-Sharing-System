@@ -1,0 +1,44 @@
+.heading
+{
+    margin-left: 20%;
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    
+}
+
+
+.head1
+{
+    color: #FFFFFF;
+    font-size: 1rem;
+  
+}
+.head2
+{
+    color: #FFFFFF;
+    font-size: 1rem;
+    margin-left: 50%;
+  
+}
+
+.div
+{
+ margin-left: 72%;
+}
+
+@media (max-width: 991.98px) { 
+
+.div
+{
+ margin-left: 0%;
+}
+
+.head2
+{
+    color: #FFFFFF;
+    font-size: 2rem;
+    margin-left: 0%;
+  
+ }
+
+}

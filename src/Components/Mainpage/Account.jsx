@@ -13,17 +13,27 @@ import {
 
 import Sidenavoptions from "./Sidenav/Sidenavoptions.jsx";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import "./Starred.css";
 
 import { useSelector } from "react-redux";
 const Account = () => {
-  const user = useSelector((state) => state.user.user);
+  //const user = useSelector((state) => state.user.user);
   console.log("in starred state");
   //console.log(user.userId);
   const API_URL = "http://localhost:3000";
   const [files, setFiles] = useState([]);
   const { id } = useParams();
+
+  const { logout } = useAuth0();
+
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
+
 
   return (
     <div>
@@ -61,16 +71,17 @@ const Account = () => {
                   <tbody>
                       <tr>
                           <th>User Name</th>
-                          <td>{user.userName}</td>
+                          <td>{user.name}</td>
                       </tr>
                       <tr>
                           <th>User EmailID </th>
-                          <td>{user.userId}</td>
+                          <td>{user.email}</td>
                       </tr>
                   </tbody>
                   </Table>     
                   </Card.Text>
-                  <Button  style={{marginTop:'2rem'}}  variant="primary" >Logout</Button>
+                  <Button  style={{marginTop:'2rem'}}  variant="primary" 
+                  onClick={() => logout({ returnTo: window.location.origin })} >Logout</Button>
                 </Card.Body>
               </Card>
             </Row>

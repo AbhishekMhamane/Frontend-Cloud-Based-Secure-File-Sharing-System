@@ -28,48 +28,47 @@ import {filesActions} from '../../store/file/filesSlice';
 import {fetchFiles} from '../../store/file/filesActions';
 import {fetchFolders} from '../../store/folder/foldersActions';
 import { height } from "@mui/system";
+import {API_URL,Client_Server} from "../../constants/routes";
+
+import { useAuth0 } from "@auth0/auth0-react";
 
 function MainView() {
-  const API_URL = "http://localhost:3000";
-  const API_URL1 = "http://localhost:3002";
 
-  const emailId = "abhimhamane13@gmail.com";
-  const [user, setUser] = useState([]);
+
+  const { user } = useAuth0();
+
+  //const emailId = "abhimhamane13@gmail.com";
+  //const [user, setUser] = useState([]);
   const [search, updateSearch] = useState("");
 
    const dispatch = useDispatch();
 
-   const userdata = useSelector((state) => state.user.user);
-
   useEffect(() => {
 
-    if(userdata)
-    {
-      dispatch(fetchUser(emailId));
-    }
+      dispatch(fetchUser(user.email));
     
-  }, [dispatch,userdata]);
+  }, [dispatch]);
   
+  const userdata = useSelector((state) => state.user.user);
 
   useEffect(() => {
 
-    
    // dispatch(fetchUser(emailId));
-    dispatch(fetchFiles(emailId));
-    dispatch(fetchFolders(emailId));
+    dispatch(fetchFiles(user.email));
+    dispatch(fetchFolders(user.email));
 
   }, [dispatch]);
 
 
-  useEffect(async() => {
+  // useEffect(async() => {
 
-    setUser({
-      userId: userdata.userId,
-      userPath: userdata.userPath,
-      parentFolderId: "mydash"});
-      console.log(user);
+  //   setUser({
+  //     userId: userdata.userId,
+  //     userPath: userdata.userPath,
+  //     parentFolderId: "mydash"});
+  //     console.log(user);
 
-  }, []);
+  // }, []);
 
   const files = useSelector((state) => state.files.files);
   const folders = useSelector((state) => state.folders.folders);
@@ -159,7 +158,11 @@ function MainView() {
             <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto" >
               {/* <UploadButton user={user} /> */}
               {/* <UploadButtonF user={user} /> */}
-              <Sidenavoptions user={user}></Sidenavoptions>
+              <Sidenavoptions user={{
+                userId:userdata.userId,
+                userPath:userdata.userPath,
+                parentFolderId: "mydash"
+              }}></Sidenavoptions>
             </Col>
           </Col>
           <div className="mainGradient" >
@@ -180,7 +183,7 @@ function MainView() {
                 onChange={inputClicked}
               />
             </div>
-            {search === "" ? null : <SearchView file={search} />}
+            {/* {search === "" ? null : <SearchView file={search} />} */}
          
             <Row>
 
@@ -320,7 +323,7 @@ function MainView() {
                         key={i._id}
                         className="cardStyle1"
                         onDoubleClick={() => {
-                          window.open(`${API_URL1}/getfile/${user.userId}/${i._id}`);
+                          window.open(`${Client_Server}/getfile/${userdata.userId}/${i._id}`);
                         }}
                         style={{
                           width: "7rem",
@@ -352,7 +355,7 @@ function MainView() {
                             <Dropdown.Menu className="dropdown-menu">
                               <Dropdown.Item
                                 className="menuItem"
-                                href={`${API_URL1}/downloadfile/${user.userId}/${i._id}`}
+                                href={`${Client_Server}/downloadfile/${user.userId}/${i._id}`}
                               >
                                 Download
                               </Dropdown.Item>

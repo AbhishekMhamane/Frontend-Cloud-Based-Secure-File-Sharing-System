@@ -24,6 +24,7 @@ function SearchView(props) {
   }, []);
 
   return (
+    
       <div>
         <Card style={{ height: "400px", width: "790px", marginTop: "5px" }}>
           <Card.Body>

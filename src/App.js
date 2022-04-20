@@ -1,21 +1,17 @@
 import './App.css';
-import React, { Suspense,useEffect} from 'react';
+import React, { Suspense, useEffect } from 'react';
 import {
   BrowserRouter,
   Routes,
-  Route,Navigate
+  Route,
+  Navigate
 } from "react-router-dom";
 import axios from 'axios';
-import {useDispatch,useSelector} from 'react-redux';
-import {userActions} from './store/user/userSlice';
-import {fetchUser} from './store/user/userActions';
-import {fetchFiles} from './store/file/filesActions';
-
-
-// const MainView = React.lazy(() => import('./Components/Mainpage/MainView'));
-// const Starred =  React.lazy(() => import('./Components/Mainpage/Starred'));
-// const SecondView =  React.lazy(() => import('./Components/Mainpage/SecondView'));
-// const Account = React.lazy(() => import('./Components/Mainpage/Account'));
+import { useDispatch, useSelector } from 'react-redux';
+import { userActions } from './store/user/userSlice';
+import { fetchUser } from './store/user/userActions';
+import { fetchFiles } from './store/file/filesActions';
+import { useNavigate } from "react-router-dom";
 
 import MainView from './Components/Mainpage/MainView';
 import SecondView from './Components/Mainpage/SecondView';
@@ -25,38 +21,38 @@ import Public from './Components/Mainpage/Public';
 import Publiccard from './Components/Mainpage/Publiccard';
 import Demo from './demo.js';
 
+import { useAuth0 } from "@auth0/auth0-react";
+import AppMain from './AppMain';
+import Homepage from './Components/Home/Homepage';
 
 function App() {
 
 
-
-  // const API_URL = "http://localhost:3000";
-  //  const emailId = "abhimhamane13@gmail.com";
-  //  const dispatch = useDispatch();
-
-  //  useEffect(() => {
-  //   dispatch(fetchUser(emailId));
-  //   //dispatch(fetchFiles(emailId));
-    
-  // }, [dispatch]);
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
 
 
   return (
-    <BrowserRouter>
+
+    isAuthenticated ? (
+      <BrowserRouter>
+        <div className='App'>
+          <Routes>
+            <Route exact path="/mydash" element={<MainView />} />
+            <Route path="/folder/:id" element={<SecondView />} />
+            <Route path="/starred" element={<Starred />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/public" element={<Public />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    ) : (<BrowserRouter>
       <div className='App'>
-     
-      {/* <Suspense fallback={<div>Loading...</div>}> */}
         <Routes>
-        {/* <Route exact path="/" element={<Demo/>} /> */}
-          <Route exact path="/mydash" element={<MainView />} />
-          <Route path="/folder/:id" element={<SecondView />} />
-          <Route path="/starred" element={<Starred />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/public" element={<Public />} />
+          <Route exact path="/" element={<Homepage/>} />
+          {/* <Route exact path="/*" element={ <Navigate to="/" /> } /> */}
         </Routes>
-        {/* </Suspense> */}
       </div>
-    </BrowserRouter>
+    </BrowserRouter>)
   );
 }
 
