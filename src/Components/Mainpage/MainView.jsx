@@ -337,7 +337,7 @@ function MainView() {
                               style={{ marginRight: "40px" }}
                             >
                               <Button
-                                variant="outline-light"
+                                variant="warning"
                                 className="dropButton"
                                 style={{
                                   marginLeft: "-13px",
