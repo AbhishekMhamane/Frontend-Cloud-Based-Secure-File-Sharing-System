@@ -1,10 +1,10 @@
 import axios from 'axios';
 import {foldersActions} from './foldersSlice.js';
 import {useDispatch} from 'react-redux';
+import {API_URL} from "../../constants/routes";
 
 export const fetchFolders = (emailId) =>{
 
-  const API_URL = "http://localhost:3000";
  // const emailId = "abhimhamane13@gmail.com";
 
     return async (dispatch) => {

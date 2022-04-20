@@ -25,6 +25,7 @@ import { Dropdown, Modal, Button } from "react-bootstrap";
 import { FolderFill, FileEarmarkTextFill, Search } from "react-bootstrap-icons";
 import SearchView from "./SearchView.jsx";
 import "./SecondView.css";
+import {API_URL,Client_Server} from "../../constants/routes";
 
 
 import {useDispatch,useSelector} from 'react-redux';
@@ -37,17 +38,12 @@ import { height } from "@mui/system";
 
 function SecondView() {
   
-  const API_URL = "http://localhost:3000";
-
- //const emailId = "abhimhamane13@gmail.com";
 
   const  {id}  = useParams();
 
-  console.log("inside second wise",id);
   const location = useLocation();
   const [search, updateSearch] = useState("");
 
-  //const [user, setUser] = useState([]);
   
   const dispatch = useDispatch();
 
@@ -79,7 +75,7 @@ function SecondView() {
 
   //folder options
   const dropdownFolderDelete = (folderId) => {
-    axios.delete(`http://localhost:3000/folders/${folderId}`);
+    axios.delete(`${API_URL}/folders/${folderId}`);
   };
 
   const dropdownFileItemPublic= (fileId, value) => {
@@ -102,7 +98,7 @@ function SecondView() {
 
   const handleFileRename = (fileId) => {
     console.log(textInput.current.value);
-    axios.put("http://localhost:3000/files/file/" + fileId, {
+    axios.put(`${API_URL}/files/file/` + fileId, {
       fileName: textInput.current.value,
     });
     setShow(false);
@@ -290,9 +286,7 @@ function SecondView() {
                           boxShadow: "0.5px 0.5px 0.5px ",
                         }}
                         onDoubleClick={() => {
-                          window.open(
-                            `http://localhost:3000/files/file/${i._id}`
-                          );
+                          window.open(`${Client_Server}/getfile/${userdata.userId}/${i._id}`);
                         }}
                       >
                         <Card.Body>
@@ -317,7 +311,7 @@ function SecondView() {
                             <Dropdown.Menu className="dropdown-menu">
                               <Dropdown.Item
                                 className="menuItem"
-                                href={`http://localhost:3000/files/file/download/${i._id}`}
+                                href={`${Client_Server}/files/file/download/${i._id}`}
                               >
                                 Download
                               </Dropdown.Item>

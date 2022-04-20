@@ -1,11 +1,10 @@
 import axios from 'axios';
 import {filesActions} from './filesSlice.js';
 import {useDispatch} from 'react-redux';
+import {API_URL} from "../../constants/routes";
 
 export const fetchFiles = (emailId) =>{
 
-  const API_URL = "http://localhost:3000";
- // const emailId = "abhimhamane13@gmail.com";
 
     return async (dispatch) => {
 

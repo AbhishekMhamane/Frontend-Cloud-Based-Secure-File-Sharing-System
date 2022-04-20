@@ -23,19 +23,18 @@ import { Image } from "react-bootstrap";
 
 import {fetchFiles} from '../../../store/file/filesActions';
 import {useDispatch,useSelector} from 'react-redux';
-
+import {API_URL} from '../../../constants/routes';
 
 function Sidenavoptions(props) {
 
   
   const user = useSelector( (state)=> state.user.user);
 
-  const API_URL = "http://localhost:3000";
   const dispatch = useDispatch();
 
-  console.log("In side " +user.userId);
-  console.log("In side " + user.userPath);
-  console.log("In side " +props.user.parentFolderId);
+  // console.log("In side " +user.userId);
+  // console.log("In side " + user.userPath);
+  // console.log("In side " +props.user.parentFolderId);
 
   const fileRef = useRef();
   const fileRef1 = useRef();
@@ -44,11 +43,6 @@ function Sidenavoptions(props) {
   const handleChange = (e) => {
     const files = e.target.files;
     console.log(files);
-    console.log("In upload " + user.userId);
-    console.log("In upload " +user.userPath);
-    console.log("In upload " + props.user.parentFolderId);
-
-    //handleCreateFolder();
 
     for (let i = 0; i < files.length; i++) {
       let fdata = new FormData();
