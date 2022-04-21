@@ -1,4 +1,4 @@
-import React from "react";
+import  * as React from "react";
 import { useState, useEffect } from "react";
 import {
   Link,
@@ -183,12 +183,10 @@ function MainView() {
                 onChange={inputClicked}
               />
             </div>
-            {/* {search === "" ? null : <SearchView file={search} />} */}
+             {search === "" ? null : <SearchView file={search} />} 
          
             <Row>
-
-         
-              {folders
+                 {folders
                 .filter((i) => i.parentFolderId === "mydash")
                 .map((i) => {
                   return (
@@ -340,7 +338,7 @@ function MainView() {
                               style={{ marginRight: "40px" }}
                             >
                               <Button
-                                variant="outline-light"
+                                variant="warning"
                                 className="dropButton"
                                 style={{
                                   marginLeft: "-13px",
