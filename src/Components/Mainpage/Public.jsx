@@ -41,7 +41,7 @@ const Public=()=> {
   const [rating, updateRating] = useState('');
 
   const userdata = useSelector((state) => state.user.user);
-  console.log("in public state");
+  // console.log("in public state");
   
 
   const [files, setFiles] = useState([]);
@@ -56,35 +56,18 @@ const Public=()=> {
       return res.data;
     };
     const data = await getFiles();
-    console.log("in starred useeffect");
-    console.log(data);
+    // console.log("in starred useeffect");
+    // console.log(data);
     setFiles(data);
 
-  }, []);
+  }, [dispatch]);
 
-  useEffect(() => {
-
-    setUser({
-      userId: userdata.userId,
-      userPath: userdata.userPath,
-      parentFolderId: "mydash"
-    });
-    console.log(user);
-    //  getFolders();
-
-  }, []);
 
   const [showModal, setShow] = useState(false);
   let textInput = React.createRef();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
- 
-  // const handleFileReview = (userId,fileId,data) => {
-  //   const info = data;
-  //   console.log(data);
-  //   updateRating(data);
-  // };
 
   const inputClicked = (data) => {
     const info = data.target.value;
@@ -99,6 +82,12 @@ const Public=()=> {
     });
   };
 
+  const dropdownFileItemStarred = (fileId, value) => {
+    console.log(fileId + "File Added in Starred Section");
+    axios.put(`${API_URL}/files/starred/${fileId}`, { starred: value }).then(()=>{
+      dispatch(fetchFiles(userdata.userId));
+    });
+  };
 
   return (
     <>
@@ -117,11 +106,7 @@ const Public=()=> {
                 {/* <UploadButton user={user} /> */}
                 {/* <UploadButtonF user={user} /> */}
                 <Sidenavoptions
-                  user={{
-                    userId: userdata.userId,
-                    userPath: userdata.userPath,
-                    parentFolderId: userdata.parentFolderId,
-                  }}
+                  user={userdata}
                 ></Sidenavoptions>
               </Col>
             </Col>
@@ -146,7 +131,7 @@ const Public=()=> {
                 {search === "" ? null : <SearchView name={search} />}
                 <Row>
                   {files
-                    .filter((i) => i.userId === user.userId)
+                    .filter((i) => i.userId === userdata.userId)
                     .map((i) => {
                       return (
                         <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
@@ -207,48 +192,13 @@ const Public=()=> {
                                         }}
                                       ></Rating>
                                     </Modal.Body>
-                                    {/* <div className="modalHeader">
-                                      <Modal.Footer>
-                                        <Button
-                                          variant="warning"
-                                          onClick={handleClose}
-                                        >
-                                          Close
-                                        </Button>
-                                        <Button
-                                          variant="warning"
-                                          onClick={() => handleFileReview(i._id, user.userId)}
-                                        >
-                                          Save Changes
-                                        </Button>
-                                      </Modal.Footer>
-                                    </div> */}
+                                    
                                   </Modal>
-                                  {/* <Dropdown.Item className='menuItem' onClick={handleShow} >
-                                Rename
-                            </Dropdown.Item>
-                            <Modal show={showModal} onHide={handleClose}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>Rename File</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <label>
-                                        New File name:
-                                    </label>
-                                    <input ref={textInput} type={"text"}></input>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={handleClose}>
-                                        Close
-                                    </Button>
-                                    <Button variant="primary" onClick={() => handleFileRename(i._id)}>
-                                        Save Changes
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal> */}
+                                
                                   <Dropdown.Item className="menuItem" onClick="">
                                     Share
                                   </Dropdown.Item>
+
                                   {i.public ? (
                                     <Dropdown.Item
                                       className=" menuItem"
@@ -269,21 +219,30 @@ const Public=()=> {
                                       Add to Public
                                     </Dropdown.Item>
                                   )}
-                                  {/* <Dropdown.Item className='menuItem' onClick="" >
-                                Move
-                            </Dropdown.Item> */}
-                                  {/* {value === "false"}: */}
-                                  {/* <Dropdown.Item className=" menuItem" onClick="">
-                                  Add to Starred
-                                </Dropdown.Item>
-                                ?
-                                <Dropdown.Item className=" menuItem" onClick="">
+                             
+                            
+                            {i.starred ? (
+                                <Dropdown.Item
+                                  className=" menuItem"
+                                  onClick={() =>
+                                    dropdownFileItemStarred(i._id, !i.starred)
+                                  }
+                                >
                                   Remove From Starred
+
                                 </Dropdown.Item>
-                                <Dropdown.Item className=" menuItem" onClick="">
-                                  Delete
-                                </Dropdown.Item> */}
-                                </Dropdown.Menu>
+                              ) : (
+                                <Dropdown.Item
+                                  className=" menuItem"
+                                  onClick={() =>
+                                    dropdownFileItemStarred(i._id, !i.starred)
+                                  }
+                                >
+                                  Add to Starred                                  
+                                </Dropdown.Item>
+                              )}
+                              
+                              </Dropdown.Menu>
                               </Dropdown>
                               <FileEarmarkTextFill
                                 style={{

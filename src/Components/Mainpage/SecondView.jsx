@@ -51,6 +51,10 @@ function SecondView() {
   const files = useSelector((state) => state.files.files);
   const folders = useSelector((state) => state.folders.folders);
 
+  useEffect(()=>{
+
+  },[dispatch]);
+
   const inputClicked = (data) => {
     const info = data.target.value;
     console.log(info);
@@ -75,32 +79,37 @@ function SecondView() {
 
   //folder options
   const dropdownFolderDelete = (folderId) => {
-    axios.delete(`${API_URL}/folders/${folderId}`);
+    axios.delete(`${API_URL}/folders/${folderId}`).then(()=>{
+      dispatch(fetchFolders(userdata.userId));
+    });
+    
   };
 
   const dropdownFileItemPublic= (fileId, value) => {
-    console.log(fileId + "File Added in public Section");
+    // console.log(fileId + "File Added in public Section");
     axios.put(`${API_URL}/files/public/file/${fileId}`, { public: value }).then(()=>{
       dispatch(fetchFiles(userdata.userId));
     });
   };
   //files options
   const dropdownFileItemStarred = (fileId, value) => {
-    console.log(fileId + "File Added in Starred Section");
+    // console.log(fileId + "File Added in Starred Section");
     axios.put(`${API_URL}/files/starred/${fileId}`, { starred: value }).then(()=>{
       dispatch(fetchFiles(userdata.userId));
     });
   };
   const dropdownFileItemDelete = (fileId) => {
-    alert("file deleted");
-    axios.delete(`${API_URL}/files/file/${fileId}`);
+    // alert("file deleted");
+    axios.delete(`${API_URL}/files/file/${fileId}`).then(()=>{
+      dispatch(fetchFiles(userdata.userId));
+    });
   };
 
   const handleFileRename = (fileId) => {
     console.log(textInput.current.value);
     axios.put(`${API_URL}/files/file/` + fileId, {
       fileName: textInput.current.value,
-    });
+    }).then(()=>{dispatch(fetchFiles(userdata.userId));});
     setShow(false);
   };
 

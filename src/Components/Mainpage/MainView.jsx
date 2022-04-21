@@ -60,18 +60,9 @@ function MainView() {
   }, [dispatch]);
 
 
-  // useEffect(async() => {
-
-  //   setUser({
-  //     userId: userdata.userId,
-  //     userPath: userdata.userPath,
-  //     parentFolderId: "mydash"});
-  //     console.log(user);
-
-  // }, []);
-
   const files = useSelector((state) => state.files.files);
   const folders = useSelector((state) => state.folders.folders);
+
 
   const inputClicked = (data) => {
     const info = data.target.value;
@@ -80,8 +71,8 @@ function MainView() {
   };
 
   const dropdownItemDownload = (e) => {
-    axios.get(`${API_URL}/files/file/download/${e}`);
-    alert(`${API_URL}/files/file/download/${e}`);
+    axios.get(`${API_URL}/files/file/download/${e}`).then(()=> dispatch(fetchFiles(userdata.userId)) );
+    // alert(`${API_URL}/files/file/download/${e}`);
     console.log("Download");
   };
   const [showModal, setShow] = useState(false);
@@ -104,12 +95,12 @@ function MainView() {
     console.log(textInput.current.value);
     axios.put(`${API_URL}/folders/${folderId}`, {
       newName: textInput.current.value,
-    });
+    }).then(()=> dispatch(fetchFolders(userdata.userId)) );
     setShow(false);
   };
 
   const dropdownFolderDelete = (folderId) => {
-    axios.delete(`${API_URL}/folders/${folderId}`);
+    axios.delete(`${API_URL}/folders/${folderId}`).then(()=> dispatch(fetchFolders(userdata.userId)) );
     setShow(false);
   };
 
@@ -139,7 +130,7 @@ function MainView() {
     console.log(textInput.current.value);
     axios.put(`${API_URL}/files/file/${fileId}`, {
       fileName: textInput.current.value,
-    });
+    }).then(()=> dispatch(fetchFiles(userdata.userId)) );
     setShow(false);
   };
 
