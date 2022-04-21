@@ -32,9 +32,9 @@ function Sidenavoptions(props) {
 
   const dispatch = useDispatch();
 
-  // console.log("In side " +user.userId);
-  // console.log("In side " + user.userPath);
-  // console.log("In side " +props.user.parentFolderId);
+  console.log("In side " +user.userId);
+  console.log("In side " + user.userPath);
+  console.log("In side " +props.user.parentFolderId);
 
   const fileRef = useRef();
   const fileRef1 = useRef();
@@ -71,18 +71,19 @@ function Sidenavoptions(props) {
 
   const handleChange1 = (e) => {
     console.log(textInput.current.value);
+    handleCreateFolder(textInput.current.value);
     setShow(false);
   };
 
 
-  const handleCreateFolder = () => {
-    alert("In foldercreate " + user.userId);
-    alert("In foldercreate " + user.userPath);
-    alert("In foldercreate " +  props.user.parentFolderId);
+  const handleCreateFolder = (folderName) => {
+    // alert("In foldercreate " + user.userId);
+    // alert("In foldercreate " + user.userPath);
+    // alert("In foldercreate " +  props.user.parentFolderId);
 
     axios.post(`${API_URL}/folders`, {
       userId: user.userId,
-      folderName: "tst",
+      folderName: folderName,
       folderPath: user.userPath,
       parentFolderId: props.user.parentFolderId,
     });

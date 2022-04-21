@@ -29,23 +29,22 @@ import {fetchUser} from '../../store/user/userActions';
 import {filesActions} from '../../store/file/filesSlice';
 import {fetchFiles} from '../../store/file/filesActions';
 import { height } from "@mui/system";
+import {API_URL,Client_Server} from "../../constants/routes";
+
 
 function Public() {
-  const emailId = "abhimhamane13@gmail.com";
+ 
   const [search, updateSearch] = useState("");
   const [user, setUser] = useState([]);
 
-  //const user = useSelector((state) => state.user.user);
+  const userdata = useSelector((state) => state.user.user);
   console.log("in public state");
 
-  const API_URL = "http://localhost:3000";
   const [files, setFiles] = useState([]);
 
   const [rating,updateRating]= useState([]);
   
   const dispatch = useDispatch();
-
-  const userdata = useSelector((state) => state.user.user);
 
   const [showModal, setShow] = useState(false);
   let textInput = React.createRef();
@@ -55,27 +54,23 @@ function Public() {
   const handleFileReview = (userId,fileId,data) => {
     const info = data;
     console.log(data);
-
-
     updateRating(data);
-    
   };
 
- useEffect(() => {
+//  useEffect(() => {
 
-   if(userdata)
-   {
-     dispatch(fetchUser(emailId));
-   }
+//    if(userdata)
+//    {
+//      dispatch(fetchUser(emailId));
+//    }
    
- }, [dispatch,userdata]);
+//  }, [dispatch,userdata]);
  
 
  useEffect(() => {
-
    
   // dispatch(fetchUser(emailId));
-   dispatch(fetchFiles(emailId));
+   dispatch(fetchFiles(userdata.userId));
 
  }, [dispatch]);
 
@@ -140,9 +135,9 @@ function Public() {
                 {/* <UploadButtonF user={user} /> */}
                 <Sidenavoptions
                   user={{
-                    userId: user.userId,
-                    userPath: user.userPath,
-                    parentFolderId: user.parentFolderId,
+                    userId: userdata.userId,
+                    userPath: userdata.userPath,
+                    parentFolderId: userdata.parentFolderId,
                   }}
                 ></Sidenavoptions>
               </Col>

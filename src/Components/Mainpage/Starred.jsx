@@ -22,14 +22,14 @@ import {userActions} from '../../store/user/userSlice';
 import {fetchUser} from '../../store/user/userActions';
 import {filesActions} from '../../store/file/filesSlice';
 import {fetchFiles} from '../../store/file/filesActions';
+import {API_URL,Client_Server} from "../../constants/routes";
 
 
 function Starred() {
-  const emailId = "abhimhamane13@gmail.com";
 
   const [search, updateSearch] = useState("");
-  const [user, setUser] = useState([]);
-  const API_URL = "http://localhost:3000";
+  //const [user, setUser] = useState([]);
+
   const { id } = useParams();
 
   const dispatch = useDispatch();
@@ -76,11 +76,7 @@ function Starred() {
                 {/* <UploadButton user={user} /> */}
                 {/* <UploadButtonF user={user} /> */}
                 <Sidenavoptions
-                  user={{
-                    userId: userdata.userId,
-                    userPath: userdata.userPath,
-                    parentFolderId: id,
-                  }}
+                  user={userdata}
                 ></Sidenavoptions>
               </Col>
             </Col>

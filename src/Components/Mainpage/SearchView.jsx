@@ -1,12 +1,17 @@
-import { React, useState, useEffect } from "react";
+import * as React from "react";
+import { useState, useEffect } from "react";
 import { Card, Row, Col, Dropdown, Button } from "react-bootstrap";
-import { FolderFill, FileEarmarkTextFill, Search } from "react-bootstrap-icons";
+import { FolderFill, FileEarmarkTextFill, Search ,ThreeDotsVertical} from "react-bootstrap-icons";
 import axios from "axios";
+import {useSelector} from 'react-redux';
 import "./SearchView.css";
+
+import {API_URL,Client_Server} from "../../constants/routes";
 
 function SearchView(props) {
   
-  const API_URL = "http://localhost:3000";
+
+  const userdata = useSelector((state)=>state.user.user);
 
   const [files, setFiles] = useState([]);
 
@@ -30,7 +35,7 @@ function SearchView(props) {
           <Card.Body>
             <Row>
               {files
-                .filter((i) => i.fileName === props.file)
+                .filter((i) => i.fileName === props.name)
                 .map((i) => {
                   return (
                     <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
@@ -39,10 +44,10 @@ function SearchView(props) {
                         key={i._id}
                         className="cardStyle1"
                         onDoubleClick={() => {
-                          window.open(`${API_URL}/files/file/${i._id}`);
+                          window.open(`${Client_Server}/getfile/${userdata.userId}/${i._id}`);
                         }}
                         style={{
-                          width: "7rem",
+                          width: "10rem",
                           height: "7rem",
                           marginRight: "-0.2rem",
                           borderRadius: "5px",
@@ -65,12 +70,13 @@ function SearchView(props) {
                                   color: "black",
                                 }}
                               >
+                                <ThreeDotsVertical/>
                               </Button>
                             </Dropdown.Toggle>
                             <Dropdown.Menu className="dropdown-menu">
                               <Dropdown.Item
                                 className="menuItem"
-                                href={`${API_URL}/files/file/download/${i._id}`}
+                                href={`${Client_Server}/downloadfile/${userdata.userId}/${i._id}`}
                               >
                                 Download
                               </Dropdown.Item>
@@ -132,7 +138,6 @@ function SearchView(props) {
                             {i.fileName}
                           </Card.Text>
                         </Card.Body>
-                        s
                       </Card>
                     </Col>
                   );
