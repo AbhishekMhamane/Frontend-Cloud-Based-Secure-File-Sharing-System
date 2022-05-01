@@ -177,7 +177,7 @@ function MainView() {
              {search === "" ? null : <SearchView file={search} />} 
          
             <Row>
-                 {folders
+                 {folders && folders
                 .filter((i) => i.parentFolderId === "mydash")
                 .map((i) => {
                   return (

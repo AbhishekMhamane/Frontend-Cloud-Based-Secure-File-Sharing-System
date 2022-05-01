@@ -320,7 +320,7 @@ function SecondView() {
                             <Dropdown.Menu className="dropdown-menu">
                               <Dropdown.Item
                                 className="menuItem"
-                                href={`${Client_Server}/files/file/download/${i._id}`}
+                                href={`${Client_Server}/downloadfile/:uid/${i._id}`}
                               >
                                 Download
                               </Dropdown.Item>
