@@ -139,10 +139,7 @@ function SecondView() {
             xs={10}
             className="mainGradient"
             style={{
-              paddingBottom: "5rem",
-              borderRadius: "10px",
-              marginTop: "5px",
-              marginBottom: "5px",
+              height:"600px"
             }}
           >
             <div className="header__search">
@@ -231,7 +228,7 @@ function SecondView() {
                                 </Modal.Footer>
                                 </div>
                               </Modal>
-                              <Dropdown.Item
+                              {/* <Dropdown.Item
                                 className="menuItem"
                                 onClick={dropdownItemShare}
                               >
@@ -240,7 +237,7 @@ function SecondView() {
                               <Dropdown.Item className="menuItem" onClick="">
                                 Move
                               </Dropdown.Item>
-                             
+                              */}
 
                               <Dropdown.Item
                                 className="menuItem"
@@ -288,7 +285,7 @@ function SecondView() {
                         key={i._id}
                         className="cardStyle1"
                         style={{
-                          width: "7rem",
+                          width: "10rem",
                           height: "7rem",
                           marginRight: "-0.2rem",
                           borderRadius: "10px",

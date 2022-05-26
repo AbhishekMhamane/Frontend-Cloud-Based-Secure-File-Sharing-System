@@ -7,7 +7,7 @@ import { Star } from "react-bootstrap-icons";
 import { Trash } from "react-bootstrap-icons";
 import { ClockHistory } from "react-bootstrap-icons";
 import { Tablet } from "react-bootstrap-icons";
-import { Grid3x3GapFill } from "react-bootstrap-icons";
+import { Grid3x3GapFill,Search} from "react-bootstrap-icons";
 import { QuestionCircle } from "react-bootstrap-icons";
 import { ShareFill } from "react-bootstrap-icons";
 import { Gear } from "react-bootstrap-icons";
@@ -130,7 +130,7 @@ function Sidenavoptions(props) {
           </Link>
         </div>
         <div className="sidenav__options">
-          <Grid3x3GapFill />
+          <Search />
           <Link
             to={{ pathname: '/public' }} style={{ color: 'inherit', textDecoration: 'inherit'}}>
           <span>Public</span>
@@ -144,7 +144,7 @@ function Sidenavoptions(props) {
           Starred</span> </Link>
           
         </div>
-        <div className="sidenav__options">
+        {/* <div className="sidenav__options">
           <ShareFill />
         
             <span>Shared</span>
@@ -153,7 +153,7 @@ function Sidenavoptions(props) {
         <div className="sidenav__options">
           <Gear />
           <span>Setting</span>
-        </div>
+        </div> */}
         <div className="sidenav__options">
           <PersonCircle />
           <Link
@@ -171,7 +171,7 @@ function Sidenavoptions(props) {
           <Dropdown.Toggle
             variant="warning"
             style={{
-              marginTop:"200px",
+              marginTop:"300px",
               backgroundColor: " #ff9f02",
               color: "white",
             }}

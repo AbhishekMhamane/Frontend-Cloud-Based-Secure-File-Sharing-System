@@ -82,6 +82,7 @@ function Starred() {
             </Col>
             <div className="mainGradient">
             <Col xs={10}
+            style={{height:"600px"}}
            
           >
             <div className="header__search">
@@ -111,7 +112,7 @@ function Starred() {
                           window.open(`${API_URL}/files/file/${i._id}`);
                         }}
                         style={{
-                          width: "7rem",
+                          width: "10rem",
                           height: "7rem",
                           marginRight: "-0.2rem",
                           borderRadius: "10px",
@@ -166,9 +167,9 @@ function Starred() {
                                     </Button>
                                 </Modal.Footer>
                             </Modal> */}
-                              <Dropdown.Item className="menuItem" onClick="">
+                              {/* <Dropdown.Item className="menuItem" onClick="">
                                 Share
-                              </Dropdown.Item>
+                              </Dropdown.Item> */}
                               {/* <Dropdown.Item className='menuItem' onClick="" >
                                 Move
                             </Dropdown.Item> */}

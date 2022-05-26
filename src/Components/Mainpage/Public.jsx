@@ -112,7 +112,9 @@ const Public=()=> {
             </Col>
             <div className="mainGradient">
 
-              <Col xs={10}>
+              <Col xs={10}
+              
+              style={{height:"600px"}}>
 
                 <div className="header__search">
                   <Search></Search>
@@ -195,9 +197,9 @@ const Public=()=> {
                                     
                                   </Modal>
                                 
-                                  <Dropdown.Item className="menuItem" onClick="">
+                                  {/* <Dropdown.Item className="menuItem" onClick="">
                                     Share
-                                  </Dropdown.Item>
+                                  </Dropdown.Item> */}
 
                                   {i.public ? (
                                     <Dropdown.Item

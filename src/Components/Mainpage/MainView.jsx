@@ -160,6 +160,7 @@ function MainView() {
          
           <Col
             xs={10}
+            style={{height:"600px"}}
            >
             
                
@@ -256,7 +257,7 @@ function MainView() {
                                 </Modal.Footer>
                                 </div>
                               </Modal>
-                              <Dropdown.Item
+                              {/* <Dropdown.Item
                                 className="menuItem"
                                 onClick={dropdownItemShare}
                               >
@@ -264,7 +265,7 @@ function MainView() {
                               </Dropdown.Item>
                               <Dropdown.Item className="menuItem" onClick="">
                                 Move
-                              </Dropdown.Item>
+                              </Dropdown.Item> */}
                               <Dropdown.Item
                                 className="menuItem"
                                 onClick={() => dropdownFolderDelete(i._id)}
@@ -315,7 +316,7 @@ function MainView() {
                           window.open(`${Client_Server}/getfile/${userdata.userId}/${i._id}`);
                         }}
                         style={{
-                          width: "7rem",
+                          width: "10rem",
                           height: "7rem",
                           marginRight: "-0.2rem",
                           borderRadius: "10px",

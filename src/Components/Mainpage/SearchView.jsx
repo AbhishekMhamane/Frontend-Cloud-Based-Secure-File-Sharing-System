@@ -45,7 +45,7 @@ function SearchView(props) {
         <Card.Body>
           <Row>
             {files
-              .filter((i) => i.fileName === props.name)
+              .filter((i) => i.fileName.toLowerCase().includes(props.name))
               .map((i) => {
                 return (
                   <Col xl="auto" lg="auto" md="auto" sm="auto" xs="auto">
@@ -54,7 +54,7 @@ function SearchView(props) {
                       key={i._id}
                       className="cardStyle1"
                       onDoubleClick={() => {
-                        window.open(`${API_URL}/files/file/${i._id}`);
+                        window.open(`${Client_Server}/getfile/${userdata.userId}/${i._id}`);
                       }}
                       style={{
                         width: "10rem",
